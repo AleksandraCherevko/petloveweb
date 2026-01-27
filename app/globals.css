@@ -1,0 +1,52 @@
+:root {
+  --main-color: #26262666;
+  --accent-color: #f6b83d;
+  --disable-color: #26262666;
+  --whie-color: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  text-align: center;
+  max-width: 318px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
