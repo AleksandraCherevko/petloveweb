@@ -60,5 +60,8 @@
 <symbol id="icon-user" viewBox="0 0 32 32">
 <path fill="#f6b83d" style="fill: var(--color3, #f6b83d); stroke: var(--color3, #f6b83d)" stroke="#f6b83d" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667" d="M16 20c-4.227 0-7.987 2.040-10.379 5.208-0.515 0.681-0.773 1.023-0.764 1.483 0.007 0.356 0.229 0.805 0.509 1.025 0.363 0.284 0.865 0.284 1.869 0.284h17.528c1.004 0 1.507 0 1.868-0.284 0.28-0.22 0.504-0.669 0.511-1.025 0.008-0.46-0.249-0.8-0.764-1.483-2.393-3.167-6.152-5.208-10.379-5.208M16 16c3.314 0 6-2.686 6-6s-2.686-6-6-6v0c-3.314 0-6 2.686-6 6s2.686 6 6 6v0"></path>
 </symbol>
+<symbol id="icon-burger-btn" viewBox="0 0 32 32">
+<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 16h24M4 8h24M4 24h24"></path>
+</symbol>
 </defs>
 </svg>
