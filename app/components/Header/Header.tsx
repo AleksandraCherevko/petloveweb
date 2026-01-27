@@ -7,9 +7,12 @@ import Link from "next/link";
 import AuthNav from "../AuthNav/AuthNav";
 import { useState, useEffect } from "react";
 import MobileMenu from "../MobileMenu/MobileMenu";
+import UserNav from "../UserNav/UserNav";
+import { useAuthStore } from "@/app/lib/store/authStore";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuthStore();
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
@@ -24,7 +27,7 @@ export default function Header() {
           </Link>
         </div>
         <Nav />
-        <AuthNav />
+        {isAuthenticated ? <UserNav /> : <AuthNav />}
         <div className={css.mobileMenu}>
           <button
             className={css.mobMenuOpenBtn}

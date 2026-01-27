@@ -2,7 +2,7 @@ import css from "./AuthNav.module.css";
 import Link from "next/link";
 
 interface AuthNavProps {
-  onClose?: () => void; 
+  onClose?: () => void;
 }
 
 export default function AuthNav({ onClose }: AuthNavProps) {

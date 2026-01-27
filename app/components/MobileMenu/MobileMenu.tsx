@@ -1,15 +1,19 @@
+"use client";
+
 import css from "./MobileMenu.module.css";
 import Container from "../Container/Container";
 import Nav from "../Nav/Nav";
 import AuthNav from "../AuthNav/AuthNav";
+import UserNav from "../UserNav/UserNav";
+import { useAuthStore } from "@/app/lib/store/authStore";
 
-export default function MobileMenu({
-  isOpen,
-  onClose,
-}: {
+interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-}) {
+}
+
+export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+  const { isAuthenticated } = useAuthStore();
   return (
     <Container>
       <div className={`${css.mobileMenu} ${isOpen ? css.isOpen : ""}`}>
@@ -21,7 +25,11 @@ export default function MobileMenu({
           </button>
         </div>
         <Nav />
-        <AuthNav onClose={onClose} />
+        {isAuthenticated ? (
+          <UserNav onClose={onClose} />
+        ) : (
+          <AuthNav onClose={onClose} />
+        )}
       </div>
     </Container>
   );
