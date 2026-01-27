@@ -1,17 +1,25 @@
 import css from "./AuthNav.module.css";
 import Link from "next/link";
 
-export default function AuthNav() {
+interface AuthNavProps {
+  onClose?: () => void; 
+}
+
+export default function AuthNav({ onClose }: AuthNavProps) {
   return (
-    <div className={css.authNavContainer}>
+    <nav className={css.authNavContainer}>
       <ul className={css.authNavList}>
         <li className={css.authNavListItem}>
-          <Link href="/login">log in</Link>
+          <Link href="/login" onClick={onClose}>
+            log in
+          </Link>
         </li>
         <li className={css.authNavListItem}>
-          <Link href="/register">register</Link>
+          <Link href="/register" onClick={onClose}>
+            register
+          </Link>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 }
