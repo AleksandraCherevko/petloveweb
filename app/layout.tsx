@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header/Header";
 
-const geistManrope = Manrope({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -23,10 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistManrope.variable} ${geistManrope.variable} antialiased`}
-      >
-        {children}
+      <body className={`${manrope.variable} antialiased`}>
+        <Header />
+        <main>{children}</main>
       </body>
     </html>
   );
