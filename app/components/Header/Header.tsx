@@ -2,6 +2,7 @@ import css from "./Header.module.css";
 import Nav from "../Nav/Nav";
 import Container from "../Container/Container";
 import Link from "next/link";
+import AuthNav from "../AuthNav/AuthNav";
 
 export default function Header() {
   return (
@@ -14,9 +15,9 @@ export default function Header() {
             </svg>
           </Link>
         </div>
-        <div className={css.headerNavContainer}>
-          <Nav />
-        </div>
+
+        <Nav />
+        <AuthNav />
       </Container>
     </header>
   );
