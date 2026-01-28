@@ -2,7 +2,7 @@
   --main-color: #26262666;
   --accent-color: #f6b83d;
   --disable-color: #26262666;
-  --whie-color: #ffffff;
+  --white-color: #ffffff;
 }
 
 * {
@@ -42,11 +42,4 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-.container {
-  text-align: center;
-  max-width: 318px;
-  margin: 0 auto;
-  padding: 0 15px;
 }
