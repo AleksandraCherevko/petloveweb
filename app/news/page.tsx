@@ -1,8 +1,12 @@
 import Title from "../components/Title/Title";
 import Container from "../components/Container/Container";
 import css from "./page.module.css";
+import { getNews } from "../lib/api";
 
-export default function News() {
+
+const News = async () => {
+  const news = await getNews();
+  console.log("news", news);
   return (
     <div className={css.newsPageContainer}>
       <Container>
@@ -10,4 +14,6 @@ export default function News() {
       </Container>
     </div>
   );
-}
+};
+
+export default News;
