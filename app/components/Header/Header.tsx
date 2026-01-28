@@ -17,7 +17,7 @@ export default function Header() {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
   return (
-    <header>
+    <header className={css.header}>
       <Container>
         <div className={css.headerLogo}>
           <Link href="/">
