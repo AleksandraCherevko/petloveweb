@@ -23,6 +23,7 @@ const NewsItem = ({ item }: Props) => {
         <Title as="h3" className={css.newListTitle}>
           {item.title}
         </Title>
+
         <p className={css.newListAfterTitle}>{item.text}</p>
         <div className={css.newListWrapper}>
           <p className={css.newListDate}>
