@@ -3,7 +3,7 @@ import css from "./Title.module.css";
 
 interface TitleProps {
   children: ReactNode;
-  as?: "h2" | "h3" | "h4";
+  as?: "h1" | "h2" | "h3" | "h4";
   className?: string;
 }
 export default function Title({

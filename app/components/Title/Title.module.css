@@ -1,14 +1,6 @@
 .title {
+  margin: 0;
   font-family: Manrope;
   font-weight: 700;
-  font-size: 28px;
-  line-height: 1;
-  letter-spacing: -0.03em;
   color: var(--title-color);
-}
-
-@media (min-width: 768px) {
-  .title {
-    font-size: 54px;
-  }
 }
