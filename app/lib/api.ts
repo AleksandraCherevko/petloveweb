@@ -31,7 +31,15 @@ export type NewsListResponse = {
   results: New[];
 };
 
-export const getNews = async () => {
-  const res = await api.get<NewsListResponse>("/news");
-  return res.data.results;
+export const getNews = async (page = 1, perPage = 6) => {
+  const res = await api.get<NewsListResponse>("/news", {
+    params: { page, perPage },
+  });
+  return res.data;
+};
+
+export const getNewsClient = async (page = 1, perPage = 6) => {
+  const res = await fetch(`/api/news?page=${page}&perPage=${perPage}`);
+  if (!res.ok) throw new Error("Failed to fetch news");
+  return res.json();
 };
