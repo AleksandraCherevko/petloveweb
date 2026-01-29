@@ -49,7 +49,7 @@ export default function NewsPage() {
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
-          onPageChange={handlePageChange}
+          onPageChangeAction={handlePageChange}
         />
       </Container>
     </div>

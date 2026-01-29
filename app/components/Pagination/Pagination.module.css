@@ -1,3 +1,87 @@
-.paginationLogo {
-  fill: red;
+.paginationBtn {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #2626260d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  color: #262626;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.paginationContainer {
+  display: flex;
+  gap: 11px;
+}
+
+.dots {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #2626260d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  color: #262626;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.paginationBtn:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.paginationBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #26262680;
+}
+.active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.paginationBtnWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.paginationPagesCount {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+@media (min-width: 768px) {
+  .paginationContainer {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .paginationBtn {
+    width: 44px;
+    height: 44px;
+  }
+  .paginationBtnWrapper {
+    gap: 8px;
+  }
+
+  .paginationPagesCount {
+    gap: 10px;
+  }
 }
