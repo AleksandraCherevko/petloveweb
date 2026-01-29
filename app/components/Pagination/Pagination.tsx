@@ -1,17 +1,18 @@
 "use client";
 
 import css from "./Pagination.module.css";
+import clsx from "clsx";
 
 type Props = {
   totalPages: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
+  onPageChangeAction: (page: number) => void;
 };
 
 export default function Pagination({
   totalPages,
   currentPage,
-  onPageChange,
+  onPageChangeAction,
 }: Props) {
   if (totalPages <= 1) return null;
 
@@ -39,49 +40,66 @@ export default function Pagination({
 
     if (currentPage < totalPages - 3) pages.push("...");
 
-    pages.push(totalPages);
-
     return pages;
   };
 
   return (
     <div className={css.paginationContainer}>
-      {/* << */}
-      <button onClick={() => onPageChange(1)} disabled={isFirst}>
-        {"<<"}
-      </button>
+      <div className={css.paginationBtnWrapper}>
+        <button
+          className={css.paginationBtn}
+          onClick={() => onPageChangeAction(1)}
+          disabled={isFirst}
+        >
+          <span> {"<<"}</span>
+        </button>
 
-      {/* < */}
-      <button onClick={() => onPageChange(currentPage - 1)} disabled={isFirst}>
-        {"<"}
-      </button>
+        <button
+          className={css.paginationBtn}
+          onClick={() => onPageChangeAction(currentPage - 1)}
+          disabled={isFirst}
+        >
+          <span className={css.paginationIcon}> {"<"}</span>
+        </button>
+      </div>
 
-      {/* pages */}
-      {getPages().map((page, index) =>
-        page === "..." ? (
-          <span key={`dots-${index}`} className={css.dots}>
-            ...
-          </span>
-        ) : (
-          <button
-            key={page}
-            onClick={() => onPageChange(page)}
-            className={page === currentPage ? css.active : ""}
-          >
-            {page}
-          </button>
-        ),
-      )}
+      <div className={css.paginationPagesCount}>
+        {getPages().map((page, index) =>
+          page === "..." ? (
+            <span key={`dots-${index}`} className={css.dots}>
+              ...
+            </span>
+          ) : (
+            <button
+              key={page}
+              onClick={() => onPageChangeAction(page)}
+              className={clsx(css.paginationBtn, {
+                [css.active]: page === currentPage,
+              })}
+            >
+              {page}
+            </button>
+          ),
+        )}
+      </div>
 
-      {/* > */}
-      <button onClick={() => onPageChange(currentPage + 1)} disabled={isLast}>
-        {">"}
-      </button>
+      <div className={css.paginationBtnWrapper}>
+        <button
+          className={css.paginationBtn}
+          onClick={() => onPageChangeAction(currentPage + 1)}
+          disabled={isLast}
+        >
+          <span> {">"}</span>
+        </button>
 
-      {/* >> */}
-      <button onClick={() => onPageChange(totalPages)} disabled={isLast}>
-        {">>"}
-      </button>
+        <button
+          className={css.paginationBtn}
+          onClick={() => onPageChangeAction(totalPages)}
+          disabled={isLast}
+        >
+          <span> {">>"}</span>
+        </button>
+      </div>
     </div>
   );
 }
