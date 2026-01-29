@@ -24,8 +24,14 @@ export type New = {
   id: string;
 };
 
-export type NewsListResponse = { news: New[]; total: number };
+export type NewsListResponse = {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  results: New[];
+};
+
 export const getNews = async () => {
   const res = await api.get<NewsListResponse>("/news");
-  return res.data;
+  return res.data.results;
 };
