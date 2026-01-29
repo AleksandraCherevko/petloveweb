@@ -6,13 +6,13 @@ import css from "./page.module.css";
 import { New } from "../lib/api";
 import NewsList from "../components/NewsList/NewsList";
 import Pagination from "../components/Pagination/Pagination";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getNewsClient } from "../lib/api";
 
 export default function NewsPage() {
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const [news, setNews] = useState<New[]>([]);
@@ -23,7 +23,7 @@ export default function NewsPage() {
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const res = await getNewsClient(currentPage); // запрос к /api/news
+        const res = await getNewsClient(currentPage); 
         setNews(res.results);
         setTotalPages(res.totalPages);
       } catch (err) {
@@ -35,6 +35,10 @@ export default function NewsPage() {
     fetchNews();
   }, [currentPage]);
 
+  const handlePageChange = (page: number) => {
+    router.push(`/news?page=${page}`);
+  };
+
   return (
     <div className={css.newsPageContainer}>
       <Container>
@@ -42,7 +46,11 @@ export default function NewsPage() {
           <Title as="h2">News</Title>
           {loading ? <p>Loading...</p> : <NewsList news={news} />}
         </section>
-        <Pagination totalPages={totalPages} />
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </Container>
     </div>
   );

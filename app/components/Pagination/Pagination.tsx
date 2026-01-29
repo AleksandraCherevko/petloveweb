@@ -1,28 +1,22 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 import css from "./Pagination.module.css";
 
 type Props = {
   totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
-export default function Pagination({ totalPages }: Props) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
-
+export default function Pagination({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: Props) {
   if (totalPages <= 1) return null;
 
   const isFirst = currentPage === 1;
   const isLast = currentPage === totalPages;
-
-  const createPageURL = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", String(page));
-    return `${pathname}?${params.toString()}`;
-  };
 
   const getPages = () => {
     const pages: (number | "...")[] = [];
@@ -53,22 +47,14 @@ export default function Pagination({ totalPages }: Props) {
   return (
     <div className={css.paginationContainer}>
       {/* << */}
-      <Link
-        href={createPageURL(1)}
-        className={`${css.button} ${isFirst ? css.disabled : ""}`}
-        aria-disabled={isFirst}
-      >
+      <button onClick={() => onPageChange(1)} disabled={isFirst}>
         {"<<"}
-      </Link>
+      </button>
 
       {/* < */}
-      <Link
-        href={createPageURL(currentPage - 1)}
-        className={`${css.button} ${isFirst ? css.disabled : ""}`}
-        aria-disabled={isFirst}
-      >
+      <button onClick={() => onPageChange(currentPage - 1)} disabled={isFirst}>
         {"<"}
-      </Link>
+      </button>
 
       {/* pages */}
       {getPages().map((page, index) =>
@@ -77,38 +63,25 @@ export default function Pagination({ totalPages }: Props) {
             ...
           </span>
         ) : (
-          <Link
-            key={`page-${page}-${index}`}
-            href={createPageURL(page)}
-            className={`${css.button} ${
-              page === currentPage ? css.active : ""
-            }`}
+          <button
+            key={page}
+            onClick={() => onPageChange(page)}
+            className={page === currentPage ? css.active : ""}
           >
             {page}
-          </Link>
+          </button>
         ),
       )}
 
+      {/* > */}
+      <button onClick={() => onPageChange(currentPage + 1)} disabled={isLast}>
+        {">"}
+      </button>
 
-      <Link
-        href={createPageURL(currentPage + 1)}
-        className={`${css.button} ${isLast ? css.disabled : ""}`}
-        aria-disabled={isLast}
-      >
-        <svg className={css.paginationLogo} width="14" height="14">
-          <use href="/symbol-defs.svg#icon-single-chevron-right"></use>
-        </svg>
-      </Link>
-
-      <Link
-        href={createPageURL(totalPages)}
-        className={`${css.button} ${isLast ? css.disabled : ""}`}
-        aria-disabled={isLast}
-      >
-        <svg className={css.paginationLogo} width="14" height="14">
-          <use href="/symbol-defs.svg#icon-double-chevron-right"></use>
-        </svg>
-      </Link>
+      {/* >> */}
+      <button onClick={() => onPageChange(totalPages)} disabled={isLast}>
+        {">>"}
+      </button>
     </div>
   );
 }
