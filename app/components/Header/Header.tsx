@@ -21,7 +21,7 @@ export default function Header() {
       <Container>
         <div className={css.headerLogo}>
           <Link href="/">
-            <svg className={css.logoIcon} width="105" height="28">
+            <svg className={css.logoIcon} width="24" height="24">
               <use href="/symbol-defs.svg#icon-logo-desktop"></use>
             </svg>
           </Link>
