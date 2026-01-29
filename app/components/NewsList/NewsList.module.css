@@ -1,0 +1,23 @@
+.newsListContainer {
+  padding-top: 24px;
+  padding-bottom: 44px;
+}
+
+.newsList {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .newsListContainer {
+    padding-top: 44px;
+    padding-bottom: 60px;
+  }
+
+  .newsList {
+    display: flex;
+    row-gap: 32px;
+    column-gap: 24px;
+  }
+}
