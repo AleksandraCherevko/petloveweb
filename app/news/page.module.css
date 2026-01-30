@@ -2,3 +2,28 @@
   padding-top: 60px;
   padding-bottom: 80px;
 }
+
+.newsTitle {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+
+}
+
+@media (min-width: 768px) {
+  .newsTitle {
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 54px;
+    line-height: 1;
+   
+  }
+
+  .newsPageWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+  }
+}

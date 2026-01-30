@@ -6,13 +6,13 @@ type Props = { news: New[] };
 
 const NewsList = ({ news }: Props) => {
   return (
-    <section className={css.newsListContainer}>
+    <div className={css.newsListContainer}>
       <ul className={css.newsList}>
         {news.map((item: New) => (
           <NewsItem key={item.id} item={item} />
         ))}
       </ul>
-    </section>
+    </div>
   );
 };
 
