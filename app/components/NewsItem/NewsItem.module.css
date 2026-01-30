@@ -1,7 +1,6 @@
 .newListImg {
   border-radius: 15px;
-  width: 100%;
-  height: auto;
+  max-width: 100%;
 }
 
 .newListItem {
@@ -75,7 +74,6 @@
 @media (min-width: 768px) {
   .newListImg {
     width: 100%;
-    height: auto;
   }
   .newListItem {
     flex-basis: calc((100% - 32px) / 2);
@@ -130,7 +128,6 @@
 
 @media (min-width: 1280px) {
   .newListItem {
-  
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -138,7 +135,6 @@
   }
   .newListImg {
     width: 100%;
-    height: auto;
   }
 
   .newListTitle {
@@ -150,7 +146,6 @@
     letter-spacing: -0.03em;
     min-height: calc(1.3em * 2);
   }
-
 
   .newListContent {
     width: 100%;
