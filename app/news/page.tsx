@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useRouter, useSearchParams } from "next/navigation";
 
 import Title from "../components/Title/Title";
@@ -17,46 +16,40 @@ export default function NewsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const query = searchParams.get("query") ?? "";
+  const currentPage = Number(searchParams.get("page")) || 1;
+
   const [news, setNews] = useState<New[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const [query, setQuery] = useState<string>(searchParams.get("query") || "");
-  const currentPage = Number(searchParams.get("page")) || 1;
-
-
-const fetchNews = useCallback(
-  async (page: number = 1) => {
+  const fetchNews = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getNewsClient(page, 6);
-      const filteredResults = query
+      const res = await getNewsClient(currentPage, 6);
+      const filtered = query
         ? res.results.filter(
             (item: New) =>
               item.title.toLowerCase().includes(query.toLowerCase()) ||
-              item.text.toLowerCase().includes(query.toLowerCase())
+              item.text.toLowerCase().includes(query.toLowerCase()),
           )
         : res.results;
-      setNews(filteredResults);
+      setNews(filtered);
       setTotalPages(res.totalPages);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
-  },
-  [query] 
-);
+  }, [currentPage, query]);
 
-useEffect(() => {
-  fetchNews(currentPage);
-}, [currentPage, fetchNews]);
+  useEffect(() => {
+    fetchNews();
+  }, [fetchNews]);
 
-
- 
   const handleSearchAction = () => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", "1"); 
+    params.set("page", "1");
     if (query) {
       params.set("query", query);
     } else {
@@ -64,7 +57,6 @@ useEffect(() => {
     }
     router.push(`/news?${params.toString()}`);
   };
-
 
   const handlePageChangeAction = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -76,16 +68,24 @@ useEffect(() => {
   return (
     <div className={css.newsPageContainer}>
       <Container>
-      <div className={css.newsPageWrapper}>
-          <Title as="h2" className={css.newsTitle}>News</Title>
-  
+        <div className={css.newsPageWrapper}>
+          <Title as="h2" className={css.newsTitle}>
+            News
+          </Title>
+
           <SearchField
             value={query}
-            onChangeAction={(val: string) => setQuery(val)}
+            onChangeAction={(val) => {
+              const params = new URLSearchParams(searchParams.toString());
+              if (val) params.set("query", val);
+              else params.delete("query");
+              params.set("page", "1");
+              router.replace(`/news?${params.toString()}`);
+            }}
             onSubmitAction={handleSearchAction}
             placeholder="Search"
           />
-      </div>
+        </div>
 
         {loading ? <p>Loading...</p> : <NewsList news={news} />}
 
