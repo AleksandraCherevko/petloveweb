@@ -151,9 +151,6 @@
     min-height: calc(1.3em * 2);
   }
 
-  .newListItem {
-    height: 476px;
-  }
 
   .newListContent {
     width: 100%;
