@@ -24,7 +24,7 @@ export default function SearchField({
 
   const handleClear = () => {
     onChangeAction("");
-    onSubmitAction(); // очистка + обновление URL
+
   };
   return (
     <form className={css.searchForm} onSubmit={handleSubmit}>
