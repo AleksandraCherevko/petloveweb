@@ -130,9 +130,11 @@
 
 @media (min-width: 1280px) {
   .newListItem {
+  
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    flex-basis: calc((100% - 80px) / 3);
   }
   .newListImg {
     width: 100%;
