@@ -1,23 +1,25 @@
 .newsListContainer {
   padding-top: 24px;
   padding-bottom: 44px;
+  width: 100%;
 }
 
 .newsList {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 @media (min-width: 768px) {
-  .newsListContainer {
-    padding-top: 44px;
-    padding-bottom: 60px;
-  }
-
   .newsList {
-    display: flex;
-    row-gap: 32px;
-    column-gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .newsList {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
   }
 }

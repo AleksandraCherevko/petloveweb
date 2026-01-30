@@ -1,0 +1,76 @@
+.searchIcon {
+  stroke: black;
+
+  fill: transparent;
+}
+
+.crossIcon {
+  stroke: black;
+}
+
+.searchForm {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #26262626;
+  border-radius: 30px;
+  font-size: 14px;
+  outline: none;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.03em;
+  color: #26262680;
+}
+
+.clearBtn {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.submitBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.searchIcon,
+.crossIcon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+@media (min-width: 768px) {
+  .searchForm {
+    width: 230px;
+  }
+
+  .searchInput {
+    padding: 16px;
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+}

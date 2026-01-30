@@ -15,7 +15,7 @@ export default function SearchField({
   value,
   onChangeAction,
   onSubmitAction,
-  placeholder = "Search...",
+  placeholder = "Search",
 }: Props) {
   const [inputValue, setInputValue] = useState(value || "");
 
@@ -53,12 +53,20 @@ export default function SearchField({
             onClick={handleClear}
             aria-label="Clear search"
           >
-            ✕
+            <svg className={css.crossIcon} width="18" height="19">
+              <use href="/symbol-defs.svg#icon-cross-black"></use>
+            </svg>
           </button>
         )}
 
-        <button type="submit" className={clsx(css.submitBtn)} aria-label="Search">
-          🔍
+        <button
+          type="submit"
+          className={clsx(css.submitBtn)}
+          aria-label="Search"
+        >
+          <svg className={css.searchIcon} width="18" height="19">
+            <use href="/symbol-defs.svg#icon-search"></use>
+          </svg>
         </button>
       </div>
     </form>

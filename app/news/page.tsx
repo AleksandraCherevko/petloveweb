@@ -65,7 +65,7 @@ useEffect(() => {
     router.push(`/news?${params.toString()}`);
   };
 
-  // Смена страницы
+
   const handlePageChangeAction = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
@@ -76,14 +76,16 @@ useEffect(() => {
   return (
     <div className={css.newsPageContainer}>
       <Container>
-        <Title as="h2">News</Title>
-
-        <SearchField
-          value={query}
-          onChangeAction={(val: string) => setQuery(val)}
-          onSubmitAction={handleSearchAction}
-          placeholder="Search news..."
-        />
+      <div className={css.newsPageWrapper}>
+          <Title as="h2" className={css.newsTitle}>News</Title>
+  
+          <SearchField
+            value={query}
+            onChangeAction={(val: string) => setQuery(val)}
+            onSubmitAction={handleSearchAction}
+            placeholder="Search"
+          />
+      </div>
 
         {loading ? <p>Loading...</p> : <NewsList news={news} />}
 
