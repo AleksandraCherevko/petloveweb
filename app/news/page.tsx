@@ -7,7 +7,7 @@ import Container from "../components/Container/Container";
 import NewsList from "../components/NewsList/NewsList";
 import Pagination from "../components/Pagination/Pagination";
 import SearchField from "../components/SearchField/SearchField";
-
+import Loader from "../components/Loader/Loader";
 import { useCallback, useEffect, useState } from "react";
 import { getNewsClient, New } from "../lib/api";
 import css from "./page.module.css";
@@ -22,6 +22,8 @@ export default function NewsPage() {
   const [news, setNews] = useState<New[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const [progress, setProgress] = useState(0);
 
   const fetchNews = useCallback(async () => {
     setLoading(true);
@@ -65,6 +67,18 @@ export default function NewsPage() {
     router.push(`/news?${params.toString()}`);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 5;
+      });
+    }, 200);
+  }, []);
+
   return (
     <div className={css.newsPageContainer}>
       <Container>
@@ -87,7 +101,7 @@ export default function NewsPage() {
           />
         </div>
 
-        {loading ? <p>Loading...</p> : <NewsList news={news} />}
+        {loading ? <Loader progress={progress} /> : <NewsList news={news} />}
 
         <Pagination
           totalPages={totalPages}
