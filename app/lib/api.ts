@@ -38,8 +38,24 @@ export const getNews = async (page = 1, perPage = 6) => {
   return res.data;
 };
 
-export const getNewsClient = async (page = 1, perPage = 6) => {
-  const res = await fetch(`/api/news?page=${page}&perPage=${perPage}`);
+
+export const getNewsClient = async (
+  page = 1,
+  perPage = 6,
+  query = ""
+) => {
+  const params = new URLSearchParams({
+    page: String(page),
+    perPage: String(perPage),
+  });
+
+  if (query) {
+    params.set("query", query);
+  }
+
+  const res = await fetch(`/api/news?${params.toString()}`);
+
   if (!res.ok) throw new Error("Failed to fetch news");
+
   return res.json();
 };

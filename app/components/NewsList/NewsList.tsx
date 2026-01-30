@@ -8,8 +8,8 @@ const NewsList = ({ news }: Props) => {
   return (
     <section className={css.newsListContainer}>
       <ul className={css.newsList}>
-        {news.map((news) => (
-          <NewsItem key={news.id} item={news} />
+        {news.map((item: New) => (
+          <NewsItem key={item.id} item={item} />
         ))}
       </ul>
     </section>
