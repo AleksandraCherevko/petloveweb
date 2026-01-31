@@ -1,0 +1,29 @@
+.friendPageTitle {
+  margin-bottom: 40px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.friendPageContainer {
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+  .friendPageContainer {
+    padding-top: 85px;
+    padding-bottom: 80px;
+  }
+  .friendPageTitle {
+    margin-bottom: 44px;
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 54px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+}
