@@ -50,7 +50,7 @@ export const getNewsClient = async (
   });
 
   if (query) {
-    params.set("query", query);
+    params.set("query", query); // <-- это станет keyword на сервере
   }
 
   const res = await fetch(`/api/news?${params.toString()}`);
