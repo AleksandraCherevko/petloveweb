@@ -1,12 +1,15 @@
 import { getFriends } from "../lib/api";
+import FriendsList from "../components/FriendsList/FriendsList";
+import Title from "../components/Title/Title";
 
 const Friends = async () => {
   const friends = await getFriends();
-  console.log("friends", friends);
+
   return (
-    <div>
-      <h1>Friends page</h1>
-    </div>
+    <section>
+      <Title as="h2">Our friends</Title>
+      {friends.length > 0 && <FriendsList friends={friends} />}
+    </section>
   );
 };
 

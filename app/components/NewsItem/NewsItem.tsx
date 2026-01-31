@@ -18,7 +18,7 @@ const NewsItem = ({ item }: Props) => {
         priority
         width={335}
         height={190}
-        style={{ width: "100%", height: "auto" }}
+
       />
       <div className={css.newListContent}>
         <Title as="h3" className={css.newListTitle}>

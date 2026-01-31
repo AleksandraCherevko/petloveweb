@@ -71,10 +71,10 @@ export type Friend = {
   url: string;
   addressUrl: string;
   imageUrl: string;
-  address: string;
-  workDays: workDays[];
-  phone: number;
-  email: string;
+  address?: string;
+  workDays: workDays[] | null;
+  phone?: number;
+  email?: string;
 };
 
 export type FriendListResponse = {
@@ -82,7 +82,7 @@ export type FriendListResponse = {
   total: number;
 };
 
-export const getFriends = async () => {
-  const res = await api.get<FriendListResponse>("/friends");
+export const getFriends = async (): Promise<Friend[]> => {
+  const res = await api.get<Friend[]>("/friends");
   return res.data;
 };
