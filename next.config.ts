@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.nytimes.com",
       },
+       {
+        protocol: "https",
+        hostname: "ftp.goit.study",
+      },
     ],
   },
 };
