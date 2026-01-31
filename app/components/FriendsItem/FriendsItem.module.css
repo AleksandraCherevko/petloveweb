@@ -1,0 +1,99 @@
+.friendsListItemSchedule {
+  display: flex;
+  flex-direction: row;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  color: var(--accent-color);
+  max-width: 74px;
+}
+
+.friendsListItemScheduleWrapper {
+  margin-left: auto;
+  display: flex;
+  background-color: var(--yellow-background-color);
+  padding: 8px;
+  max-width: 90px;
+  border-radius: 30px;
+  width: 100%;
+}
+
+.friendsListItemTitle {
+  margin-bottom: 14px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  color: var(--title-color);
+}
+
+.friendsListItemText {
+  font-family: Manrope;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--friends-list-title);
+}
+
+.friendsListItemLink {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 196px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--title-color);
+}
+
+.friendsListItem {
+  position: relative;
+  padding-top: 12px;
+  padding-right: 12px;
+  padding-bottom: 40px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.friendsListItemContent {
+  display: flex;
+}
+
+.friendsListItemContentText {
+  display: flex;
+  flex-direction: column;
+}
+
+.friendsListItemContent {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.friendsListItemContentTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.friendsListItemLink:hover,
+.friendsListItemLink:focus {
+  color: var(--accent-color);
+}
+
+@media (min-width: 768px) {
+  .friendsListItem {
+    flex-basis: calc((100% - 20px) / 2);
+  }
+}

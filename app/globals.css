@@ -3,6 +3,8 @@
   --accent-color: #f6b83d;
   --title-color: #262626;
   --white-color: #ffffff;
+  --yellow-background-color: #fff4df;
+  --friends-list-title: #26262680;
 }
 
 * {
@@ -10,6 +12,10 @@
   padding: 0;
   list-style: none;
   box-sizing: border-box;
+}
+
+body {
+  background-color: #f4f4f4;
 }
 
 h1,
