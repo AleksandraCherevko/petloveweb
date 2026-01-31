@@ -31,6 +31,7 @@ export type NewsListResponse = {
   results: New[];
 };
 
+// news searching
 export const getNews = async (page = 1, perPage = 6) => {
   const res = await api.get<NewsListResponse>("/news", {
     params: { page, perPage },
@@ -38,12 +39,7 @@ export const getNews = async (page = 1, perPage = 6) => {
   return res.data;
 };
 
-
-export const getNewsClient = async (
-  page = 1,
-  perPage = 6,
-  query = ""
-) => {
+export const getNewsClient = async (page = 1, perPage = 6, query = "") => {
   const params = new URLSearchParams({
     page: String(page),
     perPage: String(perPage),
@@ -58,4 +54,35 @@ export const getNewsClient = async (
   if (!res.ok) throw new Error("Failed to fetch news");
 
   return res.json();
+};
+
+// our friends
+
+export type workDays = {
+  _id: string;
+  isOpen: boolean;
+  from?: string;
+  to?: string;
+};
+
+export type Friend = {
+  _id: string;
+  title: string;
+  url: string;
+  addressUrl: string;
+  imageUrl: string;
+  address: string;
+  workDays: workDays[];
+  phone: number;
+  email: string;
+};
+
+export type FriendListResponse = {
+  friends: Friend[];
+  total: number;
+};
+
+export const getFriends = async () => {
+  const res = await api.get<FriendListResponse>("/friends");
+  return res.data;
 };
