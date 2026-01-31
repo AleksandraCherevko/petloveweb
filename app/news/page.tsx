@@ -28,15 +28,8 @@ export default function NewsPage() {
   const fetchNews = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getNewsClient(currentPage, 6);
-      const filtered = query
-        ? res.results.filter(
-            (item: New) =>
-              item.title.toLowerCase().includes(query.toLowerCase()) ||
-              item.text.toLowerCase().includes(query.toLowerCase()),
-          )
-        : res.results;
-      setNews(filtered);
+      const res = await getNewsClient(currentPage, 6, query);
+      setNews(res.results);
       setTotalPages(res.totalPages);
     } catch (err) {
       console.error(err);
