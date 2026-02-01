@@ -1,13 +1,15 @@
 .newListImg {
   border-radius: 15px;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
 }
 
 .newListItem {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
 }
 .newListTitle {
   margin-top: 20px;
@@ -74,8 +76,8 @@
 
 @media (min-width: 768px) {
   .newListImg {
-   max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: 226px;
   }
   .newListItem {
     flex-basis: calc((100% - 32px) / 2);
@@ -132,8 +134,8 @@
     flex-basis: calc((100% - 80px) / 3);
   }
   .newListImg {
-   max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: 226px;
   }
 
   .newListTitle {
