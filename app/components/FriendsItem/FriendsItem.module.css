@@ -7,7 +7,6 @@
   line-height: 1.33;
   letter-spacing: -0.02em;
   color: var(--accent-color);
-  max-width: 74px;
 }
 
 .friendsListItemScheduleWrapper {
@@ -18,6 +17,7 @@
   max-width: 90px;
   border-radius: 30px;
   width: 100%;
+  max-width: fit-content;
 }
 
 .friendsListItemTitle {
@@ -93,7 +93,8 @@
 }
 
 @media (min-width: 768px) {
-  .friendsListItem {
-    flex-basis: calc((100% - 20px) / 2);
+  .friendsListItemImg {
+    width: 90px;
+    height: 90px;
   }
 }

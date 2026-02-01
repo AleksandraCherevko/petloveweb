@@ -27,3 +27,13 @@
     letter-spacing: -0.03em;
   }
 }
+
+@media (min-width: 1280px) {
+  .friendPageContainer {
+    padding-top: 106px;
+    padding-bottom: 80px;
+  }
+  .friendPageTitle {
+    margin-bottom: 60px;
+  }
+}
