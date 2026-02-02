@@ -1,8 +1,8 @@
 /* обычный header — для всех страниц */
 .header {
+  padding-top: 28px;
   position: relative;
   width: 100%;
-  background: #fff;
   z-index: 10;
 }
 
@@ -16,4 +16,19 @@
 
 .authWrapper {
   display: none;
+}
+
+.burgerIcon {
+  stroke: #262626;
+}
+
+.mobMenuOpenBtn {
+  background-color: transparent;
+  border: none;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
