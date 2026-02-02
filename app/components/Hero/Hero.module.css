@@ -10,7 +10,6 @@
 }
 
 .heroImage {
-  height: 402px;
   object-fit: cover;
   border-radius: 30px;
 }
@@ -28,11 +27,9 @@
 }
 
 .heroTitleContainer {
-
   display: flex;
   flex-direction: column;
   padding: 118px 40px 50px 40px;
-
   border-radius: 30px;
 }
 
@@ -65,14 +62,13 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 430px;
+    min-height: 496px;
     border-radius: 30px;
   }
-  .heroImg {
-    height: 496px;
-  }
+
   .heroTitleContainer {
-    padding-top: 112px;
+    height: 496px;
+    /* padding-top: 112px; */
     padding-right: 32px;
     padding-bottom: 44px;
     padding-left: 32px;
@@ -127,9 +123,8 @@
   }
 
   .heroTitleContainer {
-    padding-top: 123px;
     padding-right: 64px;
-    padding-bottom: 44px;
+
     padding-left: 64px;
     display: flex;
     flex-direction: row;
