@@ -32,7 +32,9 @@ export default function Header() {
               </svg>
             </Link>
           </div>
-          <Nav />
+          <div className={css.headerNavContainer}>
+            <Nav />
+          </div>
           <div className={css.authWrapper}>
             {isAuthenticated ? <UserNav /> : <AuthNav />}
           </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import css from "./MobileMenu.module.css";
-import Container from "../Container/Container";
 import Nav from "../Nav/Nav";
 import AuthNav from "../AuthNav/AuthNav";
 import UserNav from "../UserNav/UserNav";
@@ -15,22 +14,29 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const { isAuthenticated } = useAuthStore();
   return (
-    <Container>
+    <>
+      <div
+        className={`${css.backdrop} ${isOpen ? css.show : ""}`}
+        onClick={onClose}
+      />
       <div className={`${css.mobileMenu} ${isOpen ? css.isOpen : ""}`}>
-        <div>
-          <button onClick={onClose} className={css.mobileMenuNavigationBtn}>
-            <svg className={css.mobileMenuCloseBtnIcon} width="24" height="24">
-              <use href="/symbol-defs.svg#icon-cross" />
-            </svg>
-          </button>
+        <button onClick={onClose} className={css.mobileMenuNavigationBtn}>
+          <svg className={css.mobileMenuCloseBtnIcon} width="24" height="24">
+            <use href="/symbol-defs.svg#icon-cross-black" />
+          </svg>
+        </button>
+        <div className={css.mobMenuAuthNavContainer}>
+          <Nav />
+
+          <div className={css.mobMenuBottom}>
+            {isAuthenticated ? (
+              <UserNav onClose={onClose} />
+            ) : (
+              <AuthNav onClose={onClose} />
+            )}
+          </div>
         </div>
-        <Nav />
-        {isAuthenticated ? (
-          <UserNav onClose={onClose} />
-        ) : (
-          <AuthNav onClose={onClose} />
-        )}
       </div>
-    </Container>
+    </>
   );
 }

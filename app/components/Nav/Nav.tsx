@@ -1,8 +1,7 @@
 import css from "./Nav.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-
+import clsx from "clsx";
 export default function Nav() {
   const pathname = usePathname();
   const navItems = [
@@ -17,9 +16,14 @@ export default function Nav() {
           {navItems.map((item) => (
             <li
               key={item.href}
-              className={pathname === item.href ? css.active : ""}
+              className={clsx(
+                css.navListItem,
+                pathname === item.href && css.active,
+              )}
             >
-              <Link href={item.href}>{item.label}</Link>
+              <Link href={item.href} className={css.navListIink}>
+                {item.label}
+              </Link>
             </li>
           ))}
         </ul>

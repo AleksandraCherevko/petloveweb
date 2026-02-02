@@ -1,0 +1,58 @@
+.authNavListLink {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.26;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.authNavListItem {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  width: 100%;
+  background-color: var(--yellow-background-color);
+  color: var(--accent-color);
+  display: flex;
+  justify-content: center;
+  border-radius: 30px;
+}
+
+.authNavListItem:hover,
+.authNavListItem:focus {
+  background-color: var(--accent-color);
+  color: #ffffff;
+}
+.authNavList {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+.authNavListItem {
+  width: 100%;
+  min-width: 178px;
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .authNavList {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .authNavListItem {
+    padding: 15px 20px;
+    width: auto;
+    background-color: var(--yellow-background-color);
+    color: var(--accent-color);
+    display: flex;
+    justify-content: center;
+    border-radius: 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+}
