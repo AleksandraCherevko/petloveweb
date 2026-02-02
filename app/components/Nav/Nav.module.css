@@ -1,8 +1,33 @@
-.navList li.active a {
-  font-weight: bold;
-  color: #ff6b6b;
-}
-.navListContainer {
-  display: none;
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+.navListItem {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid #26262626;
+  background-color: transparent;
+  display: flex;
+  width: 119px;
+  border-radius: 30px;
+  justify-content: center;
+}
+
+.navListItem:hover,
+.navListItem:focus {
+  border: 1px solid var(--accent-color);
+}
+
+.navListIink {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.03em;
+}
+
+.navListItem.active {
+  border: 1px solid var(--accent-color);
+}

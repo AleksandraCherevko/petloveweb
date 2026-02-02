@@ -32,3 +32,13 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.headerNavContainer {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .mobileMenu {
+    display: none;
+  }
+}
