@@ -1,8 +1,19 @@
+/* обычный header — для всех страниц */
 .header {
-  /* position: absolute;
+  position: relative;
+  width: 100%;
+  background: #fff;
+  z-index: 10;
+}
+
+/* ТОЛЬКО главная */
+.headerHome {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 10; */
   background: transparent;
+}
+
+.authWrapper {
+  display: none;
 }

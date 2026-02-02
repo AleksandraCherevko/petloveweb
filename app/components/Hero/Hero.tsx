@@ -5,6 +5,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className={css.hero}>
+      <div className={css.heroBg} />
       <Container>
         <div className={css.heroTitleContainer}>
           <h1 className={css.heroTitle}>
@@ -16,26 +17,26 @@ export default function Hero() {
             your life with immeasurable joy and tenderness.
           </p>
         </div>
-        <div className={css.heroImgContainer}>
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              srcSet="/images/hero/hero-mob.jpg"
-            />
-            <source
-              media="(max-width: 1279px)"
-              srcSet="/images/hero/hero-tablet.jpg"
-            />
-            <Image
-              src="/images/hero/hero-desktop.jpg"
-              alt="girl with a dog"
-              fill
-              priority
-              className={css.heroImage}
-            />
-          </picture>
-        </div>
       </Container>
+      <div className={css.heroImgContainer}>
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet="/images/hero/hero-mob.jpg"
+          />
+          <source
+            media="(max-width: 1279px)"
+            srcSet="/images/hero/hero-tablet.jpg"
+          />
+          <Image
+            src="/images/hero/hero-desktop.jpg"
+            alt="girl with a dog"
+            fill
+            priority
+            className={css.heroImage}
+          />
+        </picture>
+      </div>
     </section>
   );
 }
