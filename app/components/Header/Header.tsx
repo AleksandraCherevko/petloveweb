@@ -10,14 +10,20 @@ import MobileMenu from "../MobileMenu/MobileMenu";
 import UserNav from "../UserNav/UserNav";
 import { useAuthStore } from "@/app/lib/store/authStore";
 
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+
 export default function Header() {
+  const pathname = usePathname();
+  const isHome = pathname === "/home";
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated } = useAuthStore();
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
   return (
-    <header className={css.header}>
+    <header className={clsx(css.header, isHome && css.headerHome)}>
+     
       <Container>
         <div className={css.headerLogo}>
           <Link href="/">
@@ -27,7 +33,9 @@ export default function Header() {
           </Link>
         </div>
         <Nav />
-        {isAuthenticated ? <UserNav /> : <AuthNav />}
+        <div className={css.authWrapper}>
+          {isAuthenticated ? <UserNav /> : <AuthNav />}
+        </div>
         <div className={css.mobileMenu}>
           <button
             className={css.mobMenuOpenBtn}
