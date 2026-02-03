@@ -86,3 +86,31 @@ export const getFriends = async (): Promise<Friend[]> => {
   const res = await api.get<Friend[]>("/friends");
   return res.data;
 };
+
+// notices
+
+export type Notice = {
+  _id: string;
+  species: string;
+  category: string;
+  price: number;
+  title: string;
+  name: string;
+  birthday: string;
+  sex: string;
+  imgURL: string;
+  popularity: number;
+  comment: string;
+};
+
+export type NoticeResponse = {
+  results: Notice[];
+  page: number;
+  perPage: number;
+  totalPages: number;
+};
+
+export const getNotices = async () => {
+  const res = await api.get<NoticeResponse>("/notices");
+  return res.data;
+};
