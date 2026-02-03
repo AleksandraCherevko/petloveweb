@@ -37,8 +37,52 @@
   display: none;
 }
 
+@media (min-width: 768px) {
+  .authWrapper {
+    display: flex;
+  }
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .authWrapperMobMenu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
 @media (min-width: 1280px) {
   .mobileMenu {
     display: none;
+  }
+
+  .headerNavContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .headerContainer {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .authWrapper {
+    display: flex;
+  }
+
+  .headerLogoWrapper {
+    display: flex;
+    margin-right: auto;
+    align-items: center;
+  }
+
+  .logoIcon {
+    width: 105px;
+    height: 28px;
+    margin-right: 300px;
   }
 }

@@ -13,6 +13,7 @@
   width: 119px;
   border-radius: 30px;
   justify-content: center;
+  align-items: center;
 }
 
 .navListItem:hover,
@@ -30,4 +31,14 @@
 
 .navListItem.active {
   border: 1px solid var(--accent-color);
+}
+
+@media (min-width: 1280px) {
+  .navList {
+    display: flex;
+    flex-direction: row;
+  }
+  .navListItem {
+    height: 40px;
+  }
 }
