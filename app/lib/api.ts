@@ -93,7 +93,7 @@ export type Notice = {
   _id: string;
   species: string;
   category: string;
-  price: number;
+  price?: string;
   title: string;
   name: string;
   birthday: string;
@@ -110,7 +110,18 @@ export type NoticeResponse = {
   totalPages: number;
 };
 
-export const getNotices = async () => {
-  const res = await api.get<NoticeResponse>("/notices");
+export const getNotices = async (category?: string) => {
+  const res = await api.get<NoticeResponse>("/notices", {
+    params: category ? { category } : {},
+  });
+  return res.data;
+};
+
+// filter category
+
+export type Category = "found" | "free" | "lost" | "sell";
+
+export const getCategories = async (): Promise<string[]> => {
+  const res = await api.get<string[]>("/notices/categories");
   return res.data;
 };
