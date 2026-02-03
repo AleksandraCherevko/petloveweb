@@ -1,0 +1,36 @@
+.noticesPageContainer {
+  padding-top: 60px;
+  padding-bottom: 88px;
+}
+
+.noticesPageTitle {
+  margin-bottom: 40px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .noticesPageContainer {
+    padding-top: 85px;
+    padding-bottom: 88px;
+  }
+
+  .noticesPageTitle {
+    margin-bottom: 44px;
+    font-size: 54px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .noticesPageContainer {
+    padding-top: 96px;
+    padding-bottom: 80px;
+  }
+
+  .noticesPageTitle {
+    margin-bottom: 40px;
+  }
+}
