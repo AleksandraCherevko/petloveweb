@@ -25,29 +25,33 @@ export default function Header() {
     <header className={clsx(css.header, isHome && css.headerHome)}>
       <Container>
         <div className={css.headerContainer}>
-          <div className={css.headerLogo}>
-            <Link href="/">
-              <svg className={css.logoIcon} width="76" height="20">
-                <use href="/symbol-defs.svg#icon-logo-desktop"></use>
-              </svg>
-            </Link>
+          <div className={css.headerLogoWrapper}>
+            <div className={css.headerLogo}>
+              <Link href="/">
+                <svg className={css.logoIcon} width="76" height="20">
+                  <use href="/symbol-defs.svg#icon-logo-desktop"></use>
+                </svg>
+              </Link>
+            </div>
+            <div className={css.headerNavContainer}>
+              <Nav />
+            </div>
           </div>
-          <div className={css.headerNavContainer}>
-            <Nav />
-          </div>
-          <div className={css.authWrapper}>
-            {isAuthenticated ? <UserNav /> : <AuthNav />}
-          </div>
-          <div className={css.mobileMenu}>
-            <button
-              className={css.mobMenuOpenBtn}
-              type="submit"
-              onClick={() => setMenuOpen(true)}
-            >
-              <svg className={css.burgerIcon} width="32" height="32">
-                <use href="/symbol-defs.svg#icon-burger-btn"></use>
-              </svg>
-            </button>
+          <div className={css.authWrapperMobMenu}>
+            <div className={css.authWrapper}>
+              {isAuthenticated ? <UserNav /> : <AuthNav />}
+            </div>
+            <div className={css.mobileMenu}>
+              <button
+                className={css.mobMenuOpenBtn}
+                type="submit"
+                onClick={() => setMenuOpen(true)}
+              >
+                <svg className={css.burgerIcon} width="32" height="32">
+                  <use href="/symbol-defs.svg#icon-burger-btn"></use>
+                </svg>
+              </button>
+            </div>
           </div>
           {menuOpen && (
             <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />

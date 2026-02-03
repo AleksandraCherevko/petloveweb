@@ -6,10 +6,15 @@
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
+.loginbtn {
+  padding: 12px 67px;
+  width: 100%;
+}
 
+.registerbtn {
+  padding: 12px 41px;
+}
 .authNavListItem {
-  padding-top: 12px;
-  padding-bottom: 12px;
   width: 100%;
   background-color: var(--yellow-background-color);
   color: var(--accent-color);
@@ -29,8 +34,7 @@
   flex-direction: column;
 }
 .authNavListItem {
-  width: 100%;
-  min-width: 178px;
+  width: 178px;
   display: flex;
   justify-content: center;
   width: auto;
@@ -44,7 +48,6 @@
   }
 
   .authNavListItem {
-    padding: 15px 20px;
     width: auto;
     background-color: var(--yellow-background-color);
     color: var(--accent-color);
@@ -55,4 +58,13 @@
 }
 
 @media (min-width: 1280px) {
+  .loginbtn {
+    padding: 12px 35px;
+    width: 119px;
+  }
+
+  .registerbtn {
+
+    width: 149px;
+  }
 }
