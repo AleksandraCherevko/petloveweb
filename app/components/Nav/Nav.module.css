@@ -6,8 +6,7 @@
 .navListItemHome {
   border: 1px solid #ffffff66;
 }
-.navListItemHome:hover,
-.navListItemHome:focus-within {
+.navListItem.navListItemHome:hover {
   border: 1px solid white;
 }
 .navListItem {

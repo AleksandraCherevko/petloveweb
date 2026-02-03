@@ -1,10 +1,10 @@
 import css from "./UserNav.module.css";
 import { useAuthStore } from "@/app/lib/store/authStore";
 
-
 interface UserNavProps {
   className?: string;
   onClose?: () => void;
+  isHome?: boolean;
 }
 
 export default function UserNav({}: UserNavProps) {

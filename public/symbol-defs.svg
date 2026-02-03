@@ -71,6 +71,9 @@
 <symbol id="icon-burger-btn" viewBox="0 0 32 32">
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 16h24M4 8h24M4 24h24"></path>
 </symbol>
+<symbol id="icon-burger-btn-home" viewBox="0 0 32 32">
+<path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3" d="M4 16h24M4 8h24M4 24h24"></path>
+</symbol>
 
 <symbol id="icon-single-chevron-right" viewBox="0 0 32 32">
 <path d="M17.867 16.947c0.244-0.242 0.394-0.577 0.394-0.947s-0.151-0.705-0.394-0.947l-0-0-6.12-6.107c-0.243-0.242-0.394-0.577-0.394-0.947 0-0.737 0.597-1.334 1.334-1.334 0.367 0 0.699 0.148 0.94 0.388l6.12 6.12c0.723 0.724 1.17 1.723 1.17 2.827s-0.447 2.103-1.17 2.827l-6.12 6.12c-0.241 0.239-0.573 0.387-0.94 0.387-0.737 0-1.334-0.597-1.334-1.334 0-0.37 0.151-0.705 0.394-0.947l0-0z"></path>
