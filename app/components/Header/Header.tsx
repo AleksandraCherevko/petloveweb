@@ -28,13 +28,28 @@ export default function Header() {
           <div className={css.headerLogoWrapper}>
             <div className={css.headerLogo}>
               <Link href="/">
-                <svg className={css.logoIcon} width="76" height="20">
-                  <use href="/symbol-defs.svg#icon-logo-desktop"></use>
+                <svg
+                  className={clsx(css.logoIcon, isHome && css.logoIconHome)}
+                  width="76"
+                  height="20"
+                >
+                  <use
+                    href={
+                      isHome
+                        ? "/symbol-defs.svg#icon-logo-home"
+                        : "/symbol-defs.svg#icon-logo-desktop"
+                    }
+                  />
                 </svg>
               </Link>
             </div>
-            <div className={css.headerNavContainer}>
-              <Nav />
+            <div
+              className={clsx(
+                css.headerNavContainer,
+                isHome && css.headerNavContainerHome,
+              )}
+            >
+              <Nav isHome={isHome} />
             </div>
           </div>
           <div className={css.authWrapperMobMenu}>
