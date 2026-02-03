@@ -4,24 +4,43 @@ import clsx from "clsx";
 
 interface AuthNavProps {
   onClose?: () => void;
+  isHome?: boolean;
 }
 
-export default function AuthNav({ onClose }: AuthNavProps) {
+export default function AuthNav({ onClose, isHome }: AuthNavProps) {
   return (
-    <nav className={css.authNavContainer}>
+    <nav className={clsx(css.authNavContainer, isHome && css.authNavHome)}>
       <ul className={css.authNavList}>
-        <li className={css.authNavListItem}>
+        <li
+          className={clsx(
+            css.authNavListItem,
+            isHome && css.authNavListItemHome,
+          )}
+        >
           <Link
-            className={clsx(css.authNavListLink, css.loginbtn)}
+            className={clsx(
+              css.authNavListLink,
+              css.loginbtn,
+              isHome && css.authNavListLinkHome,
+            )}
             href="/login"
             onClick={onClose}
           >
             log in
           </Link>
         </li>
-        <li className={css.authNavListItem}>
+        <li
+          className={clsx(
+            css.authNavListItem,
+            isHome && css.authNavListItemHome,
+          )}
+        >
           <Link
-              className={clsx(css.authNavListLink, css.registerbtn)}
+            className={clsx(
+              css.authNavListLink,
+              css.registerbtn,
+              isHome && css.authNavListLinkHome,
+            )}
             href="/register"
             onClick={onClose}
           >

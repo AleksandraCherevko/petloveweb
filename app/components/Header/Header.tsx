@@ -54,16 +54,33 @@ export default function Header() {
           </div>
           <div className={css.authWrapperMobMenu}>
             <div className={css.authWrapper}>
-              {isAuthenticated ? <UserNav /> : <AuthNav />}
+              {isAuthenticated ? (
+                <UserNav isHome={isHome} />
+              ) : (
+                <AuthNav isHome={isHome} />
+              )}
             </div>
             <div className={css.mobileMenu}>
               <button
-                className={css.mobMenuOpenBtn}
+                className={clsx(
+                  css.mobMenuOpenBtn,
+                  isHome && css.mobMenuOpenBtnHome,
+                )}
                 type="submit"
                 onClick={() => setMenuOpen(true)}
               >
-                <svg className={css.burgerIcon} width="32" height="32">
-                  <use href="/symbol-defs.svg#icon-burger-btn"></use>
+                <svg
+                  className={clsx(css.burgerIcon, isHome && css.burgerIconHome)}
+                  width="32"
+                  height="32"
+                >
+                  <use
+                    href={
+                      isHome
+                        ? "/symbol-defs.svg#icon-burger-btn-home"
+                        : "/symbol-defs.svg#icon-burger-btn"
+                    }
+                  />
                 </svg>
               </button>
             </div>

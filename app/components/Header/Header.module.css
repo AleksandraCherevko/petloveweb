@@ -1,4 +1,3 @@
-/* обычный header — для всех страниц */
 .header {
   padding-top: 28px;
   position: relative;
@@ -7,10 +6,9 @@
 }
 
 .logoIconHome {
-  stroke: #ffffff; /* или нужный цвет */
+  stroke: #ffffff;
 }
 
-/* ТОЛЬКО главная */
 .headerHome {
   position: absolute;
   top: 0;
@@ -39,6 +37,10 @@
 
 .headerNavContainer {
   display: none;
+}
+
+.burgerIconHome {
+  stroke: #ffffff;
 }
 
 @media (min-width: 768px) {
