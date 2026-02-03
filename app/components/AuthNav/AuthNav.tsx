@@ -44,7 +44,7 @@ export default function AuthNav({ onClose, isHome }: AuthNavProps) {
             href="/register"
             onClick={onClose}
           >
-            register
+            registration
           </Link>
         </li>
       </ul>

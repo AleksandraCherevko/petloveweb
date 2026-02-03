@@ -30,7 +30,7 @@ const FriendsItem = ({ item }: Props) => {
                 className={css.friendsListItemLink}
                 href={`mailto:${item.email}`}
               >
-                <span className={css.friendsListItemText}> Email:</span>{" "}
+                <span className={css.friendsListItemText}> Email:</span>
                 {item.email}
               </Link>
             )}
