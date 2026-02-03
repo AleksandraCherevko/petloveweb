@@ -3,7 +3,13 @@
   flex-direction: column;
   gap: 10px;
 }
-
+.navListItemHome {
+  border: 1px solid #ffffff66;
+}
+.navListItemHome:hover,
+.navListItemHome:focus-within {
+  border: 1px solid white;
+}
 .navListItem {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -27,8 +33,15 @@
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: -0.03em;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.navListLinkHome {
+  color: #ffffff;
+}
 .navListItem.active {
   border: 1px solid var(--accent-color);
 }

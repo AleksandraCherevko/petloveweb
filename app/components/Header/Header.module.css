@@ -6,6 +6,10 @@
   z-index: 10;
 }
 
+.logoIconHome {
+  stroke: #ffffff; /* или нужный цвет */
+}
+
 /* ТОЛЬКО главная */
 .headerHome {
   position: absolute;
