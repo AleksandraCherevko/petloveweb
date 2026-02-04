@@ -6,10 +6,10 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const page = Number(url.searchParams.get("page")) || 1;
     const perPage = Number(url.searchParams.get("perPage")) || 6;
-    const keyword = url.searchParams.get("query") || ""; // сюда берем query с фронта
+    const keyword = url.searchParams.get("query") || "";
 
     const res = await api.get<NewsListResponse>("/news", {
-      params: { page, limit: perPage, keyword }, // <-- добавили keyword
+      params: { page, limit: perPage, keyword },
     });
 
     return NextResponse.json(res.data);

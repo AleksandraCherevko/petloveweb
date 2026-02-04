@@ -11,6 +11,7 @@ import Title from "../components/Title/Title";
 import NoticeList from "../components/NoticesList/NoticesList";
 import Pagination from "../components/Pagination/Pagination";
 import Loader from "../components/Loader/Loader";
+import SearchField from "../components/SearchField/SearchField";
 
 import css from "./page.module.css";
 
@@ -54,6 +55,16 @@ export default function Notices() {
     return () => clearInterval(interval);
   }, [loading]);
 
+  const handleSearchAction = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", "1");
+
+    if (query) params.set("query", query);
+    else params.delete("query");
+
+    router.push(`/notices?${params.toString()}`);
+  };
+
   const handlePageChangeAction = (page: number) => {
     if (page < 1 || page > totalPages) return;
 
@@ -72,7 +83,20 @@ export default function Notices() {
         <Title as="h2" className={css.noticesPageTitle}>
           Find your favorite pet
         </Title>
+        <SearchField
+          value={query}
+          onChangeAction={(val) => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("page", "1");
 
+            if (val) params.set("query", val);
+            else params.delete("query");
+
+            router.replace(`/notices?${params.toString()}`);
+          }}
+          onSubmitAction={handleSearchAction}
+          placeholder="Search"
+        />
         {loading ? (
           <Loader progress={progress} />
         ) : (

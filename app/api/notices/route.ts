@@ -6,14 +6,14 @@ export async function GET(req: Request) {
 
   const page = searchParams.get("page") ?? "1";
   const perPage = searchParams.get("perPage") ?? "6";
-  const query = searchParams.get("query") ?? "";
+  const keyword = searchParams.get("query") ?? "";
 
   try {
     const res = await axios.get("https://petlove.b.goit.study/api/notices", {
       params: {
         page,
         perPage,
-        ...(query ? { query } : {}),
+        ...(keyword ? { keyword } : {}),
       },
     });
 
