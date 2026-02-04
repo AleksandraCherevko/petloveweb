@@ -110,17 +110,11 @@ export type NoticeResponse = {
   totalPages: number;
 };
 
-// export const getNotices = async (category?: string) => {
-//   const res = await api.get<NoticeResponse>("/notices", {
-//     params: category ? { category } : {},
-//   });
-//   return res.data;
-// };
 
 export const getNoticesClient = async (
   page = 1,
   perPage = 6,
-  query = ""
+  query = "",
 ): Promise<NoticeResponse> => {
   const params = new URLSearchParams({
     page: String(page),
@@ -136,7 +130,6 @@ export const getNoticesClient = async (
   return res.json();
 };
 
-
 // filter category
 
 export type Category = "found" | "free" | "lost" | "sell";
@@ -144,4 +137,25 @@ export type Category = "found" | "free" | "lost" | "sell";
 export const getCategories = async (): Promise<string[]> => {
   const res = await api.get<string[]>("/notices/categories");
   return res.data;
+};
+
+export type City = {
+  _id: string;
+  useCounty: number;
+  stateEn: string;
+  cityEn: string;
+  countyEn: string;
+};
+
+export const getCities = async (keyword: string): Promise<City[]> => {
+  try {
+    const res = await axios.get(`https://petlove.b.goit.study/api/cities/locations`, {
+      params: { keyword },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.error("Failed to fetch cities", err);
+    return [];
+  }
 };
