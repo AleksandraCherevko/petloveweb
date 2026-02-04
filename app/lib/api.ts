@@ -110,12 +110,32 @@ export type NoticeResponse = {
   totalPages: number;
 };
 
-export const getNotices = async (category?: string) => {
-  const res = await api.get<NoticeResponse>("/notices", {
-    params: category ? { category } : {},
+// export const getNotices = async (category?: string) => {
+//   const res = await api.get<NoticeResponse>("/notices", {
+//     params: category ? { category } : {},
+//   });
+//   return res.data;
+// };
+
+export const getNoticesClient = async (
+  page = 1,
+  perPage = 6,
+  query = ""
+): Promise<NoticeResponse> => {
+  const params = new URLSearchParams({
+    page: String(page),
+    perPage: String(perPage),
   });
-  return res.data;
+
+  if (query) params.set("query", query);
+
+  const res = await fetch(`/api/notices?${params.toString()}`);
+
+  if (!res.ok) throw new Error("Failed to fetch notices");
+
+  return res.json();
 };
+
 
 // filter category
 

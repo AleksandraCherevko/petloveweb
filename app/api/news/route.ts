@@ -1,6 +1,5 @@
-import {api,  NewsListResponse } from "@/app/lib/api";
+import { api, NewsListResponse } from "@/app/lib/api";
 import { NextResponse } from "next/server";
-
 
 export async function GET(req: Request) {
   try {
