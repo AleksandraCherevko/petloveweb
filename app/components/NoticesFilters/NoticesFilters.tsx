@@ -1,45 +1,44 @@
-// "use client";
+"use client";
 
-// import { useEffect, useState } from "react";
-// import { getCategories } from "@/app/lib/api";
+import { useRouter, useSearchParams } from "next/navigation";
+import SearchField from "../SearchField/SearchField";
 
-// const NoticesFilters = () => {
-//   const [categories, setCategories] = useState("");
-//   const [selected, setSelected] = useState("");
+type Props = {
+  basePath?: string; // чтобы был переиспользуемый
+};
 
-//   useEffect(() => {
-//     const fetchCategories = async () => {
-//       try {
-//         const data = await getCategories();
-//         setCategories(data);
-//       } catch (error) {
-//         console.error("Failed to load categories", error);
-//       }
-//     };
+export default function NoticesFilters({ basePath = "/notices" }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-//     fetchCategories();
-//   }, []);
+  const query = searchParams.get("query") ?? "";
 
-//   const handleChange = (value: string) => {
-//     setCategories(value);
-//   };
+  const updateQuery = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", "1");
 
-//   return (
-//     <form>
-//       <label>
-//         Category:
-//         <select value={selected} onChange={handleChange}>
-//           <option value="">All categories</option>
+    if (value) params.set("query", value);
+    else params.delete("query");
 
-//           {categories.map((category) => (
-//             <option key={category} value={category}>
-//               {category}
-//             </option>
-//           ))}
-//         </select>
-//       </label>
-//     </form>
-//   );
-// };
+    router.replace(`${basePath}?${params.toString()}`);
+  };
 
-// export default NoticesFilters;
+  const submitSearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", "1");
+
+    if (query) params.set("query", query);
+    else params.delete("query");
+
+    router.push(`${basePath}?${params.toString()}`);
+  };
+
+  return (
+    <SearchField
+      value={query}
+      onChangeAction={updateQuery}
+      onSubmitAction={submitSearch}
+      placeholder="Search pets"
+    />
+  );
+}
