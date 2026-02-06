@@ -3,8 +3,15 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import SearchField from "../SearchField/SearchField";
 import { useState, useEffect } from "react";
-import Select from "react-select";
+
 import { getCities } from "@/app/lib/api";
+import css from "./NoticesFilters.module.css";
+import Select from "react-select";
+
+import Image from "next/image";
+import { components } from "react-select";
+import type { DropdownIndicatorProps } from "react-select";
+import type { StylesConfig } from "react-select";
 
 type Props = {
   basePath?: string;
@@ -46,6 +53,89 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
   const [cities, setCities] = useState<CityOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
+
+  const categoryOptions = CATEGORIES.map((item) => ({
+    value: item,
+    label: item,
+  }));
+
+  const sexOptions = SEXES.map((item) => ({
+    value: item,
+    label: item.charAt(0).toUpperCase() + item.slice(1), // первая буква заглавная
+  }));
+
+  const speciesOptions = SPECIES.map((item) => ({
+    value: item,
+    label: item.charAt(0).toUpperCase() + item.slice(1),
+  }));
+
+  const DropdownIndicator = (
+    props: DropdownIndicatorProps<CityOption, false>,
+  ) => (
+    <components.DropdownIndicator {...props}>
+      <Image
+        src="/chevron-down.svg"
+        width={18}
+        height={18}
+        alt="chevron-icon"
+      />
+    </components.DropdownIndicator>
+  );
+
+  const selectStyles: StylesConfig<CityOption, false> = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: "var(--white-color)",
+      border: "none",
+      borderRadius: 30,
+      padding: "0 12px",
+      width: 143,
+      minHeight: "auto",
+      boxShadow: "none",
+      cursor: "pointer",
+
+      fontFamily: "Manrope",
+      fontWeight: 500,
+      fontSize: 14,
+      lineHeight: "1.2",
+      letterSpacing: "-0.03em",
+
+      "&:hover": {
+        color: "var(--accent-color)",
+      },
+    }),
+
+    indicatorSeparator: () => ({ display: "none" }),
+
+    menu: (base) => ({
+      ...base,
+      backgroundColor: "var(--white-color)",
+      borderRadius: 20,
+      width: 143,
+    }),
+
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused
+        ? "rgba(0,0,0,0.05)"
+        : "var(--white-color)",
+      color: state.isFocused ? "var(--accent-color)" : "inherit",
+      fontFamily: "Manrope, sans-serif",
+      fontWeight: 500,
+      fontSize: 14,
+      "::first-letter": {
+        textTransform: "uppercase",
+      },
+    }),
+
+    singleValue: (base) => ({
+      ...base,
+      textTransform: "lowercase",
+      "::first-letter": {
+        textTransform: "uppercase",
+      },
+    }),
+  };
 
   useEffect(() => setIsClient(true), []);
 
@@ -101,46 +191,58 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
   };
 
   return (
-    <div className="filters">
-      <SearchField
-        value={query}
-        onChangeAction={updateQuery}
-        onSubmitAction={submitSearch}
-        placeholder="Search"
-      />
+    <div className={css.noticesFilters}>
+      <div className={css.noticesSearchField}>
+        <SearchField
+          value={query}
+          onChangeAction={updateQuery}
+          onSubmitAction={submitSearch}
+          placeholder="Search"
+        />
+      </div>
       {/* Category */}
-      <select
-        value={category}
-        onChange={(e) => updateParam("category", e.target.value)}
-      >
-        <option value="">Category</option>
-        {CATEGORIES.map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
+      {isClient && (
+        <Select
+          instanceId="category-select"
+          options={categoryOptions}
+          placeholder="Category"
+          value={categoryOptions.find((o) => o.value === category) || null}
+          onChange={(option) =>
+            updateParam("category", option ? option.value : "")
+          }
+          styles={selectStyles}
+          components={{ DropdownIndicator }}
+          isSearchable={false}
+        />
+      )}
       {/* Sex */}
-      <select value={sex} onChange={(e) => updateParam("sex", e.target.value)}>
-        <option value="">By gender</option>
-        {SEXES.map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
+      {isClient && (
+        <Select
+          instanceId="sex-select"
+          options={sexOptions}
+          placeholder="By gender"
+          value={sexOptions.find((o) => o.value === sex) || null}
+          onChange={(option) => updateParam("sex", option ? option.value : "")}
+          styles={selectStyles}
+          components={{ DropdownIndicator }}
+          isSearchable={false}
+        />
+      )}
       {/* Species */}
-      <select
-        value={species}
-        onChange={(e) => updateParam("species", e.target.value)}
-      >
-        <option value="">By type</option>
-        {SPECIES.map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
+      {isClient && (
+        <Select
+          instanceId="species-select"
+          options={speciesOptions}
+          placeholder="By type"
+          value={speciesOptions.find((o) => o.value === species) || null}
+          onChange={(option) =>
+            updateParam("species", option ? option.value : "")
+          }
+          styles={selectStyles}
+          components={{ DropdownIndicator }}
+          isSearchable={false}
+        />
+      )}
       {/* Sort */}
       <div>
         <label>
@@ -194,7 +296,7 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           options={cities}
           value={cities.find((c) => c.value === location) ?? null}
           onInputChange={(value) => {
-            if (value.length >= 2) fetchCities(value); 
+            if (value.length >= 2) fetchCities(value);
           }}
           onChange={(option) =>
             updateParam("location", option ? option.value : "")
