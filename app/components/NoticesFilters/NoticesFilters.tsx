@@ -100,6 +100,7 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
       fontSize: 14,
       lineHeight: "1.2",
       letterSpacing: "-0.03em",
+      color: "var(--title-color)",
 
       "&:hover": {
         color: "var(--accent-color)",
@@ -121,9 +122,7 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
 
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isFocused
-        ? "rgba(0,0,0,0.05)"
-        : "var(--white-color)",
+      backgroundColor: state.isFocused ? "transparent" : "var(--white-color)",
       color: state.isFocused ? "var(--accent-color)" : "inherit",
       fontFamily: "Manrope, sans-serif",
       fontWeight: 500,
@@ -182,9 +181,7 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isFocused
-        ? "rgba(0,0,0,0.05)"
-        : "var(--white-color)",
+      backgroundColor: state.isFocused ? "transparent" : "var(--white-color)",
       color: state.isFocused ? "var(--accent-color)" : "inherit",
       fontFamily: "Manrope, sans-serif",
       fontWeight: 500,
@@ -200,6 +197,14 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     }),
     indicatorSeparator: () => ({ display: "none" }),
     dropdownIndicator: () => ({ display: "none" }),
+    noOptionsMessage: (base) => ({
+      ...base,
+      color: "var(--accent-color)",
+      fontFamily: "Manrope, sans-serif",
+      fontWeight: 500,
+      fontSize: 14,
+      textAlign: "center",
+    }),
   };
 
   useEffect(() => setIsClient(true), []);
@@ -219,10 +224,6 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const resetFilters = () => {
-    router.replace(basePath);
   };
 
   const updateParam = (key: string, value: string) => {
@@ -257,42 +258,51 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
 
   return (
     <div className={css.noticesFilters}>
-      <div className={css.noticesSearchField}>
+      <div className={css.noticesSearchFieldWrapp}>
         <SearchField
           value={query}
           onChangeAction={updateQuery}
           onSubmitAction={submitSearch}
           placeholder="Search"
+          className={css.noticesSearchField}
         />
       </div>
-      {/* Category */}
-      {isClient && (
-        <Select
-          instanceId="category-select"
-          options={categoryOptions}
-          placeholder="Category"
-          value={categoryOptions.find((o) => o.value === category) || null}
-          onChange={(option) =>
-            updateParam("category", option ? option.value : "")
-          }
-          styles={selectStyles}
-          components={{ DropdownIndicator }}
-          isSearchable={false}
-        />
-      )}
-      {/* Sex */}
-      {isClient && (
-        <Select
-          instanceId="sex-select"
-          options={sexOptions}
-          placeholder="By gender"
-          value={sexOptions.find((o) => o.value === sex) || null}
-          onChange={(option) => updateParam("sex", option ? option.value : "")}
-          styles={selectStyles}
-          components={{ DropdownIndicator }}
-          isSearchable={false}
-        />
-      )}
+      <div className={css.categorySexSelectsWrapper}>
+        {/* Category */}
+        {isClient && (
+          <Select
+            instanceId="category-select"
+            options={categoryOptions}
+            placeholder="Category"
+            value={categoryOptions.find((o) => o.value === category) || null}
+            onChange={(option) =>
+              updateParam("category", option ? option.value : "")
+            }
+            styles={selectStyles}
+            components={{ DropdownIndicator }}
+            isSearchable={false}
+            className={css.noticesSelect}
+            classNamePrefix="notices"
+          />
+        )}
+        {/* Sex */}
+        {isClient && (
+          <Select
+            instanceId="sex-select"
+            options={sexOptions}
+            placeholder="By gender"
+            value={sexOptions.find((o) => o.value === sex) || null}
+            onChange={(option) =>
+              updateParam("sex", option ? option.value : "")
+            }
+            styles={selectStyles}
+            components={{ DropdownIndicator }}
+            isSearchable={false}
+            className={css.sexesSelect}
+            classNamePrefix="sexes"
+          />
+        )}
+      </div>
       {/* Species */}
       {isClient && (
         <Select
@@ -306,8 +316,11 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           styles={selectStyles}
           components={{ DropdownIndicator }}
           isSearchable={false}
+          className={css.speciesSelect}
+          classNamePrefix="species"
         />
       )}
+      {/* Location */}
       {isClient && (
         <Select
           instanceId="cities-select"
@@ -322,6 +335,8 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           onChange={(option) =>
             updateParam("location", option ? option.value : "")
           }
+          className={css.locationSelect}
+          classNamePrefix="location"
           styles={citySelectStyles}
           components={{
             Control: ControlWithSearchIcon,
@@ -331,55 +346,55 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           isSearchable
         />
       )}
+      <div className={css.divider} />
       {/* Sort */}
-      <div>
-        <label>
+      <div className={css.sortContainer}>
+        <label className={css.sortButton}>
           <input
             type="radio"
             name="sort"
             value="popularity"
             checked={sort === "popularity"}
             onChange={(e) => updateParam("sort", e.target.value)}
+            className={css.sortRadio}
           />
           Popular
         </label>
-        <label>
+        <label className={css.sortButton}>
           <input
             type="radio"
             name="sort"
             value="popularity"
             checked={sort === "popularity"}
             onChange={(e) => updateParam("sort", e.target.value)}
+            className={css.sortRadio}
           />
           Unpopular
         </label>
 
-        <label>
+        <label className={css.sortButton}>
           <input
             type="radio"
             name="sort"
             value="price"
             checked={sort === "price"}
             onChange={(e) => updateParam("sort", e.target.value)}
+            className={css.sortRadio}
           />
           Cheap
         </label>
-        <label>
+        <label className={css.sortButton}>
           <input
             type="radio"
             name="sort"
             value="price"
             checked={sort === "price"}
             onChange={(e) => updateParam("sort", e.target.value)}
+            className={css.sortRadio}
           />
           Expensive
         </label>
       </div>
-
-      {/* Reset */}
-      <button type="button" onClick={resetFilters}>
-        Reset
-      </button>
     </div>
   );
 }

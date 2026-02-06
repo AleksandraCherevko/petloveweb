@@ -9,6 +9,7 @@ type Props = {
   onChangeAction: (value: string) => void;
   onSubmitAction: () => void;
   placeholder?: string;
+  className?: string;
 };
 
 export default function SearchField({
@@ -16,6 +17,7 @@ export default function SearchField({
   onChangeAction,
   onSubmitAction,
   placeholder = "Search",
+  className,
 }: Props) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -24,10 +26,9 @@ export default function SearchField({
 
   const handleClear = () => {
     onChangeAction("");
-
   };
   return (
-    <form className={css.searchForm} onSubmit={handleSubmit}>
+    <form className={clsx(css.searchForm, className)} onSubmit={handleSubmit}>
       <div className={css.inputWrapper}>
         <input
           type="text"
