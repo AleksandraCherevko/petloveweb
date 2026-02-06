@@ -1,0 +1,33 @@
+.noticesCategorySelect {
+  background-color: var(--white-color);
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("/chevron-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px 18px;
+  width: 143px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  outline: none;
+
+}
+.noticesCategorySelect:hover {
+  color: var(--accent-color);
+}
+.noticesCategorySelect option {
+  background-color: var(--white-color);
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  outline: none;
+}
