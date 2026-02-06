@@ -12,6 +12,7 @@ import Image from "next/image";
 import { components } from "react-select";
 import type { DropdownIndicatorProps } from "react-select";
 import type { StylesConfig } from "react-select";
+import type { ControlProps } from "react-select";
 
 type Props = {
   basePath?: string;
@@ -88,7 +89,7 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
       backgroundColor: "var(--white-color)",
       border: "none",
       borderRadius: 30,
-      padding: "0 12px",
+      padding: "12px 12px",
       width: 143,
       minHeight: "auto",
       boxShadow: "none",
@@ -106,11 +107,15 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     }),
 
     indicatorSeparator: () => ({ display: "none" }),
+    dropdownIndicator: (base) => ({
+      ...base,
+      padding: 0,
+    }),
 
     menu: (base) => ({
       ...base,
       backgroundColor: "var(--white-color)",
-      borderRadius: 20,
+      borderRadius: 15,
       width: 143,
     }),
 
@@ -135,6 +140,66 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
         textTransform: "uppercase",
       },
     }),
+  };
+
+  const ControlWithSearchIcon = (props: ControlProps<CityOption, false>) => (
+    <components.Control {...props}>
+      <Image
+        src="/search.svg"
+        alt="search"
+        width={16}
+        height={16}
+        style={{ marginRight: 0 }}
+      />
+      {props.children}
+    </components.Control>
+  );
+
+  const citySelectStyles: StylesConfig<CityOption, false> = {
+    control: (base) => ({
+      ...base,
+      backgroundColor: "var(--white-color)",
+      border: "none",
+      borderRadius: 30,
+      padding: "12px", // оставляем место слева под иконку
+      width: 295,
+      minHeight: "auto",
+      boxShadow: "none",
+      cursor: "text",
+      fontFamily: "Manrope",
+      fontWeight: 500,
+      fontSize: 14,
+      lineHeight: "1.2",
+      letterSpacing: "-0.03em",
+      position: "relative", // чтобы позиционировать иконку
+      flexDirection: "row-reverse",
+    }),
+    menu: (base) => ({
+      ...base,
+      width: 295,
+      borderRadius: 15,
+      backgroundColor: "var(--white-color)",
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused
+        ? "rgba(0,0,0,0.05)"
+        : "var(--white-color)",
+      color: state.isFocused ? "var(--accent-color)" : "inherit",
+      fontFamily: "Manrope, sans-serif",
+      fontWeight: 500,
+      fontSize: 14,
+      textTransform: "capitalize",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      fontFamily: "Manrope, sans-serif",
+      fontWeight: 500,
+      fontSize: 14,
+      textTransform: "capitalize",
+    }),
+    indicatorSeparator: () => ({ display: "none" }),
+    dropdownIndicator: () => ({ display: "none" }),
   };
 
   useEffect(() => setIsClient(true), []);
@@ -243,6 +308,29 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           isSearchable={false}
         />
       )}
+      {isClient && (
+        <Select
+          instanceId="cities-select"
+          placeholder="Location"
+          isClearable
+          isLoading={isLoading}
+          options={cities}
+          value={cities.find((c) => c.value === location) ?? null}
+          onInputChange={(value) => {
+            if (value.length >= 2) fetchCities(value);
+          }}
+          onChange={(option) =>
+            updateParam("location", option ? option.value : "")
+          }
+          styles={citySelectStyles}
+          components={{
+            Control: ControlWithSearchIcon,
+            IndicatorSeparator: () => null,
+            ClearIndicator: () => null,
+          }}
+          isSearchable
+        />
+      )}
       {/* Sort */}
       <div>
         <label>
@@ -286,23 +374,8 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           />
           Expensive
         </label>
-      </div>{" "}
-      {isClient && (
-        <Select
-          instanceId="cities-select"
-          placeholder="Select city"
-          isClearable
-          isLoading={isLoading}
-          options={cities}
-          value={cities.find((c) => c.value === location) ?? null}
-          onInputChange={(value) => {
-            if (value.length >= 2) fetchCities(value);
-          }}
-          onChange={(option) =>
-            updateParam("location", option ? option.value : "")
-          }
-        />
-      )}
+      </div>
+
       {/* Reset */}
       <button type="button" onClick={resetFilters}>
         Reset
