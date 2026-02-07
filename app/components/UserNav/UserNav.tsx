@@ -1,5 +1,5 @@
 import css from "./UserNav.module.css";
-import { useAuthStore } from "@/app/lib/store/authStore";
+import { useAuthStore } from "@/app/lib/store/auth";
 
 interface UserNavProps {
   className?: string;

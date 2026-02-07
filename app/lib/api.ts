@@ -110,7 +110,6 @@ export type NoticeResponse = {
   totalPages: number;
 };
 
-
 export const getNoticesClient = async (
   page = 1,
   perPage = 6,
@@ -149,13 +148,56 @@ export type City = {
 
 export const getCities = async (keyword: string): Promise<City[]> => {
   try {
-    const res = await axios.get(`https://petlove.b.goit.study/api/cities/locations`, {
-      params: { keyword },
-    });
+    const res = await axios.get(
+      `https://petlove.b.goit.study/api/cities/locations`,
+      {
+        params: { keyword },
+      },
+    );
 
     return res.data;
   } catch (err) {
     console.error("Failed to fetch cities", err);
     return [];
   }
+};
+
+// REGISTRATION FORM
+
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  name: string;
+};
+
+export type Pet = {
+  _id: string;
+  name: string;
+  title?: string;
+  imgURL?: string;
+  species: string;
+  birthday?: string;
+  sex?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type User = {
+  _id: string; 
+  email: string;
+  name?: string;
+  avatar?: string;
+  phone?: string;
+  token?: string;
+  noticesViewed?: Notice[];
+  noticesFavorites?: Notice[];
+  pets?: Pet[];
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+
+export const register = async (data: RegisterRequest) => {
+  const res = await nextServer.post<User>("/users/signup", data);
+  return res.data;
 };

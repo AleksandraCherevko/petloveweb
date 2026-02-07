@@ -8,7 +8,7 @@ import AuthNav from "../AuthNav/AuthNav";
 import { useState, useEffect } from "react";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import UserNav from "../UserNav/UserNav";
-import { useAuthStore } from "@/app/lib/store/authStore";
+import { useAuthStore } from "@/app/lib/store/auth";
 
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
