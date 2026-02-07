@@ -1,0 +1,23 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.modalClosing {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: 0.2s;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
