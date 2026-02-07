@@ -1,14 +1,9 @@
-export default function PublicLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
-  return (
-    <>
-      {children}
-      {modal}
-    </>
-  );
+import { ReactNode } from "react";
+
+type PublicLayoutProps = {
+  children: ReactNode;
+};
+
+export default function Layout({ children }: PublicLayoutProps) {
+  return <>{children}</>;
 }
