@@ -7,7 +7,7 @@
   --friends-list-title: #26262680;
   --second-black-color: #2b2b2a;
   --hover-focus-small-btn: #fbe7c1;
-  --hover-focus-accent-color: #f9b020; 
+  --hover-focus-accent-color: #f9b020;
 }
 
 * {
@@ -19,6 +19,7 @@
 
 body {
   background-color: #f4f4f4;
+  font-family: var(--font-manrope), sans-serif;
 }
 
 h1,

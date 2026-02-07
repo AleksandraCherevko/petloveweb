@@ -3,15 +3,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import type { Notice } from "../lib/api";
-import { getNoticesClient } from "../lib/api";
+import type { Notice } from "@/app/lib/api";
+import { getNoticesClient } from "@/app/lib/api";
 
-import Container from "../components/Container/Container";
-import Title from "../components/Title/Title";
-import NoticeList from "../components/NoticesList/NoticesList";
-import Pagination from "../components/Pagination/Pagination";
-import Loader from "../components/Loader/Loader";
-import NoticesFilters from "../components/NoticesFilters/NoticesFilters";
+import Container from "@/app/components/Container/Container";
+import Title from "@/app/components/Title/Title";
+import NoticeList from "@/app/components/NoticesList/NoticesList";
+import Pagination from "@/app/components/Pagination/Pagination";
+import Loader from "@/app/components/Loader/Loader";
+import NoticesFilters from "@/app/components/NoticesFilters/NoticesFilters";
 import css from "./page.module.css";
 
 export default function Notices() {
@@ -53,16 +53,6 @@ export default function Notices() {
 
     return () => clearInterval(interval);
   }, [loading]);
-
-  // const handleSearchAction = () => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set("page", "1");
-
-  //   if (query) params.set("query", query);
-  //   else params.delete("query");
-
-  //   router.push(`/notices?${params.toString()}`);
-  // };
 
   const handlePageChangeAction = (page: number) => {
     if (page < 1 || page > totalPages) return;
