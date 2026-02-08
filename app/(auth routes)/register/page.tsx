@@ -1,12 +1,12 @@
 import RegistrationForm from "@/app/components/RegistrationForm/RegistrationForm";
 import Link from "next/link";
-
+import Title from "@/app/components/Title/Title";
 const RegisterPage = () => {
   return (
-    <div style={{ padding: 20, maxWidth: 500, margin: "0 auto" }}>
-      <h2>Registration</h2>
+    <div>
+      <Title as="h2">Registration</Title>
       <RegistrationForm />
-      <p style={{ marginTop: 10 }}>
+      <p>
         Already have an account? <Link href="/login">Login</Link>
       </p>
     </div>
