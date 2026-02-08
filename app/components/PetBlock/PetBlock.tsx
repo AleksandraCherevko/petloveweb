@@ -1,46 +1,28 @@
+import clsx from "clsx";
 import css from "./PetBlock.module.css";
-import Image from "next/image";
 
 type PetBlockImgProps = {
   mobileSrc: string;
   tabletSrc: string;
   desktopSrc: string;
   alt: string;
-  priority?: boolean;
+  className?: string;
 };
+
 const PetBlock = ({
   mobileSrc,
   tabletSrc,
   desktopSrc,
   alt,
-  priority = false,
+  className,
 }: PetBlockImgProps) => {
   return (
-    <div className={css.wrapper}>
-      <Image
-        src={mobileSrc}
-        alt={alt}
-        fill
-        priority={priority}
-        className={`${css.image} ${css.mobile}`}
-        sizes="(max-width: 767px) 100vw"
-      />
-      <Image
-        src={tabletSrc}
-        alt={alt}
-        fill
-        priority={priority}
-        className={`${css.image} ${css.tablet}`}
-        sizes="(min-width: 768px) and (max-width: 1279px) 100vw"
-      />
-      <Image
-        src={desktopSrc}
-        alt={alt}
-        fill
-        priority={priority}
-        className={`${css.image} ${css.desktop}`}
-        sizes="(min-width: 1280px) 100vw"
-      />
+    <div className={clsx(css.wrapper, className)}>
+      <picture>
+        <source media="(min-width: 1280px)" srcSet={desktopSrc} />
+        <source media="(min-width: 768px)" srcSet={tabletSrc} />
+        <img src={mobileSrc} alt={alt} className={css.heroImage} />
+      </picture>
     </div>
   );
 };
