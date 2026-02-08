@@ -10,13 +10,14 @@
   position: relative;
   width: 100%;
 }
-
+.inputField {
+  position: relative;
+}
 .registerInput {
   width: 100%;
   padding: 12px 44px 12px 12px;
   font-family: Manrope;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -25,9 +26,10 @@
   border-radius: 30px;
   outline: none;
 }
-
-.registerInput:hover,
-.registerInput:focus {
+.registerInputPassowrd {
+  padding: 12px 72px 12px 12px;
+}
+.registerInput:hover {
   border: 1px solid var(--accent-color);
   color: var(--title-color);
 }
@@ -67,4 +69,43 @@
 .registerFormBtn:hover,
 .registerFormBtn:focus {
   background-color: var(--hover-focus-accent-color);
+}
+
+/* error styles */
+
+.error {
+  border-color: var(--error-color);
+}
+
+.success {
+  border-color: var(--success-color);
+}
+
+.errorText {
+  margin-left: 12px;
+  margin-top: 2px;
+  color: var(--error-color);
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.iconError,
+.iconSuccess {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.inputField.passwordField .iconError,
+.inputField.passwordField .iconSuccess {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 44px;
+  pointer-events: none;
 }
