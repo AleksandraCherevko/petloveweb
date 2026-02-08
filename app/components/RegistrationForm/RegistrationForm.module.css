@@ -109,3 +109,49 @@
   right: 44px;
   pointer-events: none;
 }
+
+@media (min-width: 768px) {
+  .registrationForm {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .registerInput {
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    padding: 16px 64px 16px 16px;
+  }
+
+  .registerInputPassowrd {
+    padding: 16px 72px 16px 16px;
+  }
+
+  .eyeButton {
+    right: 16px;
+  }
+
+  .registerFormBtn {
+    margin-top: 8px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+  .errorText {
+    margin-left: 16px;
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.16;
+    letter-spacing: -0.03em;
+  }
+
+}

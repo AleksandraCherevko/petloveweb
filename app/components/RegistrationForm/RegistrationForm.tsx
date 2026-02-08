@@ -224,7 +224,7 @@ const RegistrationForm = () => {
             {...register("confirmPassword")}
             id="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
-            placeholder="Confirm Password"
+            placeholder="Confirm password"
             className={`${css.registerInput} 
       ${errors.confirmPassword ? css.error : ""}
       ${!errors.confirmPassword && confirmPasswordValue ? css.success : ""}

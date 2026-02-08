@@ -4,7 +4,7 @@
 
 .petBlockRegisterImg {
   margin-bottom: 10px;
-  border-radius: 30px;
+  border-radius: 60px;
 }
 
 .registerTitle {
@@ -46,10 +46,54 @@
   color: var(--friends-list-title);
 }
 
-.registerFormLoginReroutLink {text-decoration: underline;
+.registerFormLoginReroutLink {
+  text-decoration: underline;
   color: var(--accent-color);
 }
-r.egisterFormLoginReroutLink:hover,
+.registerFormLoginReroutLink:hover,
 .registerFormLoginReroutLink:focus {
   color: var(--hover-focus-accent-color);
+}
+
+@media (min-width: 768px) {
+  .registerPageWrapper {
+    margin-top: 32px;
+  }
+
+  .petBlockRegisterImg {
+    width: auto;
+    height: auto;
+    border-radius: 60px;
+    margin-bottom: 16px;
+  }
+
+  .registrationFormContainer {
+    border-radius: 60px;
+    padding: 26px 140px;
+  }
+
+  .registerTitle {
+    margin-bottom: 16px;
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 54px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .registerAfterTitle {
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .registerAfterFormText {
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
 }
