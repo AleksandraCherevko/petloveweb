@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/lib/store/auth";
-import { User } from "@/app/types/user";
 import css from "./RegistrationForm.module.css";
+import toast from "react-hot-toast";
 
 type RegistrationFormValues = {
   name: string;
@@ -38,22 +38,45 @@ const schema = yup.object().shape({
 const RegistrationForm = () => {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
-  const [backendError, setBackendError] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<RegistrationFormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: RegistrationFormValues) => {
-    setBackendError("");
+  const emailValue = useWatch({
+    control,
+    name: "email",
+  });
 
+  const nameValue = useWatch({
+    control,
+    name: "name",
+  });
+
+  const passwordValue = useWatch({
+    control,
+    name: "password",
+  });
+
+  const confirmPasswordValue = useWatch({
+    control,
+    name: "confirmPassword",
+  });
+
+  const onSubmit = async (data: RegistrationFormValues) => {
     try {
-      const { confirmPassword, ...payload } = data; // eslint-disable-line @typescript-eslint/no-unused-vars
+      const payload = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      };
 
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -61,94 +84,185 @@ const RegistrationForm = () => {
         body: JSON.stringify(payload),
       });
 
-      const result: User & { error?: string } = await res.json();
+      const result = await res.json();
 
-      if (res.ok && result.token) {
-        setUser(result);
-        router.push("/profile");
-      } else {
-        setBackendError(result.error || "Registration failed");
+      if (!res.ok) {
+        toast.error(result.error || "Registration failed");
+        return;
       }
+
+      setUser(result);
+      router.push("/profile");
     } catch {
-      setBackendError("Server error, please try again");
+      toast.error("Server error, please try again");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={css.registrationForm}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={css.registrationForm}
+      autoComplete="off"
+      noValidate
+    >
+      {/* NAME INPUT */}
       <div className={css.inputWrapper}>
-        <input
-          type="text"
-          {...register("name")}
-          placeholder="Name"
-          className={css.registerInput}
-        />
-
-        {errors.name && <p>{errors.name.message}</p>}
-      </div>
-
-      <div className={css.inputWrapper}>
-        <input
-          type="email"
-          {...register("email")}
-          placeholder="Email"
-          className={css.registerInput}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-      </div>
-
-      <div className={css.inputWrapper}>
-        <input
-          className={css.registerInput}
-          {...register("password")}
-          id="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword((prev) => !prev)}
-          className={css.eyeButton}
-        >
-          {showPassword ? (
-            <svg width="18" height="18">
-              <use href="/symbol-defs.svg#icon-eye"></use>
-            </svg>
-          ) : (
-            <svg width="18" height="18">
-              <use href="/symbol-defs.svg#icon-eye-off"></use>
-            </svg>
+        <div className={css.inputField}>
+          <input
+            type="text"
+            {...register("name")}
+            placeholder="Name"
+            className={`${css.registerInput}
+      ${errors.name ? css.error : ""}
+      ${!errors.name && nameValue ? css.success : ""}
+    `}
+          />
+          {errors.name && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red"></use>
+              </svg>
+            </span>
           )}
-        </button>
-        {errors.password && <p>{errors.password.message}</p>}
+          {!errors.name && nameValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check"></use>
+              </svg>
+            </span>
+          )}
+        </div>
+        {errors.name && <p className={css.errorText}>{errors.name.message}</p>}
       </div>
 
+      {/* EMAIL INPUT */}
       <div className={css.inputWrapper}>
-        <input
-          {...register("confirmPassword")}
-          id="confirmPassword"
-          type={showConfirmPassword ? "text" : "password"}
-          placeholder="Confirm Password"
-          className={css.registerInput}
-        />
-        <button
-          type="button"
-          onClick={() => setShowConfirmPassword((prev) => !prev)}
-          className={css.eyeButton}
-          aria-label="Toggle password visibility"
-        >
-          {showConfirmPassword ? (
-            <svg width="18" height="18">
-              <use href="/symbol-defs.svg#icon-eye"></use>
-            </svg>
-          ) : (
-            <svg width="18" height="18">
-              <use href="/symbol-defs.svg#icon-eye-off"></use>
-            </svg>
+        <div className={css.inputField}>
+          <input
+            type="email"
+            autoComplete="new-password"
+            {...register("email")}
+            placeholder="Email"
+            className={`${css.registerInput}
+      ${errors.email ? css.error : ""}
+      ${!errors.email && emailValue ? css.success : ""}
+    `}
+          />
+          {errors.email && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red"></use>
+              </svg>
+            </span>
           )}
-        </button>
+          {!errors.email && emailValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check"></use>
+              </svg>
+            </span>
+          )}
+        </div>
+        {errors.email && (
+          <p className={css.errorText}>{errors.email.message}</p>
+        )}
+      </div>
+
+      {/* PASSWORD INPUT */}
+      <div className={css.inputWrapper}>
+        <div className={`${css.inputField} ${css.passwordField}`}>
+          <input
+            {...register("password")}
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            className={`${css.registerInput} 
+      ${errors.password ? css.error : ""}
+      ${!errors.password && passwordValue ? css.success : ""}
+    `}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className={css.eyeButton}
+            aria-label="Toggle password visibility"
+          >
+            {showPassword ? (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye"></use>
+              </svg>
+            ) : (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye-off"></use>
+              </svg>
+            )}
+          </button>
+          {errors.password && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red"></use>
+              </svg>
+            </span>
+          )}
+          {!errors.password && passwordValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check"></use>
+              </svg>
+            </span>
+          )}
+        </div>
+        {errors.password && (
+          <p className={css.errorText}>{errors.password.message}</p>
+        )}
+      </div>
+
+      {/* CONFIRM PASSWORD */}
+      <div className={css.inputWrapper}>
+        <div className={`${css.inputField} ${css.passwordField}`}>
+          <input
+            {...register("confirmPassword")}
+            id="confirmPassword"
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirm Password"
+            className={`${css.registerInput} 
+      ${errors.confirmPassword ? css.error : ""}
+      ${!errors.confirmPassword && confirmPasswordValue ? css.success : ""}
+    `}
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
+            className={css.eyeButton}
+            aria-label="Toggle password visibility"
+          >
+            {showConfirmPassword ? (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye"></use>
+              </svg>
+            ) : (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye-off"></use>
+              </svg>
+            )}
+          </button>
+          {errors.confirmPassword && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red"></use>
+              </svg>
+            </span>
+          )}
+          {!errors.confirmPassword && confirmPasswordValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check"></use>
+              </svg>
+            </span>
+          )}
+        </div>
         {errors.confirmPassword && (
-          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+          <p className={css.errorText}>{errors.confirmPassword.message}</p>
         )}
       </div>
 
@@ -159,8 +273,6 @@ const RegistrationForm = () => {
       >
         {isSubmitting ? "Registering..." : "Registration"}
       </button>
-
-      {backendError && <div>{backendError}</div>}
     </form>
   );
 };

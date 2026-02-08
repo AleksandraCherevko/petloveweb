@@ -3,7 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header/Header";
 import { Suspense } from "react";
-
+import { Toaster } from "react-hot-toast";
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
@@ -28,6 +28,7 @@ export default function RootLayout({
       <body className={`${manrope.variable} antialiased`}>
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
