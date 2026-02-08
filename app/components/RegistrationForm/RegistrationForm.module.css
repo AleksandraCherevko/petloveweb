@@ -1,0 +1,70 @@
+.registrationForm {
+  margin-top: 20px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.registerInput {
+  width: 100%;
+  padding: 12px 44px 12px 12px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--friends-list-title);
+  border: 1px solid #26262626;
+  border-radius: 30px;
+  outline: none;
+}
+
+.registerInput:hover,
+.registerInput:focus {
+  border: 1px solid var(--accent-color);
+  color: var(--title-color);
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerFormBtn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--accent-color);
+  font-family: Manrope;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--white-color);
+}
+
+.registerFormBtn:hover,
+.registerFormBtn:focus {
+  background-color: var(--hover-focus-accent-color);
+}

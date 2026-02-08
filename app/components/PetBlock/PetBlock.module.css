@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100%;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 300px; /* default mobile height */
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    height: 360px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    height: 420px;
+  }
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

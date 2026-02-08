@@ -1,0 +1,55 @@
+.registerPageWrapper {
+  padding-bottom: 20px;
+}
+
+.petBlockRegisterImg {
+  margin-bottom: 10px;
+  border-radius: 30px;
+}
+
+.registerTitle {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--title-color);
+}
+
+.registrationFormContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 27px 20px;
+  background-color: var(--white-color);
+  border-radius: 30px;
+}
+
+.registerAfterTitle {
+  margin-top: 12px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--title-color);
+}
+
+.registerAfterFormText {
+  display: flex;
+  justify-content: center;
+  margin-top: 2px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--friends-list-title);
+}
+
+.registerFormLoginReroutLink {text-decoration: underline;
+  color: var(--accent-color);
+}
+r.egisterFormLoginReroutLink:hover,
+.registerFormLoginReroutLink:focus {
+  color: var(--hover-focus-accent-color);
+}

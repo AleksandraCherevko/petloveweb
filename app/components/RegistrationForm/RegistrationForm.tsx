@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/lib/store/auth";
 import { User } from "@/app/types/user";
+import css from "./RegistrationForm.module.css";
 
 type RegistrationFormValues = {
   name: string;
@@ -39,7 +40,7 @@ const RegistrationForm = () => {
   const setUser = useAuthStore((state) => state.setUser);
   const [backendError, setBackendError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -74,32 +75,47 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <input type="text" {...register("name")} placeholder="Name" />
+    <form onSubmit={handleSubmit(onSubmit)} className={css.registrationForm}>
+      <div className={css.inputWrapper}>
+        <input
+          type="text"
+          {...register("name")}
+          placeholder="Name"
+          className={css.registerInput}
+        />
 
         {errors.name && <p>{errors.name.message}</p>}
       </div>
 
-      <div>
-        <input type="email" {...register("email")} placeholder="Email" />
+      <div className={css.inputWrapper}>
+        <input
+          type="email"
+          {...register("email")}
+          placeholder="Email"
+          className={css.registerInput}
+        />
         {errors.email && <p>{errors.email.message}</p>}
       </div>
 
-      <div>
+      <div className={css.inputWrapper}>
         <input
+          className={css.registerInput}
           {...register("password")}
           id="password"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
         />
-        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className={css.eyeButton}
+        >
           {showPassword ? (
-            <svg width="20" height="20">
+            <svg width="18" height="18">
               <use href="/symbol-defs.svg#icon-eye"></use>
             </svg>
           ) : (
-            <svg width="20" height="20">
+            <svg width="18" height="18">
               <use href="/symbol-defs.svg#icon-eye-off"></use>
             </svg>
           )}
@@ -107,20 +123,26 @@ const RegistrationForm = () => {
         {errors.password && <p>{errors.password.message}</p>}
       </div>
 
-      <div>
+      <div className={css.inputWrapper}>
         <input
           {...register("confirmPassword")}
           id="confirmPassword"
-          type={showPassword ? "text" : "password"}
+          type={showConfirmPassword ? "text" : "password"}
           placeholder="Confirm Password"
+          className={css.registerInput}
         />
-        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
-          {showPassword ? (
-            <svg width="20" height="20">
+        <button
+          type="button"
+          onClick={() => setShowConfirmPassword((prev) => !prev)}
+          className={css.eyeButton}
+          aria-label="Toggle password visibility"
+        >
+          {showConfirmPassword ? (
+            <svg width="18" height="18">
               <use href="/symbol-defs.svg#icon-eye"></use>
             </svg>
           ) : (
-            <svg width="20" height="20">
+            <svg width="18" height="18">
               <use href="/symbol-defs.svg#icon-eye-off"></use>
             </svg>
           )}
@@ -130,7 +152,11 @@ const RegistrationForm = () => {
         )}
       </div>
 
-      <button type="submit" disabled={isSubmitting}>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className={css.registerFormBtn}
+      >
         {isSubmitting ? "Registering..." : "Registration"}
       </button>
 
