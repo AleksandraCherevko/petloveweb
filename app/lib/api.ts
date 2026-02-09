@@ -183,7 +183,7 @@ export type Pet = {
 };
 
 export type User = {
-  _id: string; 
+  _id: string;
   email: string;
   name?: string;
   avatar?: string;
@@ -196,8 +196,19 @@ export type User = {
   updatedAt?: Date;
 };
 
-
 export const register = async (data: RegisterRequest) => {
   const res = await nextServer.post<User>("/users/signup", data);
+  return res.data;
+};
+
+// LOGIN FORM
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+export const login = async (data: LoginRequest) => {
+  const res = await nextServer.post<User>("/users/signin", data);
   return res.data;
 };

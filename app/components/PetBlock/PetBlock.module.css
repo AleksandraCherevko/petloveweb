@@ -3,17 +3,4 @@
   position: relative;
   border-radius: 30px;
   overflow: hidden;
-  height: 300px;
-}
-
-@media (min-width: 768px) {
-  .wrapper {
-    height: 360px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .wrapper {
-    height: 420px;
-  }
 }
