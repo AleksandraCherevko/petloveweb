@@ -26,9 +26,7 @@
   border-radius: 30px;
   outline: none;
 }
-.registerInputPassowrd {
-  padding: 12px 72px 12px 12px;
-}
+
 .registerInput:hover {
   border: 1px solid var(--accent-color);
   color: var(--title-color);

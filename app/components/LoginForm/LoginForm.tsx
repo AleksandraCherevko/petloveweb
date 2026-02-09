@@ -53,8 +53,6 @@ const LoginForm = () => {
         toast.error(result.error || "Invalid email or password");
         return;
       }
-
-      // ✅ токены уже установлены сервером (cookies)
       router.push("/profile");
     } catch {
       toast.error("Server error, please try again");
@@ -70,15 +68,32 @@ const LoginForm = () => {
     >
       {/* EMAIL */}
       <div className={css.inputWrapper}>
-        <input
-          type="email"
-          {...register("email")}
-          placeholder="Email"
-          className={`${css.input}
+        <div className={css.inputField}>
+          <input
+            type="email"
+            {...register("email")}
+            placeholder="Email"
+            className={`${css.loginInput}
             ${errors.email ? css.error : ""}
             ${!errors.email && emailValue ? css.success : ""}
           `}
-        />
+          />
+          {errors.email && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red" />
+              </svg>
+            </span>
+          )}
+
+          {!errors.email && emailValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check" />
+              </svg>
+            </span>
+          )}
+        </div>
         {errors.email && (
           <p className={css.errorText}>{errors.email.message}</p>
         )}
@@ -86,12 +101,12 @@ const LoginForm = () => {
 
       {/* PASSWORD */}
       <div className={css.inputWrapper}>
-        <div className={css.passwordField}>
+        <div className={`${css.inputField} ${css.passwordField}`}>
           <input
             type={showPassword ? "text" : "password"}
             {...register("password")}
             placeholder="Password"
-            className={`${css.input}
+            className={`${css.loginInput}
               ${errors.password ? css.error : ""}
               ${!errors.password && passwordValue ? css.success : ""}
             `}
@@ -102,15 +117,41 @@ const LoginForm = () => {
             className={css.eyeButton}
             aria-label="Toggle password visibility"
           >
-            👁
+            {showPassword ? (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye" />
+              </svg>
+            ) : (
+              <svg width="18" height="18">
+                <use href="/symbol-defs.svg#icon-eye-off" />
+              </svg>
+            )}
           </button>
+          {errors.password && (
+            <span className={css.iconError}>
+              <svg className={css.crossIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-cross-red" />
+              </svg>
+            </span>
+          )}
+          {!errors.password && passwordValue && (
+            <span className={css.iconSuccess}>
+              <svg className={css.checkIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-check" />
+              </svg>
+            </span>
+          )}
         </div>
         {errors.password && (
           <p className={css.errorText}>{errors.password.message}</p>
         )}
       </div>
 
-      <button type="submit" disabled={isSubmitting} className={css.submitBtn}>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className={css.loginFormBtn}
+      >
         {isSubmitting ? "Logging in..." : "Log In"}
       </button>
     </form>
