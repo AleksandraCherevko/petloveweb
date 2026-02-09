@@ -104,6 +104,10 @@
   pointer-events: none;
 }
 
+.inputField {
+  position: relative;
+}
+
 @media (min-width: 768px) {
   .loginForm {
     margin-top: 32px;
