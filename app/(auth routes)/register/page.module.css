@@ -106,12 +106,14 @@
 }
 
 @media (min-width: 1280px) {
+  .registerPageContainerWrapper {
+    padding: 0px 0px;
+  }
   .registerPageContainer {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     gap: 32px;
-    padding: 0;
   }
   .petBlockWrapper,
   .registrationFormContainer {
@@ -121,6 +123,7 @@
   .petBlockWrapper {
     width: 592px;
     height: 654px;
+    position: relative;
   }
   .petBlockRegisterImg {
     width: 100%;
@@ -158,8 +161,12 @@
   .registerAfterFormText {
     margin-bottom: 0;
   }
-  /* .petBlockOverlay {
+  .petBlockOverlay {
     display: block;
     border-radius: 60px;
-  } */
+    position: absolute;
+  }
+  .petBlockOverlayImg {
+    border-radius: 20px;
+  }
 }
