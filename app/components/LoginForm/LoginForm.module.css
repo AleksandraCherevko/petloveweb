@@ -1,0 +1,146 @@
+.loginForm {
+  margin-top: 20px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 12px 44px 12px 12px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--friends-list-title);
+  border: 1px solid #26262626;
+  border-radius: 30px;
+  outline: none;
+}
+
+.loginInput:hover {
+  border: 1px solid var(--accent-color);
+  color: var(--title-color);
+}
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginFormBtn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--accent-color);
+  font-family: Manrope;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--white-color);
+}
+
+.loginFormBtn:hover,
+.loginFormBtn:focus {
+  background-color: var(--hover-focus-accent-color);
+}
+/* error styles */
+
+.error {
+  border-color: var(--error-color);
+}
+
+.success {
+  border-color: var(--success-color);
+}
+
+.errorText {
+  margin-left: 12px;
+  margin-top: 2px;
+  color: var(--error-color);
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.iconError,
+.iconSuccess {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.inputField.passwordField .iconError,
+.inputField.passwordField .iconSuccess {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 44px;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .loginForm {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .loginInput {
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    padding: 16px 64px 16px 16px;
+  }
+
+  .eyeButton {
+    right: 16px;
+  }
+
+  .loginFormBtn {
+    margin-top: 8px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+  .errorText {
+    margin-left: 16px;
+    font-family: Manrope;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.16;
+    letter-spacing: -0.03em;
+  }
+}
