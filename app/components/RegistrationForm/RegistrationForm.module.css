@@ -154,4 +154,6 @@
     letter-spacing: -0.03em;
   }
 
+  @media (min-width: 1280px) {
+  }
 }
