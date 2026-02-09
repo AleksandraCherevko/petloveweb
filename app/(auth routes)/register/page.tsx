@@ -8,7 +8,7 @@ import Image from "next/image";
 const RegisterPage = () => {
   return (
     <div className={css.registerPageWrapper}>
-      <Container>
+      <Container className={css.registerPageContainerWrapper}>
         <div className={css.registerPageContainer}>
           <div className={css.petBlockWrapper}>
             <PetBlock
@@ -20,6 +20,7 @@ const RegisterPage = () => {
             />
             <div className={css.petBlockOverlay}>
               <Image
+                className={css.petBlockOverlayImg}
                 src="/images/registration/registrationJackInfo.jpg"
                 width={294}
                 height={121}
