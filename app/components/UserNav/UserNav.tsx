@@ -2,9 +2,7 @@
 
 import clsx from "clsx";
 import css from "./UserNav.module.css";
-
 import LogOutBtn from "../LogOutBtn/LogOutBtn";
-
 import UserBar from "../UserBar/UserBar";
 
 interface UserNavProps {
