@@ -3,7 +3,7 @@
 import css from "./MobileMenu.module.css";
 import Nav from "../Nav/Nav";
 import AuthNav from "../AuthNav/AuthNav";
-import UserNav from "../UserNav/UserNav";
+import UserNav from "../UserCard/UserCard";
 import { useAuthStore } from "@/app/lib/store/auth";
 
 interface MobileMenuProps {
