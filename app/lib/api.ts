@@ -212,3 +212,19 @@ export const login = async (data: LoginRequest) => {
   const res = await nextServer.post<User>("/users/signin", data);
   return res.data;
 };
+
+
+// GET AUTH USER 
+
+
+export const getUser = async () => {
+  const { data } = await nextServer.get<User>('/users/current/full');
+  return data;
+};
+
+// LOGOUT
+
+
+export const logout = async (): Promise<void> => {
+  await nextServer.post('/users/signout')
+};

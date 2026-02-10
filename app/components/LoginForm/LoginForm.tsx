@@ -5,7 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
+import { useAuthStore } from "@/app/lib/store/auth";
 import { LoginFormValues } from "@/app/types/login";
 import css from "./LoginForm.module.css";
 
@@ -25,6 +25,8 @@ export const loginSchema = yup.object({
 
 const LoginForm = () => {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -47,18 +49,35 @@ const LoginForm = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await res.json();
+      const user = await res.json();
 
       if (!res.ok) {
-        toast.error(result.error || "Invalid email or password");
+        toast.error(user.error || "Invalid email or password");
         return;
       }
+      setUser(user); 
+      toast.success(`Welcome, ${user.name ?? user.email}!`);
       router.push("/profile");
     } catch {
       toast.error("Server error, please try again");
     }
   };
+ 
+  //   try {
+  //     const user = await login(data); // відправка на backend
+  //     if (!user.token) {
+  //       toast.error("Login failed: no token received");
+  //       return;
+  //     }
 
+  //     setUser(user); // автоматична авторизація через Zustand
+  //     toast.success(`Welcome, ${user.name ?? user.email}!`);
+  //     router.push("/profile"); // переадресація на приватну сторінку
+  //   } catch (err: any) {
+  //     // Відображення помилки backend у вигляді notification
+  //     toast.error(err.message || "Invalid email or password");
+  //   }
+  // };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -152,7 +171,7 @@ const LoginForm = () => {
         disabled={isSubmitting}
         className={css.loginFormBtn}
       >
-        {isSubmitting ? "Logging in..." : "Log In"}
+        {isSubmitting ? "Loging in..." : "Log In"}
       </button>
     </form>
   );

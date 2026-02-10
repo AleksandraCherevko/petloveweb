@@ -1,21 +1,26 @@
+"use client";
+
+import clsx from "clsx";
 import css from "./UserNav.module.css";
-import { useAuthStore } from "@/app/lib/store/auth";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
+import UserBar from "../UserBar/UserBar";
 
 interface UserNavProps {
-  className?: string;
-  onClose?: () => void;
   isHome?: boolean;
+  onClose?: () => void;
 }
 
-export default function UserNav({}: UserNavProps) {
-  const { isAuthenticated } = useAuthStore();
-  if (!isAuthenticated) return null;
+export default function UserNav({ isHome, onClose }: UserNavProps) {
   return (
-    <ul className={css.userNavList}>
-      <li>
-        <p>UserBar</p>
-        <button>LogOutBtn</button>
-      </li>
-    </ul>
+    <nav className={clsx(css.authNavContainer, isHome && css.authNavHome)}>
+      <ul className={css.userNavList}>
+        <li className={css.userBar}>
+          <UserBar onClick={onClose} />
+        </li>
+        <li>
+          <LogOutBtn />
+        </li>
+      </ul>
+    </nav>
   );
 }
