@@ -7,17 +7,17 @@ import UserBar from "../UserBar/UserBar";
 
 interface UserNavProps {
   isHome?: boolean;
+  onClose?: () => void;
 }
 
-export default function UserNav({ isHome }: UserNavProps) {
+export default function UserNav({ isHome, onClose }: UserNavProps) {
   return (
     <nav className={clsx(css.authNavContainer, isHome && css.authNavHome)}>
       <ul className={css.userNavList}>
         <li className={css.userBar}>
-          <UserBar />
+          <UserBar onClick={onClose} />
         </li>
         <li>
-          {/* Кнопка LogOut */}
           <LogOutBtn />
         </li>
       </ul>

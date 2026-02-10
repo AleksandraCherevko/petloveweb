@@ -6,12 +6,16 @@ import Image from "next/image";
 import { useAuthStore } from "@/app/lib/store/auth";
 import css from "./UserBar.module.css";
 
-export default function UserBar() {
+interface UserBarProps {
+  onClick?: () => void;
+}
+
+export default function UserBar({ onClick }: UserBarProps) {
   const user = useAuthStore((s) => s.user);
 
   if (!user) return null;
   return (
-    <Link href="/profile" className={css.userLink}>
+    <Link href="/profile" onClick={onClick} className={css.userLink}>
       <span className={css.userName}>{user.name || user.email}</span>
       <Image
         src={user.avatar || "/images/avatar.jpg"} // fallback аватар

@@ -9,10 +9,11 @@ interface LogOutBtnProps {
 }
 
 export default function LogOutBtn({ onLogoutAction }: LogOutBtnProps) {
+  const router = useRouter();
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
   );
-  const router = useRouter();
+
 
   const handleLogout = async () => {
     try {

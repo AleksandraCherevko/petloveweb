@@ -55,14 +55,14 @@ const LoginForm = () => {
         toast.error(user.error || "Invalid email or password");
         return;
       }
-      setUser(user); // автоматична авторизація через Zustand
+      setUser(user); 
       toast.success(`Welcome, ${user.name ?? user.email}!`);
       router.push("/profile");
     } catch {
       toast.error("Server error, please try again");
     }
   };
-  // const onSubmit = async (data: LoginFormValues) => {
+ 
   //   try {
   //     const user = await login(data); // відправка на backend
   //     if (!user.token) {
@@ -171,7 +171,7 @@ const LoginForm = () => {
         disabled={isSubmitting}
         className={css.loginFormBtn}
       >
-        {isSubmitting ? "Logging in..." : "Log In"}
+        {isSubmitting ? "Loging in..." : "Log In"}
       </button>
     </form>
   );
