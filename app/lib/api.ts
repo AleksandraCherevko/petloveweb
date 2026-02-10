@@ -213,18 +213,17 @@ export const login = async (data: LoginRequest) => {
   return res.data;
 };
 
+// GET AUTH USER
 
-// GET AUTH USER 
-
-
-export const getUser = async () => {
-  const { data } = await nextServer.get<User>('/users/current/full');
+export const getUser = async (): Promise<User> => {
+  const { data } = await api.get<User>("/users/current/full");
   return data;
 };
 
 // LOGOUT
 
-
 export const logout = async (): Promise<void> => {
-  await nextServer.post('/users/signout')
+  const res = await fetch("/api/auth/logout", { method: "POST" });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Logout failed");
 };
