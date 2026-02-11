@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useAuthStore } from "@/app/lib/store/auth";
 import css from "./UserBarIcon.module.css";
 import clsx from "clsx";
@@ -15,12 +14,8 @@ export default function UserBarIcon({ className }: UserBarIconProps) {
   if (!user) return null;
 
   return (
-    <Image
-      src={user.avatar || "/images/avatar.jpg"}
-      alt="User avatar"
-      width={20}
-      height={20}
-      className={clsx(css.userBarImg, className)}
-    />
+    <svg className={clsx(css.userBarImg, className)} width="20" height="20">
+      <use href="/symbol-defs.svg#icon-user" />
+    </svg>
   );
 }

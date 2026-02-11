@@ -2,9 +2,11 @@
 
 import { useEffect } from "react";
 import css from "./ModalApproveAction.module.css";
+import Image from "next/image";
 
 interface ModalApproveActionProps {
   title: string;
+
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void;
@@ -15,6 +17,7 @@ export default function ModalApproveAction({
   title,
   confirmText = "Yes",
   cancelText = "Cancel",
+
   onConfirm,
   onCancel,
 }: ModalApproveActionProps) {
@@ -31,18 +34,30 @@ export default function ModalApproveAction({
     <div className={css.backdrop} onClick={onCancel}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
         <button className={css.closeBtn} onClick={onCancel}>
-          ✕
+          <svg className={css.logoIcon} width="24" height="24">
+            <use href="/symbol-defs.svg#icon-cross-black"></use>
+          </svg>
         </button>
 
-        <p className={css.title}>{title}</p>
+        <div className={css.modalContent}>
+          <div className={css.emojiWrapp}>
+            <Image
+              src="/images/modal/cat.png"
+              width={44}
+              height={44}
+              alt="cat emoji"
+            />
+          </div>
+          <p className={css.title}>{title}</p>
 
-        <div className={css.actions}>
-          <button className={css.cancelBtn} onClick={onCancel}>
-            {cancelText}
-          </button>
-          <button className={css.confirmBtn} onClick={onConfirm}>
-            {confirmText}
-          </button>
+          <div className={css.actions}>
+            <button className={css.confirmBtn} onClick={onConfirm}>
+              {confirmText}
+            </button>
+            <button className={css.cancelBtn} onClick={onCancel}>
+              {cancelText}
+            </button>
+          </div>
         </div>
       </div>
     </div>
