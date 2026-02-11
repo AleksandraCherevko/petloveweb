@@ -6,6 +6,22 @@
 .navListItemHome {
   border: 1px solid #ffffff66;
 }
+
+.navListItem.navListItemMob {
+  border: 1px solid #ffffff80;
+}
+.navListItem.navListItemMob:hover {
+  border: 1px solid #fff4df;
+}
+
+.navListItem.navListItemMob.active {
+  border: 1px solid #fff4df;
+}
+
+.navListItemMobLink {
+  color: var(--white-color);
+}
+
 .navListItem.navListItemHome:hover {
   border: 1px solid white;
 }

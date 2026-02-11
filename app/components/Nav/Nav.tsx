@@ -2,6 +2,10 @@ import css from "./Nav.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useAuthStore } from "@/app/lib/store/auth";
+
+
+
 export default function Nav({ isHome }: { isHome?: boolean }) {
   const pathname = usePathname();
   const navItems = [
@@ -9,6 +13,9 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
     { href: "/notices", label: "Find pet" },
     { href: "/friends", label: "Our friends" },
   ];
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <>
       <div className={css.navListContainer}>
@@ -20,11 +27,16 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
                 css.navListItem,
                 isHome && css.navListItemHome,
                 pathname === item.href && css.active,
+                isAuthenticated && css.navListItemMob,
               )}
             >
               <Link
                 href={item.href}
-                className={clsx(css.navListIink, isHome && css.navListLinkHome)}
+                className={clsx(
+                  css.navListIink,
+                  isHome && css.navListLinkHome,
+                  isAuthenticated && css.navListItemMobLink,
+                )}
               >
                 {item.label}
               </Link>

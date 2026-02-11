@@ -13,6 +13,7 @@
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 .isOpen {
@@ -26,8 +27,6 @@
 .overlay.isOpen .mobileMenu {
   transform: translateX(0);
 }
-
-
 
 .backdrop {
   position: fixed;
@@ -69,6 +68,12 @@
 
 .mobMenuBottom {
   margin-top: 280px;
+}
+
+/* AUTH USER */
+
+.profileMenu {
+  background-color: var(--accent-color);
 }
 
 @media (min-width: 768px) {
