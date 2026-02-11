@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import UserNav from "../UserNav/UserNav";
 import { useAuthStore } from "@/app/lib/store/auth";
-
+import UserBarIcon from "../UserBarIcon/UserBarIcon";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -60,29 +60,40 @@ export default function Header() {
                 <AuthNav isHome={isHome} />
               )}
             </div>
-            <div className={css.mobileMenu}>
-              <button
-                className={clsx(
-                  css.mobMenuOpenBtn,
-                  isHome && css.mobMenuOpenBtnHome,
-                )}
-                type="submit"
-                onClick={() => setMenuOpen(true)}
-              >
-                <svg
-                  className={clsx(css.burgerIcon, isHome && css.burgerIconHome)}
-                  width="32"
-                  height="32"
+            <div className={css.headerMobMenuUserBar}>
+              {isAuthenticated && (
+                <div className={css.headerMobMenuUserBarPhoto}>
+             
+                  <UserBarIcon />
+                </div>
+              )}
+              <div className={css.mobileMenu}>
+                <button
+                  className={clsx(
+                    css.mobMenuOpenBtn,
+                    isHome && css.mobMenuOpenBtnHome,
+                  )}
+                  type="submit"
+                  onClick={() => setMenuOpen(true)}
                 >
-                  <use
-                    href={
-                      isHome
-                        ? "/symbol-defs.svg#icon-burger-btn-home"
-                        : "/symbol-defs.svg#icon-burger-btn"
-                    }
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className={clsx(
+                      css.burgerIcon,
+                      isHome && css.burgerIconHome,
+                    )}
+                    width="32"
+                    height="32"
+                  >
+                    <use
+                      href={
+                        isHome
+                          ? "/symbol-defs.svg#icon-burger-btn-home"
+                          : "/symbol-defs.svg#icon-burger-btn"
+                      }
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
           {menuOpen && (
