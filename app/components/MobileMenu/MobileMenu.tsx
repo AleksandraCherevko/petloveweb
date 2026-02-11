@@ -6,23 +6,38 @@ import AuthNav from "../AuthNav/AuthNav";
 import UserNav from "../UserNav/UserNav";
 import { useAuthStore } from "@/app/lib/store/auth";
 
+import clsx from "clsx";
+
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  const { isAuthenticated } = useAuthStore();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <>
       <div
         className={`${css.backdrop} ${isOpen ? css.show : ""}`}
         onClick={onClose}
       />
-      <div className={`${css.mobileMenu} ${isOpen ? css.isOpen : ""}`}>
+      <div
+        className={clsx(
+          css.mobileMenu,
+          isOpen && css.isOpen,
+          isAuthenticated && css.profileMenu,
+        )}
+      >
         <button onClick={onClose} className={css.mobileMenuNavigationBtn}>
           <svg className={css.mobileMenuCloseBtnIcon} width="24" height="24">
-            <use href="/symbol-defs.svg#icon-cross-black" />
+            <use
+              href={
+                isAuthenticated
+                  ? "/symbol-defs.svg#icon-cross-white" // 👈 иконка для залогиненного
+                  : "/symbol-defs.svg#icon-cross-black" // 👈 обычная
+              }
+            />
           </svg>
         </button>
         <div className={css.mobMenuAuthNavContainer}>

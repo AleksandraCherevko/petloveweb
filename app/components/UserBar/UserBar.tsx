@@ -18,7 +18,7 @@ export default function UserBar({ onClick }: UserBarProps) {
     <Link href="/profile" onClick={onClick} className={css.userLink}>
       <span className={css.userName}>{user.name || user.email}</span>
       <Image
-        src={user.avatar || "/images/avatar.jpg"} // fallback аватар
+        src={user.avatar || "/images/avatar.jpg"} 
         alt="User avatar"
         className={css.userAvatar}
         width={20}

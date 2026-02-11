@@ -21,14 +21,14 @@ export default function LogOutBtn() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  // Берём метод для очистки состояния auth
+ 
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
   );
 
   const handleLogout = async () => {
     try {
-      await logout(); // Запрос на backend
+      await logout(); 
       toast.success("Logged out successfully");
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -37,7 +37,7 @@ export default function LogOutBtn() {
         toast.error("Something went wrong!");
       }
     } finally {
-      // Очистка состояния и переход на главную
+    
       clearIsAuthenticated();
       localStorage.clear();
       router.push("/");
