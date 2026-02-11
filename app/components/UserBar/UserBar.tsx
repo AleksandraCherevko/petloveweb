@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+
 import { useAuthStore } from "@/app/lib/store/auth";
 import css from "./UserBar.module.css";
 
@@ -17,13 +17,9 @@ export default function UserBar({ onClick }: UserBarProps) {
   return (
     <Link href="/profile" onClick={onClick} className={css.userLink}>
       <div className={css.userAvatarIcon}>
-        <Image
-          src={user.avatar || "/images/avatar.jpg"}
-          alt="User avatar"
-          className={css.userAvatar}
-          width={20}
-          height={20}
-        />
+        <svg className={css.userIcon} width="20" height="20">
+          <use href="/symbol-defs.svg#icon-user" />
+        </svg>
       </div>
       <span className={css.userName}>{user.name || user.email}</span>
     </Link>

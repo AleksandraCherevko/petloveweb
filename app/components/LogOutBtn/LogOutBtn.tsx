@@ -7,7 +7,6 @@ import { useAuthStore } from "@/app/lib/store/auth";
 import ModalApproveAction from "../ModalApproveAction/ModalApproveAction";
 import css from "./LogOutBtn.module.css";
 
-// Функция logout — делает запрос на backend
 const logout = async () => {
   const res = await fetch("/api/auth/logout", { method: "POST" });
   if (!res.ok) {
@@ -21,14 +20,13 @@ export default function LogOutBtn() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
- 
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
   );
 
   const handleLogout = async () => {
     try {
-      await logout(); 
+      await logout();
       toast.success("Logged out successfully");
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -37,7 +35,6 @@ export default function LogOutBtn() {
         toast.error("Something went wrong!");
       }
     } finally {
-    
       clearIsAuthenticated();
       localStorage.clear();
       router.push("/");
@@ -52,7 +49,7 @@ export default function LogOutBtn() {
 
       {isOpen && (
         <ModalApproveAction
-          title="Are you sure you want to log out?"
+          title="Already leaving?"
           confirmText="Yes"
           cancelText="Cancel"
           onConfirm={handleLogout}

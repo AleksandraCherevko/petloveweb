@@ -1,0 +1,116 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: #2626264d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  background: var(--white-color);
+  width: 100%;
+  max-width: 335px;
+
+  padding: 40px 25px 40px 25px;
+  border-radius: 30px;
+
+  animation: fadeIn 0.2s ease-out;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  transition: 0.2s;
+}
+
+.logoIcon {
+  stroke: black;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emoji {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojiWrapp {
+  display: flex;
+  background-color: #fff4df;
+  border-radius: 50px;
+  padding: 18px;
+  width: 80px;
+}
+
+.title {
+  margin-top: 20px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--title-color);
+}
+
+.actions {
+  margin-top: 48px;
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+}
+
+.cancelBtn {
+  color: var(--title-color);
+  background-color: #2626260d;
+  border: none;
+  border-radius: 30px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  padding: 12px 44px;
+}
+
+.confirmBtn {
+  color: var(--white-color);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 47px;
+
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  background-color: var(--accent-color);
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
