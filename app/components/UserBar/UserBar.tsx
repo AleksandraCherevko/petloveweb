@@ -16,14 +16,16 @@ export default function UserBar({ onClick }: UserBarProps) {
   if (!user) return null;
   return (
     <Link href="/profile" onClick={onClick} className={css.userLink}>
+      <div className={css.userAvatarIcon}>
+        <Image
+          src={user.avatar || "/images/avatar.jpg"}
+          alt="User avatar"
+          className={css.userAvatar}
+          width={20}
+          height={20}
+        />
+      </div>
       <span className={css.userName}>{user.name || user.email}</span>
-      <Image
-        src={user.avatar || "/images/avatar.jpg"} 
-        alt="User avatar"
-        className={css.userAvatar}
-        width={20}
-        height={20}
-      />
     </Link>
   );
 }

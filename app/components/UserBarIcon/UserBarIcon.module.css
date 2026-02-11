@@ -1,5 +1,11 @@
 .userBarImg {
   border-radius: 50%;
- 
+
   background-color: #fff4df;
+}
+
+@media (min-width: 768px) {
+  .userBarImg {
+    display: none;
+  }
 }

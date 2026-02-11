@@ -30,3 +30,16 @@
 .userName {
   font-weight: 500;
 }
+
+@media (min-width: 768px) {
+  .userNavList {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .userBar {
+    display: flex;
+    align-items: center;
+  }
+}
