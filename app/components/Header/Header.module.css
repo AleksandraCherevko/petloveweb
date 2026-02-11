@@ -43,6 +43,19 @@
   stroke: #ffffff;
 }
 
+.headerMobMenuUserBar {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.headerMobMenuUserBarPhoto {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  background-color: #fff4df;
+  border: none;
+}
 @media (min-width: 768px) {
   .authWrapper {
     display: flex;
