@@ -70,7 +70,7 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
       toast.success("User updated successfully");
       onSuccess(); // обновляем UserCard
       onClose(); // закрываем модалку
-    } catch (error) {
+    } catch {
       toast.error("Server error, please try again");
       setIsSubmitting(false);
     }

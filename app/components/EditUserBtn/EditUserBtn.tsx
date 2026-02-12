@@ -4,27 +4,22 @@ import { useState } from "react";
 import { ModalEditUser } from "../ModalEditUser/ModalEditUser";
 
 interface EditUserBtnProps {
-  onSuccess: () => void; // функция для обновления UserCard после редактирования
+  onSuccess: () => void;
 }
 
 export function EditUserBtn({ onSuccess }: EditUserBtnProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  function handleOpen() {
-    setIsOpen(true);
-  }
-
-  function handleClose() {
-    setIsOpen(false);
-  }
-
   return (
     <>
-      <button onClick={handleOpen}>Edit Profile</button>
+      <button onClick={() => setIsOpen(true)}>Edit User</button>
       {isOpen && (
         <ModalEditUser
-          onClose={handleClose}
-          onSuccess={onSuccess} // передаем callback
+          onClose={() => setIsOpen(false)}
+          onSuccess={() => {
+            onSuccess();
+            setIsOpen(false);
+          }}
         />
       )}
     </>

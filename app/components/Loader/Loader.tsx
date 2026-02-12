@@ -14,7 +14,7 @@ const Loader: React.FC<LoaderProps> = ({ progress }) => {
         <CircularProgressbar
           value={progress}
           text={`${progress}%`}
-          strokeWidth={0.50}
+          strokeWidth={0.5}
           styles={buildStyles({
             pathColor: "#80808050",
             trailColor: "#FFFFFF00",
