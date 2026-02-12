@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { EditUserBtn } from "../EditUserBtn/EditUserBtn";
-import { ModalEditUser } from "../ModalEditUser/ModalEditUser";
 
-// Тип пользователя
+import Loader from "../Loader/Loader";
+import UserBlock from "../UserBlock/UserBlock";
+
 export type User = {
   _id: string;
   name?: string;
@@ -16,54 +16,58 @@ export type User = {
 
 export default function UserCard() {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Загружаем данные пользователя при монтировании
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/users/current");
-        if (!res.ok) throw new Error("Failed to fetch user");
-        const data = await res.json();
-        setUser(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchUser();
-  }, []);
-
-  // Функция для обновления данных после редактирования
-  async function handleUpdateUser() {
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     try {
+  //       const res = await fetch("/api/users/current");
+  //       if (!res.ok) throw new Error("Failed to fetch user");
+  //       const data = await res.json();
+  //       setUser(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
+  //   fetchUser();
+  // }, []);
+  const fetchUser = async () => {
     try {
       const res = await fetch("/api/users/current/full");
       if (!res.ok) throw new Error("Failed to fetch user");
-      const data = await res.json();
+      const data: User = await res.json();
       setUser(data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  if (!user) return <p>Loading user...</p>;
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  if (loading) return <Loader progress={0} />;
+  if (!user) return <p>Failed to load user</p>;
+
+
+  if (!user) return <Loader progress={0} />;
 
   return (
-    <div>
+ <div>
       <h1>UserCard</h1>
 
+      {/* Аватар или кнопка редактирования */}
+    
+
       {/* Блок информации о пользователе */}
-      <div>
-        <img src={user.avatar} alt="avatar" width={80} />
-        <p>Name: {user.name}</p>
-        <p>Email: {user.email}</p>
-        <p>Phone: {user.phone}</p>
-      </div>
+      <UserBlock user={user} onUpdate={fetchUser} />
 
-      {/* Кнопка редактирования */}
-      <EditUserBtn onSuccess={handleUpdateUser} />
-
-      {/* Здесь можно вставить PetsBlock и LogOutBtn */}
+      {/* Блок питомцев */}
       <div>PetsBlock</div>
-      <div>LogOutBtn</div>
+
+     
     </div>
   );
 }
