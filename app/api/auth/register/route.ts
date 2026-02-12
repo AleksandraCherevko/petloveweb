@@ -6,7 +6,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Проксируем запрос к внешнему API
     const apiRes = await axios.post(
       "https://petlove.b.goit.study/api/users/signup",
       body,
@@ -27,6 +26,14 @@ export async function POST(req: NextRequest) {
     return res;
   } catch (error: unknown) {
     const err = error as ApiError;
+
+    if (err.response?.status === 409) {
+      return NextResponse.json(
+        { error: "Email is already registered" },
+        { status: 409 },
+      );
+    }
+
     return NextResponse.json(
       {
         error:

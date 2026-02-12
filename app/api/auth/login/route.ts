@@ -1,41 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { api, ApiError } from "@/app/lib/api";
-import { parse } from "cookie";
-import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-
   try {
+    const body = await req.json();
     const apiRes = await api.post("users/signin", body);
 
-    const cookieStore = await cookies();
+    const { token } = apiRes.data;
 
-    const setCookie = apiRes.headers["set-cookie"];
+    const response = NextResponse.json(apiRes.data);
 
-    if (setCookie) {
-      const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+    response.cookies.set("accessToken", token, {
+      httpOnly: true,
+      secure: false, // для localhost
+      sameSite: "lax",
+      path: "/",
+    });
 
-      for (const cookieStr of cookieArray) {
-        const parsed = parse(cookieStr);
-
-        const options = {
-          path: parsed.Path ?? "/",
-          maxAge: parsed["Max-Age"] ? Number(parsed["Max-Age"]) : undefined,
-          expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
-        };
-
-        if (parsed.accessToken) {
-          cookieStore.set("accessToken", parsed.accessToken, options);
-        }
-
-        if (parsed.refreshToken) {
-          cookieStore.set("refreshToken", parsed.refreshToken, options);
-        }
-      }
-    }
-
-    return NextResponse.json(apiRes.data);
+    return response;
   } catch (error) {
     return NextResponse.json(
       {
@@ -44,7 +26,7 @@ export async function POST(req: NextRequest) {
           (error as ApiError).message ??
           "Login failed",
       },
-      { status: (error as ApiError).status ?? 500 },
+      { status: (error as ApiError).status ?? 500 }
     );
   }
 }
