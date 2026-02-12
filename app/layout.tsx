@@ -30,7 +30,9 @@ export default function RootLayout({
       <body className={`${manrope.variable} antialiased`}>
         <AuthProvider>
           <Header />
-          <Suspense fallback={null}>{children}</Suspense>
+          <Suspense fallback={null}>
+            {children} <div id="modal-root" />
+          </Suspense>
           <Toaster position="top-right" />
         </AuthProvider>
       </body>
