@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
 import css from "./ModalApproveAction.module.css";
 import Image from "next/image";
+import { createPortal } from "react-dom";
+import { useEffect } from "react";
 
 interface ModalApproveActionProps {
   title: string;
-
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void;
@@ -30,7 +30,16 @@ export default function ModalApproveAction({
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onCancel]);
 
-  return (
+
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  return createPortal(
     <div className={css.backdrop} onClick={onCancel}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
         <button className={css.closeBtn} onClick={onCancel}>
@@ -60,6 +69,7 @@ export default function ModalApproveAction({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
