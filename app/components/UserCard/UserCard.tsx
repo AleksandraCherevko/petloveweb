@@ -1,38 +1,69 @@
-// "use client";
-// import css from "./UserCard.module.css";
-// import { useAuthStore } from "@/app/lib/store/auth";
-// import { useRouter } from "next/navigation";
-// import { logout } from "@/app/lib/api";
+"use client";
 
+import { useState, useEffect } from "react";
+import { EditUserBtn } from "../EditUserBtn/EditUserBtn";
+import { ModalEditUser } from "../ModalEditUser/ModalEditUser";
 
-// interface UserCardProps {
-//   className?: string;
-//   onClose?: () => void;
-//   isHome?: boolean;
-// }
+// Тип пользователя
+export type User = {
+  _id: string;
+  name?: string;
+  email?: string;
+  avatar?: string;
+  phone?: string;
+  token?: string;
+};
 
-// export default function UserCard({}: UserCardProps) {
-//   const router = useRouter();
+export default function UserCard() {
+  const [user, setUser] = useState<User | null>(null);
 
-//   const clearIsAuthenticated = useAuthStore(
-//     (state) => state.clearIsAuthenticated,
-//   );
-//   // if (!isAuthenticated) return null;
+  // Загружаем данные пользователя при монтировании
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/users/current");
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchUser();
+  }, []);
 
-//   const handleLogout = async () => {
-//     // Викликаємо logout
-//     await logout();
-//     // Чистимо глобальний стан
-//     clearIsAuthenticated();
-//     // Виконуємо навігацію на сторінку авторизації
-//     router.push("/login");
-//   };
-//   return (
-//     <ul className={css.userNavList}>
-//       <li>
-      
-//         <button onClick={handleLogout}>Logout</button>
-//       </li>
-//     </ul>
-//   );
-// }
+  // Функция для обновления данных после редактирования
+  async function handleUpdateUser() {
+    try {
+      const res = await fetch("/api/users/current/full");
+      if (!res.ok) throw new Error("Failed to fetch user");
+      const data = await res.json();
+      setUser(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  if (!user) return <p>Loading user...</p>;
+
+  return (
+    <div>
+      <h1>UserCard</h1>
+
+      {/* Блок информации о пользователе */}
+      <div>
+        <img src={user.avatar} alt="avatar" width={80} />
+        <p>Name: {user.name}</p>
+        <p>Email: {user.email}</p>
+        <p>Phone: {user.phone}</p>
+      </div>
+
+      {/* Кнопка редактирования */}
+      <EditUserBtn onSuccess={handleUpdateUser} />
+
+      {/* Здесь можно вставить PetsBlock и LogOutBtn */}
+      <div>PetsBlock</div>
+      <div>LogOutBtn</div>
+    </div>
+  );
+}

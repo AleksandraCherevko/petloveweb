@@ -63,8 +63,9 @@ export default function Header() {
             <div className={css.headerMobMenuUserBar}>
               {isAuthenticated && (
                 <div className={css.headerMobMenuUserBarPhoto}>
-             
-                  <UserBarIcon />
+                  <Link href="/profile">
+                    <UserBarIcon />
+                  </Link>
                 </div>
               )}
               <div className={css.mobileMenu}>
