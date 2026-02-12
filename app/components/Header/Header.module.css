@@ -55,9 +55,11 @@
   justify-content: center;
   background-color: #fff4df;
   border: none;
+  border-radius: 50%;
 }
 @media (min-width: 768px) {
-  .headerMobMenuUserBarPhoto {display: none;
+  .headerMobMenuUserBarPhoto {
+    display: none;
   }
   .authWrapper {
     display: flex;
