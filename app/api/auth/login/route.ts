@@ -4,18 +4,15 @@ const BASE_URL = "https://petlove.b.goit.study/api";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { email, password } = await req.json();
 
     const res = await fetch(`${BASE_URL}/users/signin`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
-
     console.log("LOGIN RESPONSE:", data);
 
     if (!res.ok) {
@@ -36,7 +33,7 @@ export async function POST(req: Request) {
 
     response.cookies.set("accessToken", data.token, {
       httpOnly: true,
-      secure: false, // важно для localhost
+      secure: false, // обязательно для localhost
       sameSite: "lax",
       path: "/",
     });
