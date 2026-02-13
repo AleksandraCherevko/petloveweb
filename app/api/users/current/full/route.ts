@@ -1,3 +1,4 @@
+// app/api/users/current/full/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
@@ -23,13 +24,14 @@ export async function GET() {
 
     if (!res.ok) {
       return NextResponse.json(
-        { message: data.message || "Failed to fetch full user" },
+        { message: data.message || "Failed" },
         { status: res.status },
       );
     }
 
     return NextResponse.json(data);
-  } catch {
+  } catch (err) {
+    console.error(err);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
