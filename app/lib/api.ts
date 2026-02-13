@@ -184,7 +184,7 @@ export type Pet = {
 
 export type User = {
   _id: string;
-  email: string;
+  email?: string;
   name?: string;
   avatar?: string;
   phone?: string;

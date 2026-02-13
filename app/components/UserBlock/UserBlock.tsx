@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { User } from "../AuthProvider/AuthProvider";
+import { User } from "@/app/lib/api";
 
 import Link from "next/link";
 
