@@ -1,10 +1,8 @@
-import { getPets } from "@/app/lib/api";
-
-const addPetsPage = async () => {
-  const pets = await getPets();
-  console.log("pets", pets);
-
-  return <div>getPets</div>;
-};
-
-export default addPetsPage;
+export default function AddPetPage() {
+  return (
+    <div>
+      <h1>Add Pet Page</h1>
+      {/* тут твоя форма */}
+    </div>
+  );
+}
