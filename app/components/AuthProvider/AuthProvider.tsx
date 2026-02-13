@@ -1,35 +1,59 @@
-// components/AuthProvider/AuthProvider.tsx
-
 "use client";
 
-import { getUser } from "@/app/lib/api";
-import { useAuthStore } from "@/app/lib/store/auth";
-import { useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-type Props = {
-  children: React.ReactNode;
-};
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
-const AuthProvider = ({ children }: Props) => {
-  const setUser = useAuthStore((state) => state.setUser);
-  const clearIsAuthenticated = useAuthStore(
-    (state) => state.clearIsAuthenticated,
-  );
+interface AuthContextType {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  isLoading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const user = await getUser();
-        setUser(user);
+        const res = await fetch("/api/auth/me");
+
+        if (!res.ok) {
+          setUser(null);
+          return;
+        }
+
+        const data: User = await res.json();
+        setUser(data);
       } catch {
-        clearIsAuthenticated();
+        setUser(null);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchUser();
-  }, [setUser, clearIsAuthenticated]);
+  }, []);
 
-  return children;
+  return (
+    <AuthContext.Provider value={{ user, setUser, isLoading }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthProvider;
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
+  return context;
+};

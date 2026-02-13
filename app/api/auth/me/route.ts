@@ -1,25 +1,35 @@
-import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
-export async function GET(req: NextRequest) {
+const BASE_URL = "https://petlove.b.goit.study/api";
+
+export async function GET() {
   try {
-    const token = req.cookies.get("accessToken")?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get("accessToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const apiRes = await axios.get(
-      "https://petlove.b.goit.study/api/users/current",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await fetch(`${BASE_URL}/users/current/full`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+      cache: "no-store",
+    });
 
-    return NextResponse.json(apiRes.data);
+    const data = await res.json();
+
+    if (!res.ok) {
+      return NextResponse.json(
+        { message: data.message || "Failed to fetch user" },
+        { status: res.status },
+      );
+    }
+
+    return NextResponse.json(data);
   } catch {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
