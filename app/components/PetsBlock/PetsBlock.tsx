@@ -3,6 +3,7 @@
 // import { useEffect, useState } from "react";
 import { Pet } from "../AuthProvider/AuthProvider";
 import PetsList from "../PetsList/PetsList";
+import AddPet from "../AddPet/AddPet";
 // import Loader from "../Loader/Loader";
 
 // const PetsBlock = () => {
@@ -47,5 +48,10 @@ export const PetsBlock = ({ pets }: Props) => {
         }
       </p>
     );
-  return <PetsList pets={pets} />;
+  return (
+    <>
+      <PetsList pets={pets} />
+      <AddPet />
+    </>
+  );
 };

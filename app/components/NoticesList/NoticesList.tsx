@@ -10,7 +10,7 @@ const NoticeList = ({ notices }: Props) => {
   return (
     <ul className={css.noticeList}>
       {notices.map((notice) => (
-        <NoticesItem key={notice._id} item={notice} />
+        <NoticesItem key={notice._id} notice={notice} />
       ))}
     </ul>
   );
