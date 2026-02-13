@@ -184,7 +184,7 @@ export type Pet = {
 
 export type User = {
   _id: string;
-  email: string;
+  email?: string;
   name?: string;
   avatar?: string;
   phone?: string;
@@ -226,4 +226,16 @@ export const logout = async (): Promise<void> => {
   const res = await fetch("/api/auth/logout", { method: "POST" });
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || "Logout failed");
+};
+
+// PETS
+
+export type PetListResponse = {
+  pets: Pet[];
+  total: number;
+};
+
+export const getPets = async () => {
+  const res = await axios.get<PetListResponse>("/profile");
+  return res.data;
 };

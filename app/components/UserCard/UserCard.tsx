@@ -1,63 +1,50 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
+// import { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
 import UserBlock from "../UserBlock/UserBlock";
 import { EditUserBtn } from "../EditUserBtn/EditUserBtn";
-
-export type User = {
-  _id: string;
-  name?: string;
-  email?: string;
-  avatar?: string;
-  phone?: string;
-};
+import { PetsBlock } from "../PetsBlock/PetsBlock";
+// import { User as UserType, getUser } from "@/app/lib/api";
+import { useAuth } from "../AuthProvider/AuthProvider";
 
 export default function UserCard() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, isLoading, refetchUser } = useAuth();
+  // const [user, setUser] = useState<UserType | null>(null);
+  // const [loading, setLoading] = useState(true);
 
-  const fetchUser = async () => {
-    try {
-      const res = await fetch("/api/auth/me", {
-        credentials: "include", // <-- вот здесь
-      });
-      if (!res.ok) throw new Error("Failed to fetch user");
-      const data: User = await res.json();
-      setUser(data);
-    } catch (err) {
-      console.error(err);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchUser = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const userData = await getUser(); // getUser использует httpOnly cookie
+  //     setUser(userData);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setUser(null);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
 
-  if (loading) return <Loader progress={0} />;
+  if (isLoading) return <Loader progress={0} />;
   if (!user) return <p>Failed to load user</p>;
-
-  if (!user) return <Loader progress={0} />;
 
   return (
     <div>
       <h1>UserCard</h1>
 
-      {/* Аватар или кнопка редактирования */}
-
       {/* Блок информации о пользователе */}
-      <UserBlock user={user} onUpdate={fetchUser} />
-      <EditUserBtn
-        onSuccess={() => {
-          fetchUser();
-        }}
-      />
+      <UserBlock user={user} onUpdate={refetchUser} />
+
+      {/* Кнопка редактирования пользователя */}
+      <EditUserBtn onSuccess={refetchUser} />
+
       {/* Блок питомцев */}
-      <div>PetsBlock</div>
+      <PetsBlock pets={user.pets || []} />
     </div>
   );
 }
