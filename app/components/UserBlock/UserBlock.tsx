@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { User } from "../UserCard/UserCard";
-import { EditUserBtn } from "../EditUserBtn/EditUserBtn";
+import { User } from "../AuthProvider/AuthProvider";
 
 import Link from "next/link";
 
@@ -11,7 +10,7 @@ interface UserBlockProps {
   onUpdate: () => void;
 }
 
-export default function UserBlock({ user, onUpdate }: UserBlockProps) {
+export default function UserBlock({ user }: UserBlockProps) {
   return (
     <div>
       {/* Аватар или UserBarIcon + Upload photo */}
@@ -27,7 +26,7 @@ export default function UserBlock({ user, onUpdate }: UserBlockProps) {
           </Link>
         </div>
       )}
-    
+
       {/* Информация о пользователе */}
       <h3>My information</h3>
       <div>
