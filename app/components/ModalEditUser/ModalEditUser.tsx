@@ -58,6 +58,7 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        credentials: "include",
       });
       const result = await res.json();
 

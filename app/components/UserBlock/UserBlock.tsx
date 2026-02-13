@@ -27,7 +27,7 @@ export default function UserBlock({ user, onUpdate }: UserBlockProps) {
           </Link>
         </div>
       )}
-      <EditUserBtn onSuccess={onUpdate} />
+    
       {/* Информация о пользователе */}
       <h3>My information</h3>
       <div>
