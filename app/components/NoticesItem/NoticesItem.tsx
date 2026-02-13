@@ -8,6 +8,8 @@ import ModalAttention from "../ModalAttention/ModalAttention";
 
 type Props = {
   item: Notice;
+  removable?: boolean; // показать иконку удаления
+  onRemove?: () => void;
 };
 
 const NoticesItem = ({ item }: Props) => {
