@@ -1,32 +1,49 @@
-import { NextRequest, NextResponse } from "next/server";
-import { api, ApiError } from "@/app/lib/api";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+const BASE_URL = "https://petlove.b.goit.study/api";
+
+export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const apiRes = await api.post("users/signin", body);
 
-    const { token } = apiRes.data;
+    const res = await fetch(`${BASE_URL}/users/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
-    const response = NextResponse.json(apiRes.data);
+    const data = await res.json();
 
-    response.cookies.set("accessToken", token, {
+    console.log("LOGIN RESPONSE:", data);
+
+    if (!res.ok) {
+      return NextResponse.json(
+        { message: data.message || "Login failed" },
+        { status: res.status },
+      );
+    }
+
+    if (!data.token) {
+      return NextResponse.json(
+        { message: "No token received" },
+        { status: 500 },
+      );
+    }
+
+    const response = NextResponse.json({ success: true });
+
+    response.cookies.set("accessToken", data.token, {
       httpOnly: true,
-      secure: false, // для localhost
+      secure: false, // важно для localhost
       sameSite: "lax",
       path: "/",
     });
 
     return response;
   } catch (error) {
-    return NextResponse.json(
-      {
-        error:
-          (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          "Login failed",
-      },
-      { status: (error as ApiError).status ?? 500 }
-    );
+    console.error("LOGIN ERROR:", error);
+    return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

@@ -5,7 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useAuthStore } from "@/app/lib/store/auth";
+
 import { LoginFormValues } from "@/app/types/login";
 import css from "./LoginForm.module.css";
 
@@ -25,7 +25,6 @@ export const loginSchema = yup.object({
 
 const LoginForm = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,24 +44,51 @@ const LoginForm = () => {
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
       });
 
-      const user = await res.json();
+      const result = await res.json();
 
       if (!res.ok) {
-        toast.error(user.error || "Invalid email or password");
+        toast.error(result.message || "Invalid credentials");
         return;
       }
-      setUser(user); 
-      toast.success(`Welcome, ${user.name ?? user.email}!`);
+
+      toast.success("Login successful");
       router.push("/profile");
     } catch {
-      toast.error("Server error, please try again");
+      toast.error("Server error");
     }
   };
- 
+
+  // const onSubmit = async (data: LoginFormValues) => {
+  //   try {
+  //     const res = await fetch("/api/auth/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     const user = await res.json();
+
+  //     if (!res.ok) {
+  //       toast.error(user.error || "Invalid email or password");
+  //       return;
+  //     }
+  //     setUser(user);
+  //     toast.success(`Welcome, ${user.name ?? user.email}!`);
+  //     router.push("/profile");
+  //   } catch {
+  //     toast.error("Server error, please try again");
+  //   }
+  // };
+
   //   try {
   //     const user = await login(data); // відправка на backend
   //     if (!user.token) {

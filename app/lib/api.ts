@@ -192,8 +192,8 @@ export type User = {
   noticesViewed?: Notice[];
   noticesFavorites?: Notice[];
   pets?: Pet[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export const register = async (data: RegisterRequest) => {

@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "./components/Header/Header";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
-import AuthProvider from "./components/AuthProvider/AuthProvider";
+import { AuthProvider } from "./components/AuthProvider/AuthProvider";
 
 const manrope = Manrope({
   variable: "--font-manrope",
