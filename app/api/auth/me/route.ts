@@ -22,14 +22,12 @@ export async function GET() {
     const data = await res.json();
 
     if (!res.ok) {
-      return NextResponse.json(
-        { message: data.message || "Failed to fetch user" },
-        { status: res.status },
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     return NextResponse.json(data);
-  } catch {
+  } catch (err) {
+    console.error("ME ERROR:", err);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

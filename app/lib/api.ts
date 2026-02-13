@@ -227,3 +227,15 @@ export const logout = async (): Promise<void> => {
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || "Logout failed");
 };
+
+// PETS
+
+export type PetListResponse = {
+  pets: Pet[];
+  total: number;
+};
+
+export const getPets = async () => {
+  const res = await axios.get<PetListResponse>("/profile");
+  return res.data;
+};

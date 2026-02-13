@@ -50,6 +50,8 @@
 }
 
 .headerMobMenuUserBarPhoto {
+  width: 45px;
+  height: 45px;
   display: flex;
   padding: 10px;
   justify-content: center;
