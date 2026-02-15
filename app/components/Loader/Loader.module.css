@@ -1,0 +1,42 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.loaderWrap {
+  position: relative;
+  width: 292px;
+  height: 292px;
+  display: grid;
+  place-items: center;
+}
+
+.spinner {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #ffffff;
+  border-top-color: #ffffff00;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.progress {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-manrope), sans-serif;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

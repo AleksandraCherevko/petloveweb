@@ -8,7 +8,7 @@ import ModalApproveAction from "../ModalApproveAction/ModalApproveAction";
 import css from "./LogOutBtn.module.css";
 
 const logout = async () => {
-  const res = await fetch("/api/auth/logout", { method: "POST" });
+  const res = await fetch("/api/auth/signout", { method: "POST" });
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
     throw new Error(data?.error || "Failed to logout");
@@ -37,7 +37,7 @@ export default function LogOutBtn() {
     } finally {
       clearIsAuthenticated();
       localStorage.clear();
-      router.push("/");
+      router.push("/home");
     }
   };
 
