@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "./components/Header/Header";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./components/AuthProvider/AuthProvider";
+
 import Loader from "./components/Loader/Loader";
 
 const manrope = Manrope({
@@ -29,12 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} antialiased`}>
-        <AuthProvider>
+    
           <Header />
           <Suspense fallback={<Loader />}>{children}</Suspense>
           <div id="modal-root" />
           <Toaster position="top-right" />
-        </AuthProvider>
+     
       </body>
     </html>
   );

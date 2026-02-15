@@ -5,6 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAuthStore } from "@/app/lib/store/auth";
 
 import { LoginFormValues } from "@/app/types/login";
 import css from "./LoginForm.module.css";
@@ -25,7 +26,7 @@ export const loginSchema = yup.object({
 
 const LoginForm = () => {
   const router = useRouter();
-
+  const setUser = useAuthStore((s) => s.setUser);
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -42,13 +43,12 @@ const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("/api/users/signin", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
-          email: data.email,
+          email: data.email.trim().toLowerCase(),
           password: data.password,
         }),
       });
@@ -56,9 +56,22 @@ const LoginForm = () => {
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.message || "Invalid credentials");
+        toast.error(result?.error || result?.message || "Invalid credentials");
         return;
       }
+
+      const meRes = await fetch("/api/users/current/full", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!meRes.ok) {
+        toast.error("Logged in, but failed to load profile");
+        return;
+      }
+
+      const me = await meRes.json();
+      setUser(me);
 
       toast.success("Login successful");
       router.push("/profile");
@@ -67,43 +80,6 @@ const LoginForm = () => {
     }
   };
 
-  // const onSubmit = async (data: LoginFormValues) => {
-  //   try {
-  //     const res = await fetch("/api/auth/login", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     const user = await res.json();
-
-  //     if (!res.ok) {
-  //       toast.error(user.error || "Invalid email or password");
-  //       return;
-  //     }
-  //     setUser(user);
-  //     toast.success(`Welcome, ${user.name ?? user.email}!`);
-  //     router.push("/profile");
-  //   } catch {
-  //     toast.error("Server error, please try again");
-  //   }
-  // };
-
-  //   try {
-  //     const user = await login(data); // відправка на backend
-  //     if (!user.token) {
-  //       toast.error("Login failed: no token received");
-  //       return;
-  //     }
-
-  //     setUser(user); // автоматична авторизація через Zustand
-  //     toast.success(`Welcome, ${user.name ?? user.email}!`);
-  //     router.push("/profile"); // переадресація на приватну сторінку
-  //   } catch (err: any) {
-  //     // Відображення помилки backend у вигляді notification
-  //     toast.error(err.message || "Invalid email or password");
-  //   }
-  // };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -197,7 +173,7 @@ const LoginForm = () => {
         disabled={isSubmitting}
         className={css.loginFormBtn}
       >
-        {isSubmitting ? "Loging in..." : "Log In"}
+        {isSubmitting ? "Login in..." : "Log In"}
       </button>
     </form>
   );

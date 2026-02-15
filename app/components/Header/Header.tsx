@@ -17,10 +17,24 @@ export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === "/home";
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, isHydrated, hydrateUser } = useAuthStore();
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!isHydrated) {
+      void hydrateUser();
+    }
+  }, [isHydrated, hydrateUser]);
+
+  const authContent = !isHydrated ? null : isAuthenticated ? (
+    <UserNav isHome={isHome} />
+  ) : (
+    <AuthNav isHome={isHome} />
+  );
+
   return (
     <header className={clsx(css.header, isHome && css.headerHome)}>
       <Container>
@@ -53,13 +67,7 @@ export default function Header() {
             </div>
           </div>
           <div className={css.authWrapperMobMenu}>
-            <div className={css.authWrapper}>
-              {isAuthenticated ? (
-                <UserNav isHome={isHome} />
-              ) : (
-                <AuthNav isHome={isHome} />
-              )}
-            </div>
+            <div className={css.authWrapper}>{authContent}</div>
             <div className={css.headerMobMenuUserBar}>
               {isAuthenticated && (
                 <div className={css.headerMobMenuUserBarPhoto}>

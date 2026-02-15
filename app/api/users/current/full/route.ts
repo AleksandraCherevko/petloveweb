@@ -1,19 +1,17 @@
-// app/api/users/current/full/route.ts
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-const BASE_URL = "https://petlove.b.goit.study/api";
+const API_BASE = "https://petlove.b.goit.study/api";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("accessToken")?.value;
+    const token = req.cookies.get("token")?.value;
 
     if (!token) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const res = await fetch(`${BASE_URL}/users/current/full`, {
+    const res = await fetch(`${API_BASE}/users/current/full`, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -23,15 +21,11 @@ export async function GET() {
     const data = await res.json();
 
     if (!res.ok) {
-      return NextResponse.json(
-        { message: data.message || "Failed" },
-        { status: res.status },
-      );
+      return NextResponse.json(data, { status: res.status });
     }
 
     return NextResponse.json(data);
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Proxy error" }, { status: 500 });
   }
 }

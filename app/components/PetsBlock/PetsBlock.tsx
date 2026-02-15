@@ -1,57 +1,81 @@
-"use client";
+// "use client";
 
-// import { useEffect, useState } from "react";
-import { Pet } from "../AuthProvider/AuthProvider";
-import PetsList from "../PetsList/PetsList";
-import AddPet from "../AddPet/AddPet";
-// import Loader from "../Loader/Loader";
+// // import { useEffect, useState } from "react";
+// import { Pet } from "@/app/lib/api";
+// import PetsList from "../PetsList/PetsList";
+// import AddPet from "../AddPet/AddPet";
+// // import Loader from "../Loader/Loader";
 
-// const PetsBlock = () => {
-//   const [pets, setPets] = useState<Pet[]>([]);
-//   const [loading, setLoading] = useState(true);
+// // const PetsBlock = () => {
+// //   const [pets, setPets] = useState<Pet[]>([]);
+// //   const [loading, setLoading] = useState(true);
 
-//   const fetchPets = async () => {
-//     try {
-//       const user = await getUser(); // авторизация через httpOnly cookie
-//       setPets(user.pets || []);
-//     } catch (err) {
-//       console.error(err);
-//       setPets([]);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+// //   const fetchPets = async () => {
+// //     try {
+// //       const user = await getUser(); // авторизация через httpOnly cookie
+// //       setPets(user.pets || []);
+// //     } catch (err) {
+// //       console.error(err);
+// //       setPets([]);
+// //     } finally {
+// //       setLoading(false);
+// //     }
+// //   };
 
-//   useEffect(() => {
-//     fetchPets();
-//   }, []);
+// //   useEffect(() => {
+// //     fetchPets();
+// //   }, []);
 
-//   if (loading) return <Loader progress={0} />;
+// //   if (loading) return <Loader progress={0} />;
 
-//   if (pets.length === 0) return <p>No pets yet</p>;
+// //   if (pets.length === 0) return <p>No pets yet</p>;
 
-//   return <PetsList pets={pets} />;
+// //   return <PetsList pets={pets} />;
+// // };
+
+// // export default PetsBlock;
+// interface Props {
+//   pets: Pet[];
+// }
+
+// export const PetsBlock = ({ pets }: Props) => {
+//   if (!pets.length)
+//     return (
+//       <p>
+//         {"Oops, looks like there aren't any furries on our adorable page yet. "}
+//         {
+//           'Do not worry! View your pets on the "find your favorite pet" page and add them to your favorites.'
+//         }
+//       </p>
+//     );
+//   return (
+//     <>
+//       <PetsList pets={pets} />
+//       <AddPet />
+//     </>
+//   );
 // };
 
-// export default PetsBlock;
+"use client";
+
+import { Pet } from "@/app/lib/api";
+import PetsList from "../PetsList/PetsList";
+import AddPet from "../AddPet/AddPet";
+
 interface Props {
   pets: Pet[];
+  onPetsChanged: () => Promise<void> | void;
 }
 
-export const PetsBlock = ({ pets }: Props) => {
-  if (!pets.length)
-    return (
-      <p>
-        {"Oops, looks like there aren't any furries on our adorable page yet. "}
-        {
-          'Do not worry! View your pets on the "find your favorite pet" page and add them to your favorites.'
-        }
-      </p>
-    );
+export const PetsBlock = ({ pets, onPetsChanged }: Props) => {
   return (
     <>
-      <PetsList pets={pets} />
       <AddPet />
+      {pets.length === 0 ? (
+        <p>Oops, looks like there are no pets yet. Add your first pet.</p>
+      ) : (
+        <PetsList pets={pets} onPetsChanged={onPetsChanged} />
+      )}
     </>
   );
 };

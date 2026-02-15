@@ -11,7 +11,9 @@ function isExactOrNested(pathname: string, route: string) {
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token = req.cookies.get("token")?.value;
+
+  const token =
+    req.cookies.get("token")?.value ?? req.cookies.get("accessToken")?.value;
   const isAuth = Boolean(token);
 
   // Redirect root to /home

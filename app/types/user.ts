@@ -11,6 +11,7 @@ export type Pet = {
   createdAt: string;
   updatedAt: string;
 };
+
 export type User = {
   _id: string;
   email: string;
@@ -21,6 +22,6 @@ export type User = {
   noticesViewed?: Notice[];
   noticesFavorites?: Notice[];
   pets?: Pet[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 };
