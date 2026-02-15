@@ -19,6 +19,15 @@ export default function Notices() {
   const searchParams = useSearchParams();
 
   const query = searchParams.get("query") ?? "";
+  const category = searchParams.get("category") ?? "";
+  const sex = searchParams.get("sex") ?? "";
+  const species = searchParams.get("species") ?? "";
+  const locationId = searchParams.get("locationId") ?? "";
+
+  // const sortBy =
+  //   (searchParams.get("sortBy") as "popularity" | "price" | null) ?? undefined;
+  // const sortOrder =
+  //   (searchParams.get("sortOrder") as "asc" | "desc" | null) ?? undefined;
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const [notices, setNotices] = useState<Notice[]>([]);
@@ -26,10 +35,28 @@ export default function Notices() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  const sortParam = searchParams.get("sort");
+  const sort =
+    sortParam === "popular" ||
+    sortParam === "unpopular" ||
+    sortParam === "cheap" ||
+    sortParam === "expensive"
+      ? sortParam
+      : undefined;
+
   const fetchNotices = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getNoticesClient(currentPage, 6, query);
+      const res = await getNoticesClient({
+        page: currentPage,
+        perPage: 6,
+        query,
+        category,
+        sex,
+        species,
+        locationId,
+        sort,
+      });
       setNotices(res.results);
       setTotalPages(res.totalPages);
     } catch (e) {
@@ -37,7 +64,7 @@ export default function Notices() {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, query]);
+  }, [currentPage, query, category, sex, species, locationId, sort]);
 
   useEffect(() => {
     fetchNotices();

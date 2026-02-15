@@ -8,7 +8,8 @@ export const api = axios.create({
 });
 
 export const nextServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
+  baseURL: "/api",
+  // baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
   withCredentials: true,
 });
 
@@ -110,32 +111,124 @@ export type NoticeResponse = {
   totalPages: number;
 };
 
-export const getNoticesClient = async (
+export type NoticeDetails = Notice & {
+  user?: { phone?: string; email?: string };
+  owner?: { phone?: string; email?: string };
+  phone?: string;
+  email?: string;
+  isFavorite?: boolean;
+};
+
+export type NoticesQuery = {
+  page?: number;
+  perPage?: number;
+  query?: string;
+  category?: string;
+  sex?: string;
+  species?: string;
+  locationId?: string;
+  sort?: "popular" | "unpopular" | "cheap" | "expensive";
+};
+
+export const getNoticesClient = async ({
   page = 1,
   perPage = 6,
   query = "",
-): Promise<NoticeResponse> => {
+  category = "",
+  sex = "",
+  species = "",
+  locationId = "",
+  sort,
+}: NoticesQuery): Promise<NoticeResponse> => {
   const params = new URLSearchParams({
     page: String(page),
     perPage: String(perPage),
   });
 
   if (query) params.set("query", query);
+  if (category) params.set("category", category);
+  if (sex) params.set("sex", sex);
+  if (species) params.set("species", species);
+  if (locationId) params.set("locationId", locationId);
+  if (sort) params.set("sort", sort);
 
-  const res = await fetch(`/api/notices?${params.toString()}`);
+  const res = await fetch(`/api/notices?${params.toString()}`, {
+    credentials: "include",
+  });
 
   if (!res.ok) throw new Error("Failed to fetch notices");
-
   return res.json();
 };
 
+export const getNoticeById = async (id: string): Promise<NoticeDetails> => {
+  const { data } = await nextServer.get<NoticeDetails>(`/notices/${id}`);
+  return data;
+};
+
+export const addNoticeToFavorites = async (id: string): Promise<void> => {
+  await nextServer.post(`/notices/favorites/add/${id}`);
+};
+
+export const removeNoticeFromFavorites = async (id: string): Promise<void> => {
+  await nextServer.delete(`/notices/favorites/remove/${id}`);
+};
+
+export const isUnauthorizedError = (error: unknown) =>
+  axios.isAxiosError(error) && error.response?.status === 401;
+
+// export type NoticeResponse = {
+//   results: Notice[];
+//   page: number;
+//   perPage: number;
+//   totalPages: number;
+// };
+
+// export const getNoticesClient = async (
+//   page = 1,
+//   perPage = 6,
+//   query = "",
+// ): Promise<NoticeResponse> => {
+//   const params = new URLSearchParams({
+//     page: String(page),
+//     perPage: String(perPage),
+//   });
+
+//   if (query) params.set("query", query);
+
+//   const res = await fetch(`/api/notices?${params.toString()}`);
+
+//   if (!res.ok) throw new Error("Failed to fetch notices");
+
+//   return res.json();
+// };
+
 // filter category
 
-export type Category = "found" | "free" | "lost" | "sell";
+// export type Category = "found" | "free" | "lost" | "sell";
 
-export const getCategories = async (): Promise<string[]> => {
-  const res = await api.get<string[]>("/notices/categories");
-  return res.data;
+// export const getCategories = async (): Promise<string[]> => {
+//   const res = await api.get<string[]>("/notices/categories");
+//   return res.data;
+// };
+
+export const getCategoriesClient = async (): Promise<string[]> => {
+  const res = await fetch("/api/notices/categories", {
+    credentials: "include",
+  });
+  if (!res.ok) throw new Error("Failed to fetch categories");
+  return res.json();
+};
+
+export const getSexesClient = async (): Promise<string[]> => {
+  const res = await fetch("/api/notices/sex", { credentials: "include" });
+  if (!res.ok) throw new Error("Failed to fetch sexes");
+  return res.json();
+};
+
+export const getSpeciesClient = async (): Promise<string[]> => {
+  const res = await fetch("/api/notices/species", { credentials: "include" });
+  if (!res.ok) throw new Error("Failed to fetch species");
+  return res.json();
 };
 
 export type City = {
