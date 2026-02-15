@@ -8,6 +8,7 @@ type Props = {
   value: string;
   onChangeAction: (value: string) => void;
   onSubmitAction: () => void;
+  onClearAction?: () => void;
   placeholder?: string;
   className?: string;
 };
@@ -16,6 +17,7 @@ export default function SearchField({
   value,
   onChangeAction,
   onSubmitAction,
+  onClearAction,
   placeholder = "Search",
   className,
 }: Props) {
@@ -25,8 +27,10 @@ export default function SearchField({
   };
 
   const handleClear = () => {
-    onChangeAction("");
+    if (onClearAction) onClearAction();
+    else onChangeAction("");
   };
+  
   return (
     <form className={clsx(css.searchForm, className)} onSubmit={handleSubmit}>
       <div className={css.inputWrapper}>
