@@ -27,7 +27,7 @@ export default function Header() {
         <div className={css.headerContainer}>
           <div className={css.headerLogoWrapper}>
             <div className={css.headerLogo}>
-              <Link href="/">
+              <Link href="/home">
                 <svg
                   className={clsx(css.logoIcon, isHome && css.logoIconHome)}
                   width="76"
@@ -74,7 +74,7 @@ export default function Header() {
                     css.mobMenuOpenBtn,
                     isHome && css.mobMenuOpenBtnHome,
                   )}
-                  type="submit"
+                  type="button"
                   onClick={() => setMenuOpen(true)}
                 >
                   <svg
