@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { User } from "../types/user";
 
 export type ApiError = AxiosError<{ error: string }>;
 
@@ -275,20 +276,6 @@ export type Pet = {
   updatedAt: string;
 };
 
-export type User = {
-  _id: string;
-  email?: string;
-  name?: string;
-  avatar?: string;
-  phone?: string;
-  token?: string;
-  noticesViewed?: Notice[];
-  noticesFavorites?: Notice[];
-  pets?: Pet[];
-  createdAt?: string;
-  updatedAt?: string;
-};
-
 export const register = async (data: RegisterRequest) => {
   const res = await nextServer.post<User>("/users/signup", data);
   return res.data;
@@ -309,18 +296,15 @@ export const login = async (data: LoginRequest) => {
 // GET AUTH USER
 
 export const getUser = async (): Promise<User> => {
-  const { data } = await api.get<User>("/users/current/full");
+  const { data } = await nextServer.get<User>("/users/current/full");
   return data;
 };
 
 // LOGOUT
 
 export const logout = async (): Promise<void> => {
-  const res = await fetch("/api/auth/logout", { method: "POST" });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Logout failed");
+  await nextServer.post("/users/signout");
 };
-
 // PETS
 
 export type PetListResponse = {

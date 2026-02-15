@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { User } from "@/app/lib/api";
+import { User } from "@/app/types/user";
 
 import Link from "next/link";
 

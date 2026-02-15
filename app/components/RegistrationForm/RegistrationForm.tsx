@@ -27,7 +27,7 @@ const schema = yup.object().shape({
     ),
   password: yup
     .string()
-    .required("Please, enter your email")
+    .required("Please, enter your password")
     .min(7, "Password must be at least 7 characters"),
   confirmPassword: yup
     .string()
@@ -74,24 +74,42 @@ const RegistrationForm = () => {
     try {
       const payload = {
         name: data.name,
-        email: data.email,
+        email: data.email.trim().toLowerCase(),
         password: data.password,
       };
 
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
+        credentials: "include",
       });
 
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.error || "Registration failed");
+        if (res.status === 409) {
+          toast.error("User with this email already exists");
+        } else {
+          toast.error(
+            result?.error || result?.message || "Registration failed",
+          );
+        }
+        return;
+      }
+      const meRes = await fetch("/api/users/current/full", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!meRes.ok) {
+        toast.error("Registered, but failed to load profile");
+        router.push("/login");
         return;
       }
 
-      setUser(result);
+      const me = await meRes.json();
+      setUser(me);
       router.push("/profile");
     } catch {
       toast.error("Server error, please try again");
