@@ -205,7 +205,7 @@ export default function AddPetForm() {
       fontSize: 14,
       cursor: "pointer",
       ":active": {
-        backgroundColor: "var(--accent-coloror)",
+        backgroundColor: "var(--accent-color)",
       },
     }),
   };
