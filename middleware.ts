@@ -1,12 +1,32 @@
-// /Users/Heyshurka/Desktop/petloveweb/middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_ROUTES = ["/home", "/news", "/notices", "/friends"];
-const PUBLIC_ONLY_ROUTES = ["/register", "/login"]; // only for guests
-const PRIVATE_ROUTES = ["/profile", "/add-pet"]; // only for authorized users
+const PUBLIC_ONLY_ROUTES = ["/register", "/login"];
+const PRIVATE_ROUTES = ["/profile", "/add-pet"];
 
 function isExactOrNested(pathname: string, route: string) {
   return pathname === route || pathname.startsWith(`${route}/`);
+}
+
+function isTokenExpired(token: string): boolean {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return true;
+
+    const payloadBase64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const padded = payloadBase64.padEnd(
+      payloadBase64.length + ((4 - (payloadBase64.length % 4)) % 4),
+      "=",
+    );
+
+    const payloadJson = atob(padded);
+    const payload = JSON.parse(payloadJson) as { exp?: number };
+
+    if (!payload.exp) return true;
+    return Date.now() >= payload.exp * 1000;
+  } catch {
+    return true;
+  }
 }
 
 export function middleware(req: NextRequest) {
@@ -14,9 +34,9 @@ export function middleware(req: NextRequest) {
 
   const token =
     req.cookies.get("token")?.value ?? req.cookies.get("accessToken")?.value;
-  const isAuth = Boolean(token);
 
-  // Redirect root to /home
+  const isAuth = token ? !isTokenExpired(token) : false;
+
   if (pathname === "/") {
     const url = req.nextUrl.clone();
     url.pathname = "/home";
@@ -29,32 +49,30 @@ export function middleware(req: NextRequest) {
   );
   const isPrivate = PRIVATE_ROUTES.some((r) => isExactOrNested(pathname, r));
 
-  // Guests cannot access private pages
   if (isPrivate && !isAuth) {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
-    return NextResponse.redirect(url);
+    const res = NextResponse.redirect(url);
+    res.cookies.set("token", "", { path: "/", maxAge: 0 });
+    res.cookies.set("accessToken", "", { path: "/", maxAge: 0 });
+    return res;
   }
 
-  // Authorized users should not access /login and /register
   if (isPublicOnly && isAuth) {
     const url = req.nextUrl.clone();
     url.pathname = "/profile";
     return NextResponse.redirect(url);
   }
 
-  // Public pages are always accessible
   if (isPublic || isPrivate || isPublicOnly) {
     return NextResponse.next();
   }
 
-  // Fallback (for any other app routes): allow
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    // Run on app routes, skip api and static assets
     "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
   ],
 };
