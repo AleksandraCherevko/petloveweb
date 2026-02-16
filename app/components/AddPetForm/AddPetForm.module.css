@@ -1,0 +1,248 @@
+.addPetFormContainer {
+  display: flex;
+  padding: 28px 20px 20px 20px;
+  background-color: var(--white-color);
+  border-radius: 30px;
+}
+
+.formTitle {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--title-color);
+  white-space: nowrap;
+}
+
+.formAfterTitle {
+  margin-left: 8px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #2b2b2a66;
+}
+
+.formTitleWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* SEX LABEL - RADIO BTN */
+
+.sexRow {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+}
+
+.sexOption {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sexInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sexIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  justify-content: center;
+  place-items: center;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.sexIconWrapFemale {
+  background-color: #f43f5e1a;
+}
+
+.sexIconWrapMale {
+  background-color: #54adff1a;
+}
+
+.sexIconWrapDuo {
+  background-color: var(--yellow-background-color);
+}
+.sexText {
+  font-size: 12px;
+}
+
+/* IMAGE */
+.imagePreviewIconWrapp {
+  background-color: var(--yellow-background-color);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 68px;
+  height: 68px;
+}
+
+.imagePreview {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.uploadBtn {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--title-color);
+  display: flex;
+}
+
+.uploadBtnWrap {
+  border-radius: 30px;
+  width: 117px;
+  display: flex;
+  padding: 10px;
+  background-color: var(--yellow-background-color);
+}
+
+.uploadPhotoIcon {
+  stroke: #f6b83d;
+  margin-left: 5px;
+}
+
+.imageRow {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.imageRowInput {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--title-color);
+  padding: 10px;
+  border: 1px solid #26262626;
+  border-radius: 30px;
+  outline: none;
+}
+
+.imageRowInput:hover {
+  border: 1px solid var(--accent-color);
+  color: var(--title-color);
+}
+
+/* INPUTS */
+
+.addPetsInputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.addPetsInput {
+  padding: 12px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #26262680;
+  border: 1px solid #26262626;
+  border-radius: 30px;
+  width: 100%;
+  outline: none;
+}
+
+.addPetsInput:hover {
+  border: 1px solid var(--accent-color);
+  color: var(--title-color);
+}
+
+.inputWrapperCalendar {
+  position: relative;
+  width: 144px;
+  min-height: 42px;
+  height: 42px;
+}
+
+.addPetsInput {
+  width: 100%;
+  padding-right: 35px;
+}
+
+.inputIconCalendar {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  stroke: black;
+  fill: transparent;
+}
+
+.inputWrapperSearch {
+  display: flex;
+  flex-direction: row;
+}
+
+/* ACTION BTN */
+
+.actions {
+  margin-top: 31px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.actionsBtn {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  width: 100px;
+  border: none;
+  border-radius: 30px;
+}
+
+.actionsBack {
+  color: var(--title-color);
+  background-color: #2626260d;
+}
+
+.actionsSubmit {
+  color: var(--white-color);
+  background-color: var(--accent-color);
+}
+
+.actionsBtn:hover,
+.actionsBtn:focus {
+  color: var(--white-color);
+  background-color: var(--hover-focus-accent-color);
+}
+
+/* ERROR */
+.errorWrap {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+  margin-left: 16px;
+}
+.error {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--error-color);
+}
