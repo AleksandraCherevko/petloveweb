@@ -47,6 +47,7 @@ export default function ModalNotice({
   }, [notice]);
 
   const toggleFavorite = async () => {
+    if (!noticeId) return;
     try {
       setLoading(true);
       if (isFavorite) {
@@ -91,7 +92,12 @@ export default function ModalNotice({
         />
 
         <h3 className={css.title}>{notice.title}</h3>
-        <p className={css.popularity}>{notice.popularity}</p>
+        <p className={css.popularity}>
+          <svg width="16" height="16">
+            <use href="/symbol-defs.svg#icon-star" />
+          </svg>
+          {notice.popularity}
+        </p>
 
         <div className={css.meta}>
           <p>
