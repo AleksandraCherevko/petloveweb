@@ -105,22 +105,40 @@ type NoticesItemProps = {
   notice: Notice;
   removable?: boolean;
   onRemove?: () => void;
+  onFavoriteChangeAction?: (id: string, isFavorite: boolean) => void;
 };
 
-type NoticeWithMeta = Notice & { isFavorite?: boolean; id?: string };
+type NoticeWithMeta = Notice & {
+  id?: string;
+  _id: string;
+  isFavorite?: boolean;
+};
 
-const NoticesItem = ({ notice, removable, onRemove }: NoticesItemProps) => {
+const NoticesItem = ({
+  notice,
+  removable,
+  onRemove,
+  onFavoriteChangeAction,
+}: NoticesItemProps) => {
   const { isAuthenticated } = useAuthStore();
   const [isAttentionOpen, setIsAttentionOpen] = useState(false);
   const [isNoticeOpen, setIsNoticeOpen] = useState(false);
   const [details, setDetails] = useState<NoticeDetails | null>(null);
   const [isFavorite, setIsFavorite] = useState(
-    Boolean((notice as NoticeWithMeta).isFavorite),
+    removable ? true : Boolean((notice as NoticeWithMeta).isFavorite),
   );
+
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false);
 
-  const noticeId = (notice as NoticeWithMeta).id ?? notice._id;
+  const rawId =
+    (notice as { _id?: string; id?: string })._id ??
+    (notice as { _id?: string; id?: string }).id;
+  const noticeId = typeof rawId === "string" && rawId.trim() ? rawId : null;
+
+  if (!noticeId) {
+    return null;
+  }
 
   const handleLearnMore = async () => {
     if (!isAuthenticated) {
@@ -145,6 +163,7 @@ const NoticesItem = ({ notice, removable, onRemove }: NoticesItemProps) => {
   };
 
   const handleFavorite = async () => {
+    if (!noticeId) return;
     if (!isAuthenticated) {
       setIsAttentionOpen(true);
       return;
@@ -152,12 +171,21 @@ const NoticesItem = ({ notice, removable, onRemove }: NoticesItemProps) => {
 
     try {
       setIsLoadingFavorite(true);
+
       if (isFavorite) {
         await removeNoticeFromFavorites(noticeId);
         setIsFavorite(false);
+        onFavoriteChangeAction?.(noticeId, false);
       } else {
-        await addNoticeToFavorites(noticeId);
+        console.log("FAVORITE CLICK ID:", noticeId, "NOTICE:", notice);
+        const res = await addNoticeToFavorites(noticeId);
+
+        // если backend вернул 400 (already), считаем что уже в избранном
         setIsFavorite(true);
+        onFavoriteChangeAction?.(noticeId, true);
+
+        // если хочешь, можно тут не менять UI для "already", но обычно лучше оставить true
+        void res;
       }
     } catch (error) {
       if (isUnauthorizedError(error)) {
@@ -245,7 +273,10 @@ const NoticesItem = ({ notice, removable, onRemove }: NoticesItemProps) => {
         <ModalNotice
           notice={details}
           isFavorite={isFavorite}
-          onFavoriteChangeAction={setIsFavorite}
+          onFavoriteChangeAction={(next) => {
+            setIsFavorite(next);
+            onFavoriteChangeAction?.(noticeId, next);
+          }}
           onUnauthorizedAction={() => {
             setIsNoticeOpen(false);
             setIsAttentionOpen(true);
