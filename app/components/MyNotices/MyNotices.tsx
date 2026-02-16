@@ -101,6 +101,14 @@ export default function MyNotices() {
   const [viewed, setViewed] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const currentList = (activeTab === "favorites" ? favorites : viewed).filter(
+    (n) =>
+      Boolean(
+        (n as { _id?: string; id?: string })._id ??
+        (n as { _id?: string; id?: string }).id,
+      ),
+  );
+
   const fetchNotices = async () => {
     setLoading(true);
     try {
@@ -140,7 +148,14 @@ export default function MyNotices() {
 
   if (loading) return <p>Loading notices...</p>;
 
-  const currentList = activeTab === "favorites" ? favorites : viewed;
+  // const currentList = activeTab === "favorites" ? favorites : viewed;
+
+  const handleFavoriteChange = async (id: string, isFavorite: boolean) => {
+    if (!isFavorite) {
+      setFavorites((prev) => prev.filter((n) => n._id !== id));
+    }
+    await fetchNotices();
+  };
 
   return (
     <div>
@@ -168,14 +183,17 @@ export default function MyNotices() {
       )}
 
       <ul>
-        {currentList.map((notice) => (
-          <NoticesItem
-            key={notice._id}
-            notice={notice}
-            removable={activeTab === "favorites"}
-            onRemove={() => removeFavorite(notice._id)}
-          />
-        ))}
+        {currentList
+          .filter((n) => n._id || (n as { id?: string }).id)
+          .map((notice) => (
+            <NoticesItem
+              key={notice._id ?? (notice as { id?: string }).id}
+              notice={notice}
+              removable={activeTab === "favorites"}
+              onRemove={() => removeFavorite(notice._id)}
+              onFavoriteChangeAction={handleFavoriteChange}
+            />
+          ))}
       </ul>
     </div>
   );

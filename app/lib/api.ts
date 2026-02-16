@@ -166,51 +166,8 @@ export const getNoticeById = async (id: string): Promise<NoticeDetails> => {
   return data;
 };
 
-export const addNoticeToFavorites = async (id: string): Promise<void> => {
-  await nextServer.post(`/notices/favorites/add/${id}`);
-};
-
-export const removeNoticeFromFavorites = async (id: string): Promise<void> => {
-  await nextServer.delete(`/notices/favorites/remove/${id}`);
-};
-
 export const isUnauthorizedError = (error: unknown) =>
   axios.isAxiosError(error) && error.response?.status === 401;
-
-// export type NoticeResponse = {
-//   results: Notice[];
-//   page: number;
-//   perPage: number;
-//   totalPages: number;
-// };
-
-// export const getNoticesClient = async (
-//   page = 1,
-//   perPage = 6,
-//   query = "",
-// ): Promise<NoticeResponse> => {
-//   const params = new URLSearchParams({
-//     page: String(page),
-//     perPage: String(perPage),
-//   });
-
-//   if (query) params.set("query", query);
-
-//   const res = await fetch(`/api/notices?${params.toString()}`);
-
-//   if (!res.ok) throw new Error("Failed to fetch notices");
-
-//   return res.json();
-// };
-
-// filter category
-
-// export type Category = "found" | "free" | "lost" | "sell";
-
-// export const getCategories = async (): Promise<string[]> => {
-//   const res = await api.get<string[]>("/notices/categories");
-//   return res.data;
-// };
 
 export const getCategoriesClient = async (): Promise<string[]> => {
   const res = await fetch("/api/notices/categories", {
@@ -315,4 +272,36 @@ export type PetListResponse = {
 export const getPets = async () => {
   const res = await axios.get<PetListResponse>("/profile");
   return res.data;
+};
+
+export const addNoticeToFavorites = async (
+  id: string,
+): Promise<"added" | "already"> => {
+  try {
+    console.log("API add favorite id:", id);
+    await nextServer.post(`/notices/favorites/add/${id}`);
+    return "added";
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log("ADD FAVORITE ERROR DATA:", error.response?.data);
+    }
+    if (axios.isAxiosError(error) && error.response?.status === 400) {
+      return "already";
+    }
+    throw error;
+  }
+};
+
+export const removeNoticeFromFavorites = async (
+  id: string,
+): Promise<"removed" | "already"> => {
+  try {
+    await nextServer.delete(`/notices/favorites/remove/${id}`);
+    return "removed";
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 400) {
+      return "already";
+    }
+    throw error;
+  }
 };
