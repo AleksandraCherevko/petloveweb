@@ -1,0 +1,12 @@
+.addPetPage {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.petBlock {
+  margin-bottom: 10px;
+  height: 213px;
+  width: 100%;
+}
