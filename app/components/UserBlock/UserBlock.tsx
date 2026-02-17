@@ -13,7 +13,7 @@ interface UserBlockProps {
 export default function UserBlock({ user }: UserBlockProps) {
   return (
     <div>
-      {/* Аватар или UserBarIcon + Upload photo */}
+      {/* PHOTO*/}
       {user.avatar ? (
         <Image src={user.avatar} alt="User Avatar" width={100} height={100} />
       ) : (
@@ -27,7 +27,7 @@ export default function UserBlock({ user }: UserBlockProps) {
         </div>
       )}
 
-      {/* Информация о пользователе */}
+      {/* USER INFO */}
       <h3>My information</h3>
       <div>
         <div>

@@ -1,0 +1,13 @@
+.editUserBtn {
+  border: none;
+  border-radius: 100%;
+  padding: 10px;
+  width: 38px;
+  height: 38px;
+  background-color: var(--yellow-background-color);
+}
+
+.editUserBtn:hover,
+.editUserBtn:focus {
+  background-color: var(--hover-focus-small-btn);
+}

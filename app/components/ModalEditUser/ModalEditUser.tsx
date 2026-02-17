@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 interface ModalEditUserProps {
   onClose: () => void;
-  onSuccess: () => void; // callback для обновления UserCard
+  onSuccess: () => void;
 }
 
 type FormValues = {
@@ -69,8 +69,8 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
       }
 
       toast.success("User updated successfully");
-      onSuccess(); // обновляем UserCard
-      onClose(); // закрываем модалку
+      onSuccess();
+      onClose();
     } catch {
       toast.error("Server error, please try again");
       setIsSubmitting(false);

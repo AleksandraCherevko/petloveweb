@@ -60,7 +60,7 @@ export default function MyNotices() {
 
   if (loading) return <p>Loading notices...</p>;
 
-  // const currentList = activeTab === "favorites" ? favorites : viewed;
+
 
   const handleFavoriteChange = async (id: string, isFavorite: boolean) => {
     if (!isFavorite) {
