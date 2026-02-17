@@ -10,3 +10,34 @@
   height: 213px;
   width: 100%;
 }
+
+@media (min-width: 768px) {
+  .addPetPage {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .petBlock {
+    margin-bottom: 16px;
+    height: 248px;
+    width: 100%;
+    border-radius: 60px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .layout {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+  }
+  .addPetPage {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+  .petBlock {
+    margin-bottom: 0px;
+    height: auto;
+    width: 592px;
+  }
+}

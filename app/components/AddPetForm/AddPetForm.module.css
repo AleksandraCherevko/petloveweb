@@ -257,6 +257,10 @@
   line-height: 1.2;
   color: var(--error-color);
 }
+
+.speciesSelectWrap {
+  width: 100%;
+}
 .add-pet-species__control {
   min-height: 42px;
   height: 42px;
@@ -367,5 +371,14 @@
 
   .add-pet-species__indicators {
     min-height: 52px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .addPetFormContainer {
+    display: flex;
+    padding: 60px 80px;
+    background-color: var(--white-color);
+    border-radius: 30px;
   }
 }
