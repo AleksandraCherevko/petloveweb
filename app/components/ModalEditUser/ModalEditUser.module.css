@@ -264,8 +264,8 @@
 
   .uploadBtnWrap {
     flex: 0 0 146px;
-    min-height: 48px;
-    height: 48px;
+    min-height: 42px;
+    height: 42px;
   }
 
   .uploadBtn {
