@@ -81,7 +81,7 @@ const PetsItem = ({ pet, onDeleted }: Props) => {
         disabled={isDeleting}
         className={css.petsDeleteBtn}
       >
-        <svg className={css.logoIcon} width="16" height="16">
+        <svg className={css.petsIcon} width="16" height="16">
           <use href="/symbol-defs.svg#icon-trash"></use>
         </svg>
       </button>

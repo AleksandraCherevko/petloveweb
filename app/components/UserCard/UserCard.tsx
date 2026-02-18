@@ -8,6 +8,7 @@ import { PetsBlock } from "../PetsBlock/PetsBlock";
 import { useAuthStore } from "@/app/lib/store/auth";
 import css from "./UserCard.module.css";
 import { ModalEditUser } from "../ModalEditUser/ModalEditUser";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
 
 export default function UserCard() {
   const { user, setUser } = useAuthStore();
@@ -53,6 +54,7 @@ export default function UserCard() {
           }}
         />
       )}
+      <LogOutBtn className={css.petLogOutBtn} />
     </div>
   );
 }

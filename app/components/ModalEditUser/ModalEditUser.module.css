@@ -222,6 +222,9 @@
 }
 
 @media (min-width: 768px) {
+  .imageRow {
+    margin-bottom: 20px;
+  }
   .formTitleWrap {
     justify-content: flex-start;
   }

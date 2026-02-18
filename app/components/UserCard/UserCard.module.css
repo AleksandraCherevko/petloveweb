@@ -43,11 +43,24 @@
   padding-left: 20px;
   border-radius: 30px;
 }
+.petLogOutBtn {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
 
+  padding: 12px 28px;
+  margin-top: 20px;
+}
 @media (min-width: 768px) {
   .whiteBlock {
     padding: 40px;
     border-radius: 60px;
+  }
+  .petLogOutBtn {
+    font-size: 16px;
+    padding: 15px 35px;
+    line-height: 1.25;
   }
 }
 
@@ -55,5 +68,9 @@
   .whiteBlock {
     padding: 40px;
     border-radius: 60px;
+  }
+
+  .petLogOutBtn {
+    margin-top: 40px;
   }
 }

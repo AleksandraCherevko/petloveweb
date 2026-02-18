@@ -81,4 +81,13 @@
   .petsItem {
     flex-basis: calc((100% - 14px) / 2);
   }
+
+  .petsDeleteBtn {
+    width: 32px;
+    height: 32px;
+  }
+  .petsIcon {
+    width: 18px;
+    height: 18px;
+  }
 }
