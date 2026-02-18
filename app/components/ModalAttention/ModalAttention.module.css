@@ -1,8 +1,9 @@
 .modal {
   display: flex;
   flex-direction: column;
-  padding: 40px 20px;
+  /* padding: 40px 20px; */
   align-items: center;
+  border-radius: 30px;
 }
 .modalIcon {
   stroke: black;
@@ -92,7 +93,11 @@
 }
 
 @media (min-width: 768px) {
-  .modal {
-    padding: 60px;
+  /* .modal {
+    padding: 60px 60px;
+  } */
+
+  .attentionText {
+    width: 346px;
   }
 }
