@@ -1,4 +1,4 @@
-.addPetFormContainer {
+.formContainer {
   display: flex;
   padding: 28px 20px 20px 20px;
   background-color: var(--white-color);
@@ -176,13 +176,13 @@
 
 /* INPUTS */
 
-.addPetsInputWrap {
+.inputWrap {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.addPetsInput {
+.input {
   padding: 12px;
   font-family: Manrope;
   font-weight: 500;
@@ -195,7 +195,7 @@
   outline: none;
 }
 
-.addPetsInput:hover {
+.input:hover {
   border: 1px solid var(--accent-color);
   color: var(--title-color);
 }
@@ -205,11 +205,6 @@
   width: 144px;
   min-height: 42px;
   height: 42px;
-}
-
-.addPetsInput {
-  width: 100%;
-  padding-right: 35px;
 }
 
 .inputIconCalendar {
@@ -269,7 +264,6 @@
 .errorWrap {
   display: flex;
   flex-direction: column;
-  min-height: 56px;
 }
 .error {
   min-height: 12px;
@@ -299,7 +293,7 @@
   .formTitleWrap {
     justify-content: flex-start;
   }
-  .addPetFormContainer {
+  .formContainer {
     display: flex;
     padding: 40px 136px;
   }
@@ -332,12 +326,12 @@
     height: 86px;
   }
 
-  .addPetsInput {
+  .input {
     padding: 16px;
     font-size: 16px;
     line-height: 1.3;
   }
-  .addPetsInputWrap {
+  .inputWrap {
     gap: 18px;
   }
   .imageRowInput {
@@ -399,7 +393,7 @@
 }
 
 @media (min-width: 1280px) {
-  .addPetFormContainer {
+  .formContainer {
     display: flex;
     padding: 60px 80px;
     background-color: var(--white-color);

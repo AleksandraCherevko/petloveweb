@@ -2,50 +2,67 @@
 
 import Image from "next/image";
 import { User } from "@/app/types/user";
-
-import Link from "next/link";
+import css from "./UserBlock.module.css";
+import Title from "../Title/Title";
 
 interface UserBlockProps {
   user: User;
   onUpdate: () => void;
+  onOpenEditAction: () => void;
 }
 
-export default function UserBlock({ user }: UserBlockProps) {
+export default function UserBlock({ user, onOpenEditAction }: UserBlockProps) {
   return (
     <div>
       {/* PHOTO*/}
-      {user.avatar ? (
-        <Image src={user.avatar} alt="User Avatar" width={100} height={100} />
-      ) : (
-        <div>
-          <Link href="/profile/upload-photo">
-            <svg width="24" height="24">
-              <use href="/symbol-defs.svg#icon-user"></use>
-            </svg>
+      <div className={css.userPhoto}>
+        {user.avatar ? (
+          <Image src={user.avatar} alt="User Avatar" width={94} height={94} />
+        ) : (
+          <button
+            type="button"
+            onClick={onOpenEditAction}
+            className={css.uploadBtn}
+          >
+            <div className={css.uploadBtnIcon}>
+              <svg width="40" height="40" className={css.imagePreviewIcon}>
+                <use href="/symbol-defs.svg#icon-user" />
+              </svg>
+            </div>
             Upload photo
-          </Link>
-        </div>
-      )}
+          </button>
+        )}
+      </div>
 
       {/* USER INFO */}
-      <h3>My information</h3>
-      <div>
-        <div>
+      <Title as="h3" className={css.formTitle}>
+        My information
+      </Title>
+      <div className={css.inputWrap}>
+        <div className={css.errorWrap}>
           <input
+            className={css.input}
             type="text"
             value={user.name || ""}
-            placeholder="Missing name"
+            placeholder="Name"
             readOnly
           />
         </div>
-        <div>
-          <input type="email" value={user.email || ""} readOnly />
+        <div className={css.errorWrap}>
+          <input
+            type="email"
+            value={user.email || ""}
+            readOnly
+            placeholder="name@gmail.com"
+            className={css.input}
+          />
         </div>
-        <div>
+        <div className={css.errorWrap}>
           <input
             type="tel"
+            className={css.input}
             value={user.phone || ""}
-            placeholder="Missing phone number"
+            placeholder="+380"
             readOnly
           />
         </div>
