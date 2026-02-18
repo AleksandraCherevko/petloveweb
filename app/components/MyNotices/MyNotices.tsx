@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { Notice, getUser } from "@/app/lib/api";
 import NoticesItem from "../NoticesItem/NoticesItem";
+import css from "./MyNotices.module.css";
+import clsx from "clsx";
+import Loader from "../Loader/Loader";
 
 type Tab = "favorites" | "viewed";
 
@@ -58,9 +61,7 @@ export default function MyNotices() {
     }
   };
 
-  if (loading) return <p>Loading notices...</p>;
-
-
+  if (loading) return <Loader />;
 
   const handleFavoriteChange = async (id: string, isFavorite: boolean) => {
     if (!isFavorite) {
@@ -70,27 +71,50 @@ export default function MyNotices() {
   };
 
   return (
-    <div>
-      <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+    <div className={css.tabsContainer}>
+      <div className={css.tabsWrap}>
         <button
+          className={clsx(
+            css.tabBtn,
+            activeTab === "favorites" ? css.tabBtnActive : "",
+          )}
           onClick={() => setActiveTab("favorites")}
-          style={{ fontWeight: activeTab === "favorites" ? "bold" : "normal" }}
         >
           My favorite pets
         </button>
         <button
           onClick={() => setActiveTab("viewed")}
-          style={{ fontWeight: activeTab === "viewed" ? "bold" : "normal" }}
+          className={clsx(
+            css.tabBtn,
+            activeTab === "viewed" ? css.tabBtnActive : "",
+          )}
         >
           Viewed
         </button>
       </div>
 
       {currentList.length === 0 && (
-        <p>
-          {activeTab === "favorites"
-            ? "No favorite notices yet."
-            : "No viewed notices yet."}
+        <p className={css.noFavorites}>
+          {activeTab === "favorites" ? (
+            <>
+              Oops,{" "}
+              <span className={css.noFavoritesSpan}>
+                looks like there are no furries
+              </span>{" "}
+              on our adorable page yet. Do not worry! View your pets on the
+              &ldquo;find your favorite pet&ldquo; page and add them to your
+              favorites.
+            </>
+          ) : (
+            <>
+              Oops,{" "}
+              <span className={css.noFavoritesSpan}>
+                there are no recently viewed pets
+              </span>{" "}
+              yet. Take a lookat the &ldquo;find your favorite pet&ldquo; page
+              and discover your new furry friend.
+            </>
+          )}
         </p>
       )}
 
