@@ -61,6 +61,8 @@
 import { Pet } from "@/app/lib/api";
 import PetsList from "../PetsList/PetsList";
 import AddPet from "../AddPet/AddPet";
+import Title from "../Title/Title";
+import css from './PetsBlock.module.css'
 
 interface Props {
   pets: Pet[];
@@ -70,7 +72,12 @@ interface Props {
 export const PetsBlock = ({ pets, onPetsChanged }: Props) => {
   return (
     <>
-      <AddPet />
+     <div className={css.petsBlockWrap}>
+        <Title as="h3" className={css.title}>
+          My pets
+        </Title>
+        <AddPet />
+     </div>
       {pets.length === 0 ? (
         <p>Oops, looks like there are no pets yet. Add your first pet.</p>
       ) : (

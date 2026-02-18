@@ -1,0 +1,23 @@
+.title {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--second-black-color);
+  line-height: 1.25;
+}
+
+.petsBlockWrap {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+}
