@@ -69,4 +69,22 @@
   .navListItem {
     height: 40px;
   }
+
+  .navListLinkAuth:hover,
+  .navListLinkAuth:focus {
+    border: 1px solid var(--accent-color);
+  }
+
+  .navListLinkAuth {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid #26262626;
+    background-color: transparent;
+    display: flex;
+    width: 119px;
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+    color: var(--title-color);
+  }
 }
