@@ -1,0 +1,84 @@
+.petsItem {
+  border: 1px solid #2626261a;
+  border-radius: 20px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-right: 12px;
+  padding-top: 12px;
+  box-sizing: border-box;
+}
+.petsTitleWrap {
+  max-width: 145px;
+}
+.petsInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.petsItemImg {
+  margin-right: 14px;
+  border-radius: 100%;
+}
+
+.petsTitle {
+  margin-bottom: 8px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.petsValue {
+  display: flex;
+  flex-direction: column;
+}
+
+.petsValueWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.petsValue {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--friends-list-title);
+}
+
+.petsValueSpan {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.1;
+  color: var(--title-color);
+}
+
+.petsDeleteBtn {
+  margin-top: -4px;
+  padding: 7px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 100%;
+  background-color: var(--yellow-background-color);
+}
+
+.petsDeleteBtn:hover,
+.petsDeleteBtn:focus {
+  background-color: var(--hover-focus-small-btn);
+}
+
+@media (min-width: 768px) {
+  .petsItem {
+    flex-basis: calc((100% - 14px) / 2);
+  }
+}

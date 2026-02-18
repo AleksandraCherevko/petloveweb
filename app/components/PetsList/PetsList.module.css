@@ -1,0 +1,22 @@
+.petsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 768px) {
+  .petsList {
+    flex-direction: row;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 1280px) {
+  .petsList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+}
