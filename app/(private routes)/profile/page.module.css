@@ -4,10 +4,6 @@
 }
 
 @media (min-width: 1280px) {
-  /* .profilePageContainer {
-    display: flex;
-  } */
-
   .profilePageContainer {
     display: flex;
     flex-direction: row;
@@ -16,11 +12,11 @@
   }
 
   .profilePageContainer > :first-child {
-    flex: 0 0 520px; /* UserCard width */
+    flex: 0 0 520px;
   }
 
   .profilePageContainer > :last-child {
-    flex: 1 1 auto; /* MyNotices fills remaining space */
+    flex: 1 1 auto;
     min-width: 0;
   }
 }

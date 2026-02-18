@@ -1,7 +1,7 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: #2626264d;
   display: flex;
   justify-content: center;
   align-items: center;
