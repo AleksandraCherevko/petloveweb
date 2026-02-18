@@ -98,11 +98,9 @@ const NoticesItem = ({
       } else {
         const res = await addNoticeToFavorites(noticeId);
 
-        // если backend вернул 400 (already), считаем что уже в избранном
         setIsFavorite(true);
         onFavoriteChangeAction?.(noticeId, true);
 
-        // если хочешь, можно тут не менять UI для "already", но обычно лучше оставить true
         void res;
       }
     } catch (error) {
@@ -171,7 +169,7 @@ const NoticesItem = ({
           {isLoadingDetails ? "Loading..." : "Learn more"}
         </button>
 
-        <button
+        {/* <button
           className={`${css.favoriteBtn} ${isFavorite ? css.favoriteBtnActive : ""}`}
           onClick={handleFavorite}
           disabled={isLoadingFavorite}
@@ -180,7 +178,34 @@ const NoticesItem = ({
           <svg className={css.logoIcon} width="18" height="18">
             <use href="/symbol-defs.svg#icon-heart" />
           </svg>
-        </button>
+        </button> */}
+
+        {removable ? (
+          <button
+            className={css.favoriteBtn}
+            onClick={onRemove}
+            aria-label="Remove from favorites"
+            type="button"
+          >
+            <svg className={css.logoIcon} width="18" height="18">
+              <use href="/symbol-defs.svg#icon-trash" />
+            </svg>
+          </button>
+        ) : (
+          <button
+            className={`${css.favoriteBtn} ${isFavorite ? css.favoriteBtnActive : ""}`}
+            onClick={handleFavorite}
+            disabled={isLoadingFavorite}
+            aria-label={
+              isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
+            type="button"
+          >
+            <svg className={css.logoIcon} width="18" height="18">
+              <use href="/symbol-defs.svg#icon-heart" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {isAttentionOpen && (
@@ -201,12 +226,6 @@ const NoticesItem = ({
           }}
           onCloseAction={() => setIsNoticeOpen(false)}
         />
-      )}
-
-      {removable && onRemove && (
-        <button onClick={onRemove} style={{ marginLeft: "auto" }}>
-          🗑️
-        </button>
       )}
     </li>
   );
