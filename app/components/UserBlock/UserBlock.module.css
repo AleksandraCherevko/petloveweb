@@ -18,6 +18,10 @@
   margin-bottom: 28px;
 }
 
+.avatar {
+  border-radius: 100%;
+}
+
 .uploadBtnIcon {
   display: flex;
   align-items: center;

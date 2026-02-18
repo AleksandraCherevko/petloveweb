@@ -17,7 +17,13 @@ export default function UserBlock({ user, onOpenEditAction }: UserBlockProps) {
       {/* PHOTO*/}
       <div className={css.userPhoto}>
         {user.avatar ? (
-          <Image src={user.avatar} alt="User Avatar" width={94} height={94} />
+          <Image
+            src={user.avatar}
+            alt="User Avatar"
+            width={94}
+            height={94}
+            className={css.avatar}
+          />
         ) : (
           <button
             type="button"
