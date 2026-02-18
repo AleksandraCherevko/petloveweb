@@ -169,17 +169,6 @@ const NoticesItem = ({
           {isLoadingDetails ? "Loading..." : "Learn more"}
         </button>
 
-        {/* <button
-          className={`${css.favoriteBtn} ${isFavorite ? css.favoriteBtnActive : ""}`}
-          onClick={handleFavorite}
-          disabled={isLoadingFavorite}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-        >
-          <svg className={css.logoIcon} width="18" height="18">
-            <use href="/symbol-defs.svg#icon-heart" />
-          </svg>
-        </button> */}
-
         {removable ? (
           <button
             className={css.favoriteBtn}

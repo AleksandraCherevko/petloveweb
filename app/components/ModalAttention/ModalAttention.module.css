@@ -1,10 +1,12 @@
 .modal {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  text-align: center;
+  padding: 40px 20px;
+  align-items: center;
 }
-
+.modalIcon {
+  stroke: black;
+}
 .modalClosing {
   opacity: 0;
   transform: translateY(-20px);
@@ -13,11 +15,84 @@
 
 .closeBtn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 20px;
+  right: 20px;
   background: none;
   border: none;
-  font-size: 20px;
-  cursor: pointer;
 }
 
+.imgWrap {
+  background-color: var(--yellow-background-color);
+  padding: 18px;
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.attention {
+  margin-bottom: 20px;
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--accent-color);
+}
+
+.attentionText {
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+  vertical-align: middle;
+  color: var(--second-black-color);
+  margin-bottom: 24px;
+}
+
+.linksWrap {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.linksBtn {
+  font-family: Manrope;
+  font-weight: 700;
+
+  font-size: 14px;
+  line-height: 1.2;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border: none;
+  width: 135px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.linkLogin {
+  color: var(--white-color);
+  background-color: var(--accent-color);
+}
+
+.linkLogin:hover,
+.linkLogin:focus {
+  background-color: var(--hover-focus-accent-color);
+}
+
+.linkRegistration {
+  color: var(--accent-color);
+  background-color: var(--yellow-background-color);
+}
+
+.linkRegistration:hover,
+.linkRegistration:focus {
+  background-color: var(--hover-focus-small-btn);
+}
+
+@media (min-width: 768px) {
+  .modal {
+    padding: 60px;
+  }
+}
