@@ -211,7 +211,7 @@ export default function AddPetForm() {
   };
 
   return (
-    <div className={css.addPetFormContainer}>
+    <div className={css.formContainer}>
       <form className={css.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className={css.formTitleWrap}>
           <Title as="h2" className={css.formTitle}>
@@ -321,12 +321,12 @@ export default function AddPetForm() {
           </div>
         </div>
 
-        <div className={css.addPetsInputWrap}>
+        <div className={css.inputWrap}>
           <div className={css.errorWrap}>
             <input
               placeholder="Title"
               {...register("title")}
-              className={css.addPetsInput}
+              className={css.input}
             />
             {errors.title && (
               <p className={css.error}>{errors.title.message}</p>
@@ -336,7 +336,7 @@ export default function AddPetForm() {
             <input
               placeholder="Pet’s Name"
               {...register("name")}
-              className={css.addPetsInput}
+              className={css.input}
             />
             {errors.name && <p className={css.error}>{errors.name.message}</p>}
           </div>
@@ -346,7 +346,7 @@ export default function AddPetForm() {
                 <input
                   placeholder="0000.00.00"
                   {...register("birthday")}
-                  className={css.addPetsInput}
+                  className={css.input}
                 />
 
                 <svg width="16" height="16" className={css.inputIconCalendar}>

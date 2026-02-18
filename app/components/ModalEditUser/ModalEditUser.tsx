@@ -170,12 +170,12 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
               </div>
             </div>
           </div>
-          <div className={css.addPetsInputWrap}>
+          <div className={css.inputWrap}>
             <div className={css.errorWrap}>
               <input
                 placeholder="Name"
                 {...register("name")}
-                className={css.addPetsInput}
+                className={css.input}
               />
               {errors.name && (
                 <p className={css.error}>{errors.name.message}</p>
@@ -185,7 +185,7 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
               <input
                 placeholder="Email"
                 {...register("email")}
-                className={css.addPetsInput}
+                className={css.input}
               />
               {errors.email && (
                 <p className={css.error}>{errors.email.message}</p>
@@ -196,7 +196,7 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
               <input
                 placeholder="Phone number"
                 {...register("phone")}
-                className={css.addPetsInput}
+                className={css.input}
               />
               {errors.phone && (
                 <p className={css.error}>{errors.phone.message}</p>
