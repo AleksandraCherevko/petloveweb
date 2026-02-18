@@ -1,0 +1,29 @@
+.addPetBtn {
+  gap: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-family: Manrope;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--white-color);
+  display: flex;
+  border: none;
+  width: 103px;
+  border-radius: 30px;
+  background-color: var(--accent-color);
+  justify-content: center;
+}
+
+.addPetBtn:hover,
+.addPetBtn:focus {
+  background-color: var(--hover-focus-accent-color);
+}
+
+@media (min-width: 768px) {
+  .addPetBtn {
+    font-size: 16px;
+    line-height: 1.25;
+    width: 118px;
+  }
+}
