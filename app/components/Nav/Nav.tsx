@@ -4,8 +4,6 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useAuthStore } from "@/app/lib/store/auth";
 
-
-
 export default function Nav({ isHome }: { isHome?: boolean }) {
   const pathname = usePathname();
   const navItems = [
@@ -28,6 +26,7 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
                 isHome && css.navListItemHome,
                 pathname === item.href && css.active,
                 isAuthenticated && css.navListItemMob,
+                isAuthenticated && css.navListItemAuth,
               )}
             >
               <Link
@@ -36,6 +35,7 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
                   css.navListIink,
                   isHome && css.navListLinkHome,
                   isAuthenticated && css.navListItemMobLink,
+                  isAuthenticated && css.navListLinkAuth,
                 )}
               >
                 {item.label}
