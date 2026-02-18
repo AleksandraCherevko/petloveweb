@@ -378,17 +378,9 @@
     padding-bottom: 14px;
     width: 170px;
   }
-  .add-pet-species__control {
-    min-height: 52px;
-    height: 52px;
-  }
-
-  .add-pet-species__value-container {
-    min-height: 52px;
-  }
-
-  .add-pet-species__indicators {
-    min-height: 52px;
+ 
+  .inputWrapperSearch {
+    gap: 10px;
   }
 }
 
@@ -398,5 +390,8 @@
     padding: 60px 80px;
     background-color: var(--white-color);
     border-radius: 30px;
+  }
+  .inputWrapperSearch {
+    gap: 10px;
   }
 }

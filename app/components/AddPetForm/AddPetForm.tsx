@@ -106,6 +106,7 @@ export default function AddPetForm() {
   };
 
   //   SELECT STYLES
+  
 
   const typesSelectStyles: StylesConfig<Option, false> = {
     container: (base) => ({
@@ -115,8 +116,8 @@ export default function AddPetForm() {
     control: (base, state) => ({
       ...base,
 
-      minHeight: 42,
-      height: 42,
+      minHeight: 52,
+      height: 52,
       boxSizing: "border-box",
       borderRadius: 30,
       border: state.isFocused
