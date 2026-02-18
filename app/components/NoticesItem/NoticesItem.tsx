@@ -14,6 +14,7 @@ import {
   isUnauthorizedError,
 } from "@/app/lib/api";
 import { useAuthStore } from "@/app/lib/store/auth";
+import clsx from "clsx";
 
 type NoticesItemProps = {
   notice: Notice;
@@ -21,6 +22,7 @@ type NoticesItemProps = {
   onRemove?: () => void;
   onFavoriteChangeAction?: (id: string, isFavorite: boolean) => void;
   onViewedChangeAction?: () => void;
+  className?: string;
 };
 
 type NoticeWithMeta = Notice & {
@@ -35,6 +37,7 @@ const NoticesItem = ({
   onRemove,
   onFavoriteChangeAction,
   onViewedChangeAction,
+  className,
 }: NoticesItemProps) => {
   const { isAuthenticated } = useAuthStore();
   const [isAttentionOpen, setIsAttentionOpen] = useState(false);
@@ -80,7 +83,6 @@ const NoticesItem = ({
   };
 
   const handleFavorite = async () => {
-
     if (!isAuthenticated) {
       setIsAttentionOpen(true);
       return;
@@ -94,7 +96,6 @@ const NoticesItem = ({
         setIsFavorite(false);
         onFavoriteChangeAction?.(noticeId, false);
       } else {
-       
         const res = await addNoticeToFavorites(noticeId);
 
         // если backend вернул 400 (already), считаем что уже в избранном
@@ -116,7 +117,7 @@ const NoticesItem = ({
   };
 
   return (
-    <li className={css.noticeItem}>
+    <li className={clsx(css.noticeItem, className)}>
       <Image
         src={notice.imgURL}
         width={287}

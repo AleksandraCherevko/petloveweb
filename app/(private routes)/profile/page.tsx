@@ -44,8 +44,10 @@ const ProfilePage = () => {
   return (
     <div className={css.profilePage}>
       <Container>
-        <UserCard />
-        <MyNotices />
+        <div className={css.profilePageContainer}>
+          <UserCard />
+          <MyNotices />
+        </div>
       </Container>
     </div>
   );

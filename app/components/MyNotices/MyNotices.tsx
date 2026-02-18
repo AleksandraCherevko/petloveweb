@@ -102,7 +102,7 @@ export default function MyNotices() {
                 looks like there are no furries
               </span>{" "}
               on our adorable page yet. Do not worry! View your pets on the
-              &ldquo;find your favorite pet&ldquo; page and add them to your
+              &ldquo;find your favorite pet&rdquo; page and add them to your
               favorites.
             </>
           ) : (
@@ -111,18 +111,19 @@ export default function MyNotices() {
               <span className={css.noFavoritesSpan}>
                 there are no recently viewed pets
               </span>{" "}
-              yet. Take a lookat the &ldquo;find your favorite pet&ldquo; page
+              yet. Take a look at the &ldquo;find your favorite pet&rdquo; page
               and discover your new furry friend.
             </>
           )}
         </p>
       )}
 
-      <ul>
+      <ul className={css.noticesList}>
         {currentList.map((notice) => {
           const safeId = notice._id ?? (notice as { id?: string }).id ?? "";
           return (
             <NoticesItem
+              className={css.myNoticesItem}
               key={safeId}
               notice={notice}
               removable={activeTab === "favorites"}
