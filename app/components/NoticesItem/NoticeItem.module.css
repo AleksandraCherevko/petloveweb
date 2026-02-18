@@ -128,6 +128,10 @@
   .noticeItemImage {
     width: 294px;
   }
+
+  .noticeItem {
+    flex-basis: calc((100% - 20px) / 2);
+  }
 }
 
 @media (min-width: 1280px) {
@@ -150,5 +154,9 @@
     font-family: Manrope;
     font-weight: 500;
     line-height: 1.42;
+  }
+
+  .noticeItem {
+    flex-basis: calc((100% - 32px) / 2);
   }
 }

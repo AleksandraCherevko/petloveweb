@@ -2,3 +2,25 @@
   padding-top: 28px;
   padding-bottom: 56px;
 }
+
+@media (min-width: 1280px) {
+  /* .profilePageContainer {
+    display: flex;
+  } */
+
+  .profilePageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .profilePageContainer > :first-child {
+    flex: 0 0 520px; /* UserCard width */
+  }
+
+  .profilePageContainer > :last-child {
+    flex: 1 1 auto; /* MyNotices fills remaining space */
+    min-width: 0;
+  }
+}

@@ -91,3 +91,37 @@
     height: 18px;
   }
 }
+
+@media (min-width: 1280px) {
+  .petsItemImg {
+    width: 90px;
+    height: 90px;
+  }
+
+  .petsItem {
+    padding: 20px;
+  }
+
+  .petsTitle {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.28;
+    margin-bottom: 12px;
+  }
+  .petsDeleteBtn {
+    width: 38px;
+    height: 38px;
+  }
+  .petsValueWrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 27px;
+  }
+
+  .petsValueSpan {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
