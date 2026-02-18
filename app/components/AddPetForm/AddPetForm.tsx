@@ -106,12 +106,7 @@ export default function AddPetForm() {
   };
 
   //   SELECT STYLES
-
-  const isTablet =
-    typeof window !== "undefined"
-      ? window.matchMedia("(min-width: 768px)").matches
-      : false;
-  const selectH = isTablet ? 52 : 42;
+  
 
   const typesSelectStyles: StylesConfig<Option, false> = {
     container: (base) => ({
@@ -121,8 +116,8 @@ export default function AddPetForm() {
     control: (base, state) => ({
       ...base,
 
-      minHeight: selectH,
-      height: selectH,
+      minHeight: 52,
+      height: 52,
       boxSizing: "border-box",
       borderRadius: 30,
       border: state.isFocused
@@ -141,13 +136,8 @@ export default function AddPetForm() {
       padding: 0,
       width: "100%",
       overflow: "hidden",
-      minHeight: selectH,
-      padding: "0 16px",
     }),
-    indicatorsContainer: (base) => ({
-      ...base,
-      minHeight: selectH,
-    }),
+
     input: (base) => ({
       ...base,
       margin: 0,
