@@ -9,6 +9,8 @@ import {
   removeNoticeFromFavorites,
   isUnauthorizedError,
 } from "@/app/lib/api";
+import Title from "../Title/Title";
+import clsx from "clsx";
 
 type Props = {
   notice: NoticeDetails;
@@ -80,45 +82,58 @@ export default function ModalNotice({
           onClick={onCloseAction}
           aria-label="Close"
         >
-          ✕
+          <svg className={css.closeBtnIcon} width="24" height="24">
+            <use href="/symbol-defs.svg#icon-cross-black"></use>
+          </svg>
         </button>
 
-        <Image
-          src={notice.imgURL}
-          width={335}
-          height={190}
-          alt={notice.comment}
-          className={css.image}
-        />
-
-        <h3 className={css.title}>{notice.title}</h3>
+        <div className={css.imageWrap}>
+          <Image
+            src={notice.imgURL}
+            width={335}
+            height={190}
+            alt={notice.comment}
+            className={css.image}
+          />
+        </div>
+        <Title as="h3" className={css.title}>
+          {notice.title}
+        </Title>
         <p className={css.popularity}>
+          <svg width="16" height="16">
+            <use href="/symbol-defs.svg#icon-star" />
+          </svg>
+          <svg width="16" height="16">
+            <use href="/symbol-defs.svg#icon-star" />
+          </svg>
+          <svg width="16" height="16">
+            <use href="/symbol-defs.svg#icon-star" />
+          </svg>
+          <svg width="16" height="16">
+            <use href="/symbol-defs.svg#icon-star" />
+          </svg>
           <svg width="16" height="16">
             <use href="/symbol-defs.svg#icon-star" />
           </svg>
           {notice.popularity}
         </p>
 
-        <div className={css.meta}>
-          <p>
-            <span>Name</span>
+        <div className={css.petInfoWrap}>
+          <p className={css.petInfo}>
+            <span className={css.petInfoSpan}>Name</span>
             {notice.name}
           </p>
-          <p>
-            <span>Birthday</span>
+          <p className={css.petInfo}>
+            <span className={css.petInfoSpan}>Birthday</span>
             {notice.birthday}
           </p>
-          <p>
-            <span>Sex</span>
+          <p className={css.petInfo}>
+            <span className={css.petInfoSpan}>Sex</span>
             {notice.sex}
           </p>
-          <p>
-            <span>Species</span>
+          <p className={css.petInfo}>
+            <span className={css.petInfoSpan}>Species</span>
             {notice.species}
-          </p>
-          <p>
-            <span>Category</span>
-            {notice.category}
           </p>
         </div>
 
@@ -126,24 +141,31 @@ export default function ModalNotice({
         {notice.price && <p className={css.price}>${notice.price}</p>}
 
         <div className={css.actions}>
-          <button
-            type="button"
-            onClick={toggleFavorite}
-            disabled={loading}
-            className={css.favoriteBtn}
-          >
-            {isFavorite ? "Remove from" : "Add to"}
-          </button>
-
-          {contactHref ? (
-            <a href={contactHref} className={css.contactBtn}>
-              Contact
-            </a>
-          ) : (
-            <button type="button" className={css.contactBtn} disabled>
-              Contact
+          <div className={css.contactBtnWrapFavorite}>
+            <button
+              type="button"
+              onClick={toggleFavorite}
+              disabled={loading}
+              className={clsx(css.contactBtnWrap, css.favoriteBtn)}
+            >
+              {isFavorite ? "Remove from" : "Add to"}
+              <svg className={css.contactBtnIcon} width="18" height="18">
+                <use href="/symbol-defs.svg#icon-heart-white"></use>
+              </svg>
             </button>
-          )}
+          </div>
+
+          <div className={clsx(css.contactBtnWrap, css.contactBtnWrapContact)}>
+            {contactHref ? (
+              <a href={contactHref} className={css.contactBtn}>
+                Contact
+              </a>
+            ) : (
+              <button type="button" className={css.contactBtn} disabled>
+                Contact
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
