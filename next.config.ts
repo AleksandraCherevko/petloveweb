@@ -18,6 +18,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "test.png",
       },
+      {
+        protocol: "https",
+        hostname: "cloudinary-marketing-res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };

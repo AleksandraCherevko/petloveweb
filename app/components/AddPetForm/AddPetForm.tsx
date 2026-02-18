@@ -344,7 +344,7 @@ export default function AddPetForm() {
             <div className={css.errorWrap}>
               <div className={css.inputWrapperCalendar}>
                 <input
-                  placeholder="0000.00.00"
+                  placeholder="0000-00-00"
                   {...register("birthday")}
                   className={css.input}
                 />
