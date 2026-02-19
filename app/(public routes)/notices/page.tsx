@@ -24,10 +24,6 @@ export default function Notices() {
   const species = searchParams.get("species") ?? "";
   const locationId = searchParams.get("locationId") ?? "";
 
-  // const sortBy =
-  //   (searchParams.get("sortBy") as "popularity" | "price" | null) ?? undefined;
-  // const sortOrder =
-  //   (searchParams.get("sortOrder") as "asc" | "desc" | null) ?? undefined;
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const [notices, setNotices] = useState<Notice[]>([]);
