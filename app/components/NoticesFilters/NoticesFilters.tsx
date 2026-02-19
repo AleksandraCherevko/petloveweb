@@ -1,11 +1,9 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Select, {
   components,
-  type ControlProps,
   type DropdownIndicatorProps,
   type StylesConfig,
 } from "react-select";
@@ -21,6 +19,7 @@ import {
 } from "@/app/lib/api";
 
 import css from "./NoticesFilters.module.css";
+import { clsx } from "clsx";
 
 type Props = {
   basePath?: string;
@@ -131,11 +130,10 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     </components.DropdownIndicator>
   );
 
-  const ControlWithSearchIcon = (props: ControlProps<Option, false>) => (
-    <components.Control {...props}>
+  const SearchIndicator = (props: DropdownIndicatorProps<Option, false>) => (
+    <components.DropdownIndicator {...props}>
       <Image src="/search.svg" alt="search" width={16} height={16} />
-      {props.children}
-    </components.Control>
+    </components.DropdownIndicator>
   );
 
   const selectStyles: StylesConfig<Option, false> = {
@@ -150,16 +148,47 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
     }),
     indicatorSeparator: () => ({ display: "none" }),
     menu: (base) => ({ ...base, borderRadius: 15 }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: "transparent",
+      width: "100%",
+      color:
+        state.isSelected || state.isFocused
+          ? "var(--accent-color)"
+          : "var(--title-color)",
+    }),
   };
 
   const citySelectStyles: StylesConfig<Option, false> = {
     ...selectStyles,
     control: (base) => ({
-      ...selectStyles.control!(base, {} as never),
       ...base,
-      width: "100%",
-      flexDirection: "row-reverse",
-      cursor: "text",
+      backgroundColor: "var(--white-color)",
+      border: "none",
+      borderRadius: 30,
+      boxShadow: "none",
+      minHeight: 48,
+      padding: "0 12px",
+      "&:hover": {
+        border: "1px solid var(--accent-color)",
+      },
+    }),
+    valueContainer: (base) => ({
+      ...base,
+      padding: 0,
+      gap: 8,
+    }),
+    menu: (base) => ({
+      ...base,
+      borderRadius: 15,
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: "transparent",
+      color:
+        state.isSelected || state.isFocused
+          ? "var(--accent-color)"
+          : "var(--title-color)",
     }),
   };
 
@@ -222,39 +251,59 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
           if (meta.action === "input-change" && value.trim().length >= 2) {
             void handleCitiesInput(value);
           }
-          return value; // важно: вернуть строку
+          return value;
         }}
         onChange={(o) => updateParams({ locationId: o?.value ?? "" })}
         styles={citySelectStyles}
         components={{
-          Control: ControlWithSearchIcon,
+          DropdownIndicator: SearchIndicator,
           IndicatorSeparator: () => null,
+          ClearIndicator: () => null,
         }}
         isSearchable
       />
 
       <div className={css.sortContainer}>
-        {sortOptions.map((s) => (
-          <label key={s.value} className={css.sortButton}>
-            <input
-              type="radio"
-              name="sort"
-              checked={sort === s.value}
-              onChange={() => updateParams({ sort: s.value })}
-              className={css.sortRadio}
-            />
-            {s.label}
-          </label>
-        ))}
-      </div>
+        {sortOptions.map((s) => {
+          const isActive = sort === s.value;
 
-      <button
-        type="button"
-        className={css.resetBtn}
-        onClick={() => router.replace(basePath)}
-      >
-        Reset
-      </button>
+          return (
+            <label
+              key={s.value}
+              className={clsx(
+                css.sortButton,
+                sort === s.value && css.sortButtonActive,
+              )}
+            >
+              <input
+                type="radio"
+                name="sort"
+                checked={isActive}
+                onChange={() => updateParams({ sort: s.value })}
+                className={css.sortRadio}
+              />
+              <span>{s.label}</span>
+
+              {isActive && (
+                <button
+                  type="button"
+                  className={css.sortResetBtn}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    updateParams({ sort: "" });
+                  }}
+                  aria-label={`Reset ${s.label} sort`}
+                >
+                  <svg className={css.logoIcon} width="18" height="18">
+                    <use href="/symbol-defs.svg#icon-cross-white"></use>
+                  </svg>
+                </button>
+              )}
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 }
