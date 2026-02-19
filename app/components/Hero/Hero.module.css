@@ -68,12 +68,45 @@
   }
   .heroAfterTitle {
     margin-top: 32px;
-    margin-left: auto; /* прижать вправо */
+    margin-left: auto;
 
     text-align: left;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.22;
     color: var(--white-color);
+  }
+}
+
+@media (min-width: 1280px) {
+  .heroTitleContainer {
+    display: flex;
+    flex-direction: row;
+    width: 1216px;
+    min-height: 384px;
+    border-radius: 60px;
+    padding-right: 64px;
+    padding-left: 64px;
+    padding-bottom: 32px;
+    padding-top: 178px;align-items: flex-end;
+  }
+
+  .heroTitle {
+    font-size: 90px;
+    line-height: 0.96;
+    width: 760px;
+  }
+
+  .heroAfterTitle {
+    height: 88px;
+
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .heroImgContainer {
+    width: 1216px;
+    height: 384;
+    border-radius: 60px;
   }
 }
