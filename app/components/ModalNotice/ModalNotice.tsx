@@ -95,7 +95,9 @@ export default function ModalNotice({
             alt={notice.comment}
             className={css.image}
           />
+          <div className={css.sellBadge}>{notice.category}</div>
         </div>
+
         <Title as="h3" className={css.title}>
           {notice.title}
         </Title>
