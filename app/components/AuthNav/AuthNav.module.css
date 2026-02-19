@@ -86,4 +86,8 @@
   .registerbtn {
     width: 149px;
   }
+
+  .authNavHome {
+    margin-right: 64px;
+  }
 }

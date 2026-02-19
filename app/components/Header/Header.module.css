@@ -30,6 +30,8 @@
 }
 
 .headerContainer {
+  padding-right: 20px;
+  padding-left: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,6 +70,8 @@
   }
 
   .headerContainer {
+    padding-right: 32px;
+    padding-left: 32px;
     display: flex;
     justify-content: space-between;
   }
@@ -83,31 +87,44 @@
     display: none;
   }
 
-  .headerNavContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-  }
-
-  .headerContainer {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-  }
-
   .authWrapper {
     display: flex;
   }
 
+  .headerContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .headerLogoWrapper {
     display: flex;
-    margin-right: auto;
     align-items: center;
+    margin-right: 0;
   }
 
   .logoIcon {
     width: 105px;
     height: 28px;
-    margin-right: 300px;
+    margin-right: 0;
+  }
+
+  .headerNavContainer {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .logoIconHome {
+    margin-left: 64px;
+  }
+  .authWrapperMobMenu {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 }

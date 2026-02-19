@@ -76,6 +76,8 @@ export default function Header() {
                   </Link>
                 </div>
               )}
+
+              {/* MOBILE MENU */}
               <div className={css.mobileMenu}>
                 <button
                   className={clsx(
