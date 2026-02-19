@@ -10,6 +10,9 @@
 }
 
 .modal {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   position: relative;
   width: 100%;
   max-width: 335px;
@@ -188,4 +191,53 @@
   display: flex;
   gap: 10px;
   margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    max-width: 473px;
+    max-height: 510px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 72px 40px 72px;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .imageWrap {
+    max-width: 150px;
+    margin-bottom: 16px;
+  }
+  .sellBadge {
+    min-width: 52px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .petInfoWrap {
+    margin-top: 20px;
+  }
+
+  .comment {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .price {
+    font-size: 18px;
+    line-height: 1.33;
+  }
+
+  .contactBtnWrap {
+    width: 160px;
+  }
 }
