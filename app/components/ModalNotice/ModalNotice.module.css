@@ -38,14 +38,42 @@
   border-radius: 100%;
   width: 120px;
   height: 120px;
+  display: block;
+  width: 100%;
+  height: auto;
+
+  object-fit: cover;
 }
 
 .imageWrap {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 120px;
+  margin: 0 auto;
   margin-bottom: 20px;
 }
-
+.sellBadge {
+  position: absolute;
+  top: 8px;
+  left: -14;
+  z-index: 2;
+  min-width: 48px;
+  height: 32px;
+  padding: 8px 14px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--yellow-background-color);
+  color: var(--accent-color);
+  font-family: Manrope;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 12px;
+  line-height: 1.25;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
 .title {
   font-family: Manrope;
   font-weight: 700;
