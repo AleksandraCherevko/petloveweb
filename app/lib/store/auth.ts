@@ -26,15 +26,32 @@ export const useAuthStore = create<AuthState>((set) => ({
         credentials: "include",
       });
 
-      if (!res.ok) {
-        set({ user: null, isAuthenticated: false, isHydrated: true });
+      if (res.status === 401) {
+        set({
+          user: null,
+          isAuthenticated: false,
+          isHydrated: true,
+        });
         return;
       }
 
-      const user: User = await res.json();
-      set({ user, isAuthenticated: true, isHydrated: true });
+      if (!res.ok) {
+        set({ isHydrated: true });
+        return;
+      }
+
+      const user = await res.json();
+      set({
+        user,
+        isAuthenticated: true,
+        isHydrated: true,
+      });
     } catch {
-      set({ user: null, isAuthenticated: false, isHydrated: true });
+      set({
+        user: null,
+        isAuthenticated: false,
+        isHydrated: true,
+      });
     }
   },
 }));

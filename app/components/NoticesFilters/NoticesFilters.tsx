@@ -194,75 +194,86 @@ export default function NoticesFilters({ basePath = "/notices" }: Props) {
 
   return (
     <div className={css.noticesFilters}>
-      <div className={css.noticesSearchFieldWrapp}>
-        <SearchField
-          value={queryValue}
-          onChangeAction={setQueryValue}
-          onSubmitAction={handleSearchSubmit}
-          onClearAction={handleSearchClear}
-          placeholder="Search"
-          className={css.noticesSearchField}
-        />
+      <div className={css.noticesFiltersTopRow}>
+        <div className={css.noticesSearchFieldWrapp}>
+          <div className={css.noticesSearchFieldInner}>
+            <SearchField
+              value={queryValue}
+              onChangeAction={setQueryValue}
+              onSubmitAction={handleSearchSubmit}
+              onClearAction={handleSearchClear}
+              placeholder="Search"
+              className={css.noticesSearchField}
+            />
+          </div>
+        </div>
+
+        <div className={css.categorySexSelectsWrapper}>
+          <div className={css.byCategorySelectWrapper}>
+            <Select
+              instanceId="category-select"
+              options={categoryOptions}
+              placeholder="Category"
+              value={categoryOptions.find((o) => o.value === category) || null}
+              onChange={(o) => updateParams({ category: o?.value ?? "" })}
+              styles={selectStyles}
+              components={{ DropdownIndicator }}
+              isSearchable={false}
+            />
+          </div>
+          <div className={css.bySexSelectWrapper}>
+            <Select
+              instanceId="sex-select"
+              options={sexOptions}
+              placeholder="By gender"
+              value={sexOptions.find((o) => o.value === sex) || null}
+              onChange={(o) => updateParams({ sex: o?.value ?? "" })}
+              styles={selectStyles}
+              components={{ DropdownIndicator }}
+              isSearchable={false}
+            />
+          </div>
+        </div>
+
+        <div className={css.byTypeSelectWrapper}>
+          <Select
+            instanceId="species-select"
+            options={speciesOptions}
+            placeholder="By type"
+            value={speciesOptions.find((o) => o.value === species) || null}
+            onChange={(o) => updateParams({ species: o?.value ?? "" })}
+            styles={selectStyles}
+            components={{ DropdownIndicator }}
+            isSearchable={false}
+          />
+        </div>
+
+        <div className={css.citySelectWrapper}>
+          <Select
+            instanceId="city-select"
+            placeholder="Location"
+            isClearable
+            isLoading={isCitiesLoading}
+            options={cities}
+            value={cities.find((c) => c.value === locationId) ?? null}
+            onInputChange={(value, meta) => {
+              if (meta.action === "input-change" && value.trim().length >= 2) {
+                void handleCitiesInput(value);
+              }
+              return value;
+            }}
+            onChange={(o) => updateParams({ locationId: o?.value ?? "" })}
+            styles={citySelectStyles}
+            components={{
+              DropdownIndicator: SearchIndicator,
+              IndicatorSeparator: () => null,
+              ClearIndicator: () => null,
+            }}
+            isSearchable
+          />
+        </div>
       </div>
-
-      <div className={css.categorySexSelectsWrapper}>
-        <Select
-          instanceId="category-select"
-          options={categoryOptions}
-          placeholder="Category"
-          value={categoryOptions.find((o) => o.value === category) || null}
-          onChange={(o) => updateParams({ category: o?.value ?? "" })}
-          styles={selectStyles}
-          components={{ DropdownIndicator }}
-          isSearchable={false}
-        />
-
-        <Select
-          instanceId="sex-select"
-          options={sexOptions}
-          placeholder="By gender"
-          value={sexOptions.find((o) => o.value === sex) || null}
-          onChange={(o) => updateParams({ sex: o?.value ?? "" })}
-          styles={selectStyles}
-          components={{ DropdownIndicator }}
-          isSearchable={false}
-        />
-      </div>
-
-      <Select
-        instanceId="species-select"
-        options={speciesOptions}
-        placeholder="By type"
-        value={speciesOptions.find((o) => o.value === species) || null}
-        onChange={(o) => updateParams({ species: o?.value ?? "" })}
-        styles={selectStyles}
-        components={{ DropdownIndicator }}
-        isSearchable={false}
-      />
-
-      <Select
-        instanceId="city-select"
-        placeholder="Location"
-        isClearable
-        isLoading={isCitiesLoading}
-        options={cities}
-        value={cities.find((c) => c.value === locationId) ?? null}
-        onInputChange={(value, meta) => {
-          if (meta.action === "input-change" && value.trim().length >= 2) {
-            void handleCitiesInput(value);
-          }
-          return value;
-        }}
-        onChange={(o) => updateParams({ locationId: o?.value ?? "" })}
-        styles={citySelectStyles}
-        components={{
-          DropdownIndicator: SearchIndicator,
-          IndicatorSeparator: () => null,
-          ClearIndicator: () => null,
-        }}
-        isSearchable
-      />
-
+      <div className={css.filtersDivider} />
       <div className={css.sortContainer}>
         {sortOptions.map((s) => {
           const isActive = sort === s.value;
