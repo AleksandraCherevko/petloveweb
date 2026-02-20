@@ -8,6 +8,12 @@
   background-color: var(--yellow-background-color);
 }
 
+.noticesFiltersTopRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .noticesSearchField input {
   height: 48px;
   padding: 12px;
@@ -37,11 +43,21 @@
   flex-wrap: wrap;
 }
 
-.divider {
-  width: 100%; /* растягиваем по родителю */
+.noticesFilters {
+  width: 100%;
+}
+
+.filtersTopRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filtersDivider {
+  width: 100%;
   height: 1px;
-  background-color: #2626261a;
-  margin: 20px 0; /* отступ сверху и снизу */
+  background: #26262626;
+  margin: 20px 0 12px;
 }
 
 .sortButton {
@@ -108,11 +124,12 @@
 }
 
 @media (min-width: 768px) {
-  .noticesFilters {
+  .noticesFiltersTopRow {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 16px;
+    align-items: flex-end;
   }
 
   .categorySexSelectsWrapper {
@@ -153,6 +170,26 @@
     line-height: 1.25;
     letter-spacing: -0.03em;
   }
+
+  .citySelectWrapper {
+    width: 227px;
+  }
+
+  .byTypeSelectWrapper {
+    width: 190px;
+  }
+
+  .bySexSelectWrapper {
+    width: 170px;
+  }
+
+  .byCategorySelectWrapper {
+    width: 170px;
+  }
+
+  .noticesSearchFieldInner {
+    width: 265px;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -164,7 +201,27 @@
     align-items: center;
   }
 
-  .noticesFilters {
+  .noticesFiltersTopRow {
     align-items: flex-end;
+  }
+
+  .citySelectWrapper {
+    width: 227px;
+  }
+
+  .byTypeSelectWrapper {
+    width: 190px;
+  }
+
+  .bySexSelectWrapper {
+    width: 190px;
+  }
+
+  .byCategorySelectWrapper {
+    width: 150px;
+  }
+
+  .noticesSearchFieldInner {
+    width: 265px;
   }
 }

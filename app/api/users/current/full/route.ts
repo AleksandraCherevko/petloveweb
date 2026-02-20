@@ -8,18 +8,19 @@ export async function GET(req: NextRequest) {
       req.cookies.get("token")?.value ?? req.cookies.get("accessToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      const out = NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      out.cookies.set("token", "", { path: "/", maxAge: 0 });
+      out.cookies.set("accessToken", "", { path: "/", maxAge: 0 });
+      return out;
     }
 
     const res = await fetch(`${API_BASE}/users/current/full`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     });
 
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
       const out = NextResponse.json(data, { status: res.status });
