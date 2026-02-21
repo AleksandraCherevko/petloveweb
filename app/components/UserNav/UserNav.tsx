@@ -18,7 +18,7 @@ export default function UserNav({ isHome, onClose }: UserNavProps) {
   return (
     <nav className={clsx(css.authNavContainer, isHome && css.authNavHome)}>
       <ul className={css.userNavList}>
-        <li>
+        <li className={`${css.userBar} user-bar`}>
           <LogOutBtn />
         </li>
         <li className={css.userBar}>

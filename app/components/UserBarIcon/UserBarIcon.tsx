@@ -2,20 +2,34 @@
 
 import { useAuthStore } from "@/app/lib/store/auth";
 import css from "./UserBarIcon.module.css";
-import clsx from "clsx";
 
-interface UserBarIconProps {
-  className?: string;
-}
+import Image from "next/image";
 
-export default function UserBarIcon({ className }: UserBarIconProps) {
+// interface UserBarIconProps {
+//   className?: string;
+// }
+
+export default function UserBarIcon() {
   const user = useAuthStore((s) => s.user);
-
   if (!user) return null;
 
   return (
-    <svg className={clsx(css.userBarImg, className)} width="20" height="20">
-      <use href="/symbol-defs.svg#icon-user" />
-    </svg>
+    <div className={css.iconWrap}>
+      {user.avatar ? (
+        <Image
+          src={user.avatar}
+          alt={user.name || "User avatar"}
+          fill
+          sizes="45px"
+          className={css.avatar}
+        />
+      ) : (
+        <div className={css.fallback}>
+          <svg width="20" height="20">
+            <use href="/symbol-defs.svg#icon-user" />
+          </svg>
+        </div>
+      )}
+    </div>
   );
 }

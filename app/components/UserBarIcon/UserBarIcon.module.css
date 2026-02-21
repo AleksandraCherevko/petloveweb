@@ -1,6 +1,29 @@
 .userBarImg {
   border-radius: 50%;
   background-color: #fff4df;
+  object-fit: cover;
+}
+.iconWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fff4df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {

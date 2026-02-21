@@ -18,6 +18,7 @@ export default function Header() {
   const isHome = pathname === "/home";
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated, isHydrated, hydrateUser } = useAuthStore();
+  const user = useAuthStore((s) => s.user);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
@@ -70,7 +71,12 @@ export default function Header() {
             <div className={css.authWrapper}>{authContent}</div>
             <div className={css.headerMobMenuUserBar}>
               {isAuthenticated && (
-                <div className={css.headerMobMenuUserBarPhoto}>
+                <div
+                  className={clsx(
+                    css.headerMobMenuUserBarPhoto,
+                    user?.avatar && css.headerMobMenuUserBarPhotoHasAvatar,
+                  )}
+                >
                   <Link href="/profile">
                     <UserBarIcon />
                   </Link>

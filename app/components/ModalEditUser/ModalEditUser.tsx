@@ -40,11 +40,12 @@ const schema = yup.object({
     ),
   avatar: yup
     .string()
-    .required("Avatar URL is required")
-    .matches(
-      /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
-      "Invalid image URL",
-    ),
+    .trim()
+    .default("")
+    .test("is-valid-avatar-url", "Invalid image URL", (value) => {
+      if (!value) return true;
+      return /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/i.test(value);
+    }),
   phone: yup
     .string()
     .required("Phone is required")
@@ -77,24 +78,29 @@ export function ModalEditUser({
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
       name: user.name ?? "",
       email: user.email ?? "",
-      avatar: user.avatar ?? "",
+      avatar: "",
       phone: user.phone ?? "",
     },
   });
 
   async function onSubmit(data: FormValues) {
+    const payload = {
+      ...data,
+      avatar: data.avatar?.trim() || user.avatar || "",
+    };
     setIsSubmitting(true);
     try {
       const res = await fetch("/api/users/current/edit", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
         credentials: "include",
       });
       const result = await res.json();
@@ -115,7 +121,9 @@ export function ModalEditUser({
   }
   const avatarValue = useWatch({ control, name: "avatar" });
   const previewSrc =
-    localPreview || (avatarValue && !previewError ? avatarValue : "");
+    localPreview ||
+    (avatarValue && !previewError ? avatarValue : (user.avatar ?? ""));
+
   return (
     <div className={css.backdrop} onClick={onClose}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
@@ -157,9 +165,12 @@ export function ModalEditUser({
                   placeholder="Avatar URL"
                   {...register("avatar")}
                   className={css.imageRowInput}
-                  onChange={() => {
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
                     setPreviewError(false);
-                    setLocalPreview("");
+                    setLocalPreview(URL.createObjectURL(file));
+                    setValue("avatar", "", { shouldValidate: true }); // оставить пустым
                   }}
                 />
                 {errors.avatar && (
@@ -181,6 +192,9 @@ export function ModalEditUser({
                       if (!file) return;
                       setPreviewError(false);
                       setLocalPreview(URL.createObjectURL(file));
+                      setValue("avatar", user.avatar ?? "", {
+                        shouldValidate: true,
+                      });
                     }}
                   />
                 </label>

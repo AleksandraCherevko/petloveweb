@@ -76,6 +76,14 @@
   background-color: var(--accent-color);
 }
 
+.mobileMenu :global(.user-link) {
+  display: none;
+}
+
+.mobileMenu :global(.user-bar) {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .mobileMenu {
     max-width: 384px;

@@ -21,7 +21,39 @@
     border-radius: 50%;
     display: flex;
     justify-content: center;
-    padding: 13px;
+
     background-color: #fff4df;
+  }
+  .userAvatarIcon {
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .userAvatarImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff4df; 
+  }
+
+  .avatar {
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .fallbackIcon {
+    width: 20px;
+    height: 20px;
   }
 }
