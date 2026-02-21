@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ModalEditUser } from "../ModalEditUser/ModalEditUser";
 import css from "./EditUserBtn.module.css";
+import { useAuthStore } from "@/app/lib/store/auth";
 
 interface EditUserBtnProps {
   onSuccess: () => void;
@@ -10,6 +11,7 @@ interface EditUserBtnProps {
 
 export function EditUserBtn({ onSuccess }: EditUserBtnProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuthStore();
 
   return (
     <>
@@ -18,8 +20,9 @@ export function EditUserBtn({ onSuccess }: EditUserBtnProps) {
           <use href="/symbol-defs.svg#icon-edit"></use>
         </svg>
       </button>
-      {isOpen && (
+      {isOpen && user &&(
         <ModalEditUser
+          user={user}
           onClose={() => setIsOpen(false)}
           onSuccess={() => {
             onSuccess();

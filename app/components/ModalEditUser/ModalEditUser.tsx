@@ -14,6 +14,12 @@ import clsx from "clsx";
 interface ModalEditUserProps {
   onClose: () => void;
   onSuccess: () => void;
+  user: {
+    name?: string;
+    email?: string;
+    avatar?: string;
+    phone?: string;
+  };
 }
 
 type FormValues = {
@@ -45,10 +51,15 @@ const schema = yup.object({
     .matches(/^\+38\d{10}$/, "Phone must match +38XXXXXXXXXX format"),
 });
 
-export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
+export function ModalEditUser({
+  onClose,
+  onSuccess,
+  user,
+}: ModalEditUserProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [previewError, setPreviewError] = useState(false);
   const [localPreview, setLocalPreview] = useState("");
+
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -69,6 +80,12 @@ export function ModalEditUser({ onClose, onSuccess }: ModalEditUserProps) {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: user.name ?? "",
+      email: user.email ?? "",
+      avatar: user.avatar ?? "",
+      phone: user.phone ?? "",
+    },
   });
 
   async function onSubmit(data: FormValues) {
