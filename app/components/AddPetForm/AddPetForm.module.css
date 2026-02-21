@@ -294,6 +294,7 @@
     justify-content: flex-start;
   }
   .formContainer {
+    border-radius: 60px;
     display: flex;
     padding: 40px 136px;
   }
@@ -378,7 +379,7 @@
     padding-bottom: 14px;
     width: 170px;
   }
- 
+
   .inputWrapperSearch {
     gap: 10px;
   }
@@ -389,7 +390,7 @@
     display: flex;
     padding: 60px 80px;
     background-color: var(--white-color);
-    border-radius: 30px;
+    border-radius: 60px;
   }
   .inputWrapperSearch {
     gap: 10px;
