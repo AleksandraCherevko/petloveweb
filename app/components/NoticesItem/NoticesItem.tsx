@@ -160,7 +160,12 @@ const NoticesItem = ({
       </div>
 
       <p className={css.noticeItemComment}>{notice.comment}</p>
-      {notice.price && <p className={css.noticeItemPrice}>${notice.price}</p>}
+
+      {notice.price ? (
+        <p className={css.noticeItemPrice}>${notice.price}</p>
+      ) : (
+        <div className={css.noticeItemPriceEmpty} />
+      )}
 
       <div className={css.noticeItemBtnWrapper}>
         <button

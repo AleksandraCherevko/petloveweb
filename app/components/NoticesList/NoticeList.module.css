@@ -5,6 +5,10 @@
   margin-bottom: 44px;
 }
 
+.noticeList > li {
+  height: 100%;
+}
+
 @media (min-width: 768px) {
   .noticeList {
     grid-template-columns: repeat(2, 1fr);
