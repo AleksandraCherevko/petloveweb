@@ -37,7 +37,8 @@
   }
   .petBlock {
     margin-bottom: 0px;
-    height: auto;
+    height: 654px;
     width: 592px;
+    flex-shrink: 0;
   }
 }

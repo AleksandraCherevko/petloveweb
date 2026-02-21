@@ -5,9 +5,6 @@ import css from "./UserBarIcon.module.css";
 
 import Image from "next/image";
 
-// interface UserBarIconProps {
-//   className?: string;
-// }
 
 export default function UserBarIcon() {
   const user = useAuthStore((s) => s.user);
