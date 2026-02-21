@@ -5,6 +5,7 @@ import Nav from "../Nav/Nav";
 import AuthNav from "../AuthNav/AuthNav";
 import UserNav from "../UserNav/UserNav";
 import { useAuthStore } from "@/app/lib/store/auth";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
 
 import clsx from "clsx";
 
@@ -34,8 +35,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <use
               href={
                 isAuthenticated
-                  ? "/symbol-defs.svg#icon-cross-white" // 👈 иконка для залогиненного
-                  : "/symbol-defs.svg#icon-cross-black" // 👈 обычная
+                  ? "/symbol-defs.svg#icon-cross-white"
+                  : "/symbol-defs.svg#icon-cross-black"
               }
             />
           </svg>
@@ -50,6 +51,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <AuthNav onClose={onClose} />
             )}
           </div>
+          <LogOutBtn />
         </div>
       </div>
     </>
