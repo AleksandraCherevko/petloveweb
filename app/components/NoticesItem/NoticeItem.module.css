@@ -11,11 +11,18 @@
 
 .noticeItemImage {
   margin-bottom: 24px;
-  width: 287px;
-  height: 178px;
+  object-fit: cover;
   border-radius: 16px;
 }
 
+.noticeItemImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 287 / 178;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+}
 .noticeItemTitleStarWrap {
   display: flex;
   justify-content: space-between;
