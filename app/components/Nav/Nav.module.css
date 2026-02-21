@@ -87,4 +87,25 @@
     align-items: center;
     color: var(--title-color);
   }
+  .navListHome {
+    margin-right: 150px;
+  }
+
+  .navListItemHomeAuth {
+    border: 1px solid var(--white-color)
+  }
+
+  .navListItemHomeAuth:hover,
+  .navListItemHomeAuth:focus {
+    border: 1px solid #fff4df;
+  }
+
+  .navListLinkHomeAuth {
+    color: #fff;
+  }
+
+  /* active для home+auth */
+  .navListItemHomeAuth.active {
+    border: 1px solid #fff4df;
+  }
 }

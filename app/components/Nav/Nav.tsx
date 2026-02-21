@@ -13,6 +13,7 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
   ];
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isHomeAuth = Boolean(isHome && isAuthenticated);
 
   return (
     <>
@@ -27,6 +28,7 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
                 pathname === item.href && css.active,
                 isAuthenticated && css.navListItemMob,
                 isAuthenticated && css.navListItemAuth,
+                isHomeAuth && css.navListItemHomeAuth,
               )}
             >
               <Link
@@ -36,6 +38,7 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
                   isHome && css.navListLinkHome,
                   isAuthenticated && css.navListItemMobLink,
                   isAuthenticated && css.navListLinkAuth,
+                  isHomeAuth && css.navListLinkHomeAuth,
                 )}
               >
                 {item.label}
