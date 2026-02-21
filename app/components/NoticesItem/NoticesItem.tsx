@@ -116,13 +116,15 @@ const NoticesItem = ({
 
   return (
     <li className={clsx(css.noticeItem, className)}>
-      <Image
-        src={notice.imgURL}
-        width={287}
-        height={178}
-        alt={notice.comment}
-        className={css.noticeItemImage}
-      />
+      <div className={css.noticeItemImageWrap}>
+        <Image
+          src={notice.imgURL}
+          fill
+          sizes="(max-width: 767px) 287px, (max-width: 1279px) 294px, 315px"
+          alt={notice.comment}
+          className={css.noticeItemImage}
+        />
+      </div>
 
       <div className={css.noticeItemTitleStarWrap}>
         <p className={css.noticeItemTitle}>{notice.title}</p>
