@@ -1,8 +1,6 @@
-"use client";
 import clsx from "clsx";
-import css from "./PetBlock.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import css from "./PetBlock.module.css";
 
 type PetBlockImgProps = {
   mobileSrc: string;
@@ -19,29 +17,31 @@ const PetBlock = ({
   alt,
   className,
 }: PetBlockImgProps) => {
-  const [src, setSrc] = useState(mobileSrc);
-
-  useEffect(() => {
-    const setByWidth = () => {
-      const w = window.innerWidth;
-      if (w >= 1280) setSrc(desktopSrc);
-      else if (w >= 768) setSrc(tabletSrc);
-      else setSrc(mobileSrc);
-    };
-
-    setByWidth();
-    window.addEventListener("resize", setByWidth);
-    return () => window.removeEventListener("resize", setByWidth);
-  }, [mobileSrc, tabletSrc, desktopSrc]);
   return (
     <div className={clsx(css.wrapper, className)}>
       <Image
-        src={src}
+        src={mobileSrc}
         alt={alt}
-        fill
+        width={335}
+        height={213}
         priority
-        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 704px, 592px"
-        className={css.image}
+        className={clsx(css.image, css.mobile)}
+      />
+      <Image
+        src={tabletSrc}
+        alt={alt}
+        width={704}
+        height={248}
+        priority
+        className={clsx(css.image, css.tablet)}
+      />
+      <Image
+        src={desktopSrc}
+        alt={alt}
+        width={592}
+        height={654}
+        priority
+        className={clsx(css.image, css.desktop)}
       />
     </div>
   );
