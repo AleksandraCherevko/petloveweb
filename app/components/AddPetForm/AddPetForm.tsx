@@ -355,7 +355,7 @@ export default function AddPetForm() {
                     <DatePicker
                       ref={datePickerRef}
                       selected={field.value ? parseISO(field.value) : null}
-                      onChange={(date) =>
+                      onChange={(date: Date | null) =>
                         field.onChange(date ? format(date, "yyyy-MM-dd") : "")
                       }
                       dateFormat="yyyy-MM-dd"
