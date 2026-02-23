@@ -9,11 +9,15 @@ import css from "./AddPetForm.module.css";
 import Title from "../Title/Title";
 import clsx from "clsx";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getSpeciesClient } from "@/app/lib/api";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
 import { StylesConfig } from "react-select";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { enGB } from "date-fns/locale";
+import { format, parseISO } from "date-fns";
 
 type Option = { value: string; label: string };
 
@@ -54,6 +58,7 @@ export default function AddPetForm() {
   const [speciesOptions, setSpeciesOptions] = useState<
     { value: string; label: string }[]
   >([]);
+  const datePickerRef = useRef<DatePicker | null>(null);
 
   useEffect(() => {
     const run = async () => {
@@ -106,7 +111,6 @@ export default function AddPetForm() {
   };
 
   //   SELECT STYLES
-  
 
   const typesSelectStyles: StylesConfig<Option, false> = {
     container: (base) => ({
@@ -344,15 +348,36 @@ export default function AddPetForm() {
           <div className={css.inputWrapperSearch}>
             <div className={css.errorWrap}>
               <div className={css.inputWrapperCalendar}>
-                <input
-                  placeholder="0000-00-00"
-                  {...register("birthday")}
-                  className={css.input}
+                <Controller
+                  control={control}
+                  name="birthday"
+                  render={({ field }) => (
+                    <DatePicker
+                      ref={datePickerRef}
+                      selected={field.value ? parseISO(field.value) : null}
+                      onChange={(date) =>
+                        field.onChange(date ? format(date, "yyyy-MM-dd") : "")
+                      }
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="0000-00-00"
+                      locale={enGB}
+                      className={css.input}
+                      calendarClassName={css.calendar}
+                      showPopperArrow={false}
+                    />
+                  )}
                 />
 
-                <svg width="16" height="16" className={css.inputIconCalendar}>
-                  <use href="/symbol-defs.svg#icon-calendar" />
-                </svg>
+                <button
+                  type="button"
+                  className={css.calendarOpenBtn}
+                  onClick={() => datePickerRef.current?.setOpen(true)}
+                  aria-label="Open calendar"
+                >
+                  <svg width="16" height="16" className={css.inputIconCalendar}>
+                    <use href="/symbol-defs.svg#icon-calendar" />
+                  </svg>
+                </button>
               </div>
 
               {errors.birthday && (

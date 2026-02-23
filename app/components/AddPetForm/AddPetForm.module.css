@@ -222,6 +222,19 @@
   flex-direction: row;
 }
 
+.calendarOpenBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 /* ACTION BTN */
 
 .actions {
@@ -362,6 +375,87 @@
     width: 210px;
     min-height: 52px;
     height: 52px;
+  }
+  .inputWrapperCalendar {
+    position: relative;
+  }
+
+  .inputWrapperCalendar .input {
+    padding-right: 36px;
+  }
+
+  .inputIconCalendar {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .calendar {
+    border-radius: 12px;
+    border: 1px solid #26262626;
+    font-family: Manrope, sans-serif;
+  }
+  /* react-datepicker theme */
+
+  .calendar {
+    border: 1px solid #26262626;
+    border-radius: 16px;
+    font-family: Manrope, sans-serif;
+    overflow: hidden;
+  }
+
+  :global(.react-datepicker) {
+    border: 1px solid #26262626;
+    border-radius: 16px;
+    font-family: Manrope, sans-serif;
+  }
+
+  :global(.react-datepicker__header) {
+    background-color: #fff;
+    border-bottom: 1px solid #26262614;
+  }
+
+  :global(.react-datepicker__current-month) {
+    color: var(--title-color);
+    font-weight: 700;
+  }
+
+  :global(.react-datepicker__day-name) {
+    color: #26262680;
+    font-weight: 500;
+  }
+
+  :global(.react-datepicker__day) {
+    color: var(--title-color);
+    border-radius: 8px;
+  }
+
+  :global(.react-datepicker__day:hover) {
+    background-color: #fff4df;
+    color: var(--accent-color);
+  }
+
+  :global(.react-datepicker__day--selected),
+  :global(.react-datepicker__day--keyboard-selected) {
+    background-color: var(--accent-color) !important;
+    color: #fff !important;
+  }
+
+  :global(.react-datepicker__navigation-icon::before) {
+    border-color: var(--title-color);
+  }
+
+  :global(
+    .react-datepicker__navigation:hover
+      .react-datepicker__navigation-icon::before
+  ) {
+    border-color: var(--accent-color);
+  }
+
+  :global(.react-datepicker__triangle) {
+    display: none;
   }
 
   .speciesSelectWrap {
