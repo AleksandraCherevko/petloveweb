@@ -11,10 +11,13 @@ import {
   addNoticeToFavorites,
   removeNoticeFromFavorites,
   getNoticeById,
+  getUser,
   isUnauthorizedError,
 } from "@/app/lib/api";
 import { useAuthStore } from "@/app/lib/store/auth";
 import clsx from "clsx";
+
+import FirstFavoriteModal from "../FirstFavoriteModal/FirstFavoriteModal";
 
 type NoticesItemProps = {
   notice: Notice;
@@ -36,7 +39,6 @@ const NoticesItem = ({
   removable,
   onRemove,
   onFavoriteChangeAction,
-
   className,
 }: NoticesItemProps) => {
   const { isAuthenticated } = useAuthStore();
@@ -49,6 +51,8 @@ const NoticesItem = ({
 
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false);
+  const [isFirstFavoriteOpen, setIsFirstFavoriteOpen] = useState(false);
+  const [pendingFavoriteSync, setPendingFavoriteSync] = useState(false);
 
   const rawId =
     (notice as { _id?: string; id?: string; noticeId?: string })._id ??
@@ -113,6 +117,46 @@ const NoticesItem = ({
   //   }
   // };
 
+  // const handleFavorite = async () => {
+  //   if (!isAuthenticated) {
+  //     setIsAttentionOpen(true);
+  //     return;
+  //   }
+
+  //   try {
+  //     setIsLoadingFavorite(true);
+
+  //     if (isFavorite) {
+  //       await removeNoticeFromFavorites(noticeId);
+  //       setIsFavorite(false);
+  //       onFavoriteChangeAction?.(noticeId, false);
+  //     } else {
+  //       await addNoticeToFavorites(noticeId);
+
+  //       setIsFavorite(true);
+  //       onFavoriteChangeAction?.(noticeId, true);
+
+  //       const storageKey = "first-favorite-modal-shown";
+  //       const alreadyShown =
+  //         typeof window !== "undefined" &&
+  //         localStorage.getItem(storageKey) === "1";
+
+  //       if (!removable && !alreadyShown) {
+  //         setIsFirstFavoriteOpen(true);
+  //         localStorage.setItem(storageKey, "1");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     if (isUnauthorizedError(error)) {
+  //       setIsAttentionOpen(true);
+  //       return;
+  //     }
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoadingFavorite(false);
+  //   }
+  // };
+
   const handleFavorite = async () => {
     if (!isAuthenticated) {
       setIsAttentionOpen(true);
@@ -126,13 +170,21 @@ const NoticesItem = ({
         await removeNoticeFromFavorites(noticeId);
         setIsFavorite(false);
         onFavoriteChangeAction?.(noticeId, false);
-      } else {
-        const res = await addNoticeToFavorites(noticeId);
+        return;
+      }
 
-        setIsFavorite(true);
-        onFavoriteChangeAction?.(noticeId, true);
+      await addNoticeToFavorites(noticeId);
+      setIsFavorite(true);
+      onFavoriteChangeAction?.(noticeId, true);
 
-        void res;
+      // Показать модалку, если это первая карточка в избранном
+      try {
+        const me = await getUser();
+        if ((me.noticesFavorites?.length ?? 0) === 1) {
+          setIsFirstFavoriteOpen(true);
+        }
+      } catch {
+        // ignore
       }
     } catch (error) {
       if (isUnauthorizedError(error)) {
@@ -237,6 +289,17 @@ const NoticesItem = ({
 
       {isAttentionOpen && (
         <ModalAttention onClose={() => setIsAttentionOpen(false)} />
+      )}
+      {isFirstFavoriteOpen && (
+        <FirstFavoriteModal
+          onCloseAction={() => {
+            setIsFirstFavoriteOpen(false);
+            if (pendingFavoriteSync) {
+              onFavoriteChangeAction?.(noticeId, true);
+              setPendingFavoriteSync(false);
+            }
+          }}
+        />
       )}
 
       {isNoticeOpen && details && (
