@@ -34,6 +34,9 @@
   font-size: 16px;
   line-height: 1.25;
   color: #2b2b2a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .noticeItemPop {
@@ -89,6 +92,7 @@
   line-height: 1.25;
   color: var(--second-black-color);
   min-height: 20px;
+  margin-bottom: 12px;
 }
 
 .noticeItemPriceEmpty {
@@ -145,7 +149,16 @@
   .learnMoreBtn {
     width: 257px;
   }
-
+  .noticeItemCategory {
+    min-width: 0; /* важно для ellipsis внутри flex/grid */
+    display: flex;
+    flex-direction: column;
+  }
+  .noticeItemCategoryWrap {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
   .noticeItemTitle {
     font-family: Manrope;
     font-weight: 700;
@@ -160,6 +173,18 @@
   }
 
   .noticeItem {
-    flex-basis: calc((100% - 32px) / 2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .noticeItemBtnWrapper {
+    margin-top: auto;
+  }
+  .noticeItemCategoryValue {
+    display: block;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

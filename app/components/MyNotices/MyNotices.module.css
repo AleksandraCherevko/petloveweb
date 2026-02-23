@@ -50,9 +50,8 @@
   color: var(--accent-color);
 }
 .noticesList {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 @media (min-width: 768px) {
@@ -66,32 +65,25 @@
   }
 
   .noticesList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-top: 38px;
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .myNoticesItem {
+    height: 100%;
   }
 }
 @media (min-width: 1280px) {
   .noticesList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     margin-top: 32px;
+    display: grid; /* было flex */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+    align-items: stretch;
   }
-
-  .tabsContainer {
-    margin-top: 0px;
+  .myNoticesItem {
+    height: 100%;
   }
-
-  .noticesList > li {
-    flex: 0 0 calc((100% - 24px) / 2);
-    max-width: calc((100% - 24px) / 2);
-    box-sizing: border-box;
-  }
-
   .tabsContainer {
     margin-top: 0;
   }
