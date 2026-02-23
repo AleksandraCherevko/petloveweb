@@ -36,7 +36,7 @@ const NoticesItem = ({
   removable,
   onRemove,
   onFavoriteChangeAction,
-  onViewedChangeAction,
+
   className,
 }: NoticesItemProps) => {
   const { isAuthenticated } = useAuthStore();
@@ -51,8 +51,10 @@ const NoticesItem = ({
   const [isLoadingFavorite, setIsLoadingFavorite] = useState(false);
 
   const rawId =
-    (notice as { _id?: string; id?: string })._id ??
-    (notice as { _id?: string; id?: string }).id;
+    (notice as { _id?: string; id?: string; noticeId?: string })._id ??
+    (notice as { _id?: string; id?: string; noticeId?: string }).id ??
+    (notice as { _id?: string; id?: string; noticeId?: string }).noticeId;
+
   const noticeId = typeof rawId === "string" && rawId.trim() ? rawId : null;
 
   if (!noticeId) {
@@ -60,27 +62,56 @@ const NoticesItem = ({
   }
 
   const handleLearnMore = async () => {
-    if (!isAuthenticated) {
-      setIsAttentionOpen(true);
-      return;
-    }
+    if (!noticeId) return;
 
+    // 1) открываем модалку сразу с базовыми данными карточки
+    setDetails({
+      ...(notice as NoticeDetails),
+      _id: noticeId,
+      isFavorite,
+    });
+    setIsNoticeOpen(true);
+
+    // 2) пробуем догрузить full details
     try {
       setIsLoadingDetails(true);
       const full = await getNoticeById(noticeId);
       setDetails(full);
-      setIsNoticeOpen(true);
-      onViewedChangeAction?.();
     } catch (error) {
       if (isUnauthorizedError(error)) {
+        setIsNoticeOpen(false);
         setIsAttentionOpen(true);
         return;
       }
-      console.error(error);
+      console.error("getNoticeById error:", error);
+      // модалка уже открыта с базовыми данными
     } finally {
       setIsLoadingDetails(false);
     }
   };
+
+  // const handleLearnMore = async () => {
+  //   if (!isAuthenticated) {
+  //     setIsAttentionOpen(true);
+  //     return;
+  //   }
+
+  //   try {
+  //     setIsLoadingDetails(true);
+  //     const full = await getNoticeById(noticeId);
+  //     setDetails(full);
+  //     setIsNoticeOpen(true);
+  //     onViewedChangeAction?.();
+  //   } catch (error) {
+  //     if (isUnauthorizedError(error)) {
+  //       setIsAttentionOpen(true);
+  //       return;
+  //     }
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoadingDetails(false);
+  //   }
+  // };
 
   const handleFavorite = async () => {
     if (!isAuthenticated) {
@@ -143,19 +174,19 @@ const NoticesItem = ({
         </p>
         <p className={css.noticeItemCategory}>
           <span className={css.noticeItemCategorySpan}>Birthday</span>
-          {notice.birthday}
+          <span className={css.noticeItemCategoryValue}>{notice.birthday}</span>
         </p>
         <p className={css.noticeItemCategory}>
           <span className={css.noticeItemCategorySpan}>Sex</span>
-          {notice.sex}
+          <span className={css.noticeItemCategoryValue}>{notice.sex}</span>
         </p>
         <p className={css.noticeItemCategory}>
           <span className={css.noticeItemCategorySpan}>Species</span>
-          {notice.species}
+          <span className={css.noticeItemCategoryValue}>{notice.species}</span>
         </p>
         <p className={css.noticeItemCategory}>
           <span className={css.noticeItemCategorySpan}>Category</span>
-          {notice.category}
+          <span className={css.noticeItemCategoryValue}>{notice.category}</span>
         </p>
       </div>
 

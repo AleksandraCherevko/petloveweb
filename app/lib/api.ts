@@ -274,24 +274,53 @@ export const getPets = async () => {
   return res.data;
 };
 
+// export const addNoticeToFavorites = async (
+//   id: string,
+// ): Promise<"added" | "already"> => {
+//   try {
+//     console.log("API add favorite id:", id);
+//     await nextServer.post(`/notices/favorites/add/${id}`);
+//     return "added";
+//   } catch (error) {
+//     if (axios.isAxiosError(error)) {
+//       console.log("ADD FAVORITE ERROR DATA:", error.response?.data);
+//     }
+//     if (axios.isAxiosError(error) && error.response?.status === 400) {
+//       return "already";
+//     }
+//     throw error;
+//   }
+// };
 export const addNoticeToFavorites = async (
   id: string,
 ): Promise<"added" | "already"> => {
   try {
-    console.log("API add favorite id:", id);
     await nextServer.post(`/notices/favorites/add/${id}`);
     return "added";
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log("ADD FAVORITE ERROR DATA:", error.response?.data);
-    }
-    if (axios.isAxiosError(error) && error.response?.status === 400) {
-      return "already";
+      const status = error.response?.status;
+      if (status === 400 || status === 409) {
+        return "already";
+      }
     }
     throw error;
   }
 };
 
+// export const removeNoticeFromFavorites = async (
+//   id: string,
+// ): Promise<"removed" | "already"> => {
+//   try {
+//     await nextServer.delete(`/notices/favorites/remove/${id}`);
+//     return "removed";
+//   } catch (error) {
+//     if (axios.isAxiosError(error) && error.response?.status === 400) {
+//       return "already";
+//     }
+//     throw error;
+//   }
+// };
 export const removeNoticeFromFavorites = async (
   id: string,
 ): Promise<"removed" | "already"> => {
@@ -299,8 +328,11 @@ export const removeNoticeFromFavorites = async (
     await nextServer.delete(`/notices/favorites/remove/${id}`);
     return "removed";
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 400) {
-      return "already";
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
+      if (status === 400 || status === 409) {
+        return "already";
+      }
     }
     throw error;
   }
