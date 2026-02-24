@@ -68,7 +68,7 @@ const NoticesItem = ({
   const handleLearnMore = async () => {
     if (!noticeId) return;
 
-    // 1) открываем модалку сразу с базовыми данными карточки
+   
     setDetails({
       ...(notice as NoticeDetails),
       _id: noticeId,
@@ -76,7 +76,7 @@ const NoticesItem = ({
     });
     setIsNoticeOpen(true);
 
-    // 2) пробуем догрузить full details
+ 
     try {
       setIsLoadingDetails(true);
       const full = await getNoticeById(noticeId);
@@ -88,74 +88,12 @@ const NoticesItem = ({
         return;
       }
       console.error("getNoticeById error:", error);
-      // модалка уже открыта с базовыми данными
+   
     } finally {
       setIsLoadingDetails(false);
     }
   };
 
-  // const handleLearnMore = async () => {
-  //   if (!isAuthenticated) {
-  //     setIsAttentionOpen(true);
-  //     return;
-  //   }
-
-  //   try {
-  //     setIsLoadingDetails(true);
-  //     const full = await getNoticeById(noticeId);
-  //     setDetails(full);
-  //     setIsNoticeOpen(true);
-  //     onViewedChangeAction?.();
-  //   } catch (error) {
-  //     if (isUnauthorizedError(error)) {
-  //       setIsAttentionOpen(true);
-  //       return;
-  //     }
-  //     console.error(error);
-  //   } finally {
-  //     setIsLoadingDetails(false);
-  //   }
-  // };
-
-  // const handleFavorite = async () => {
-  //   if (!isAuthenticated) {
-  //     setIsAttentionOpen(true);
-  //     return;
-  //   }
-
-  //   try {
-  //     setIsLoadingFavorite(true);
-
-  //     if (isFavorite) {
-  //       await removeNoticeFromFavorites(noticeId);
-  //       setIsFavorite(false);
-  //       onFavoriteChangeAction?.(noticeId, false);
-  //     } else {
-  //       await addNoticeToFavorites(noticeId);
-
-  //       setIsFavorite(true);
-  //       onFavoriteChangeAction?.(noticeId, true);
-
-  //       const storageKey = "first-favorite-modal-shown";
-  //       const alreadyShown =
-  //         typeof window !== "undefined" &&
-  //         localStorage.getItem(storageKey) === "1";
-
-  //       if (!removable && !alreadyShown) {
-  //         setIsFirstFavoriteOpen(true);
-  //         localStorage.setItem(storageKey, "1");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     if (isUnauthorizedError(error)) {
-  //       setIsAttentionOpen(true);
-  //       return;
-  //     }
-  //     console.error(error);
-  //   } finally {
-  //     setIsLoadingFavorite(false);
-  //   }
-  // };
 
   const handleFavorite = async () => {
     if (!isAuthenticated) {
@@ -177,14 +115,14 @@ const NoticesItem = ({
       setIsFavorite(true);
       onFavoriteChangeAction?.(noticeId, true);
 
-      // Показать модалку, если это первая карточка в избранном
+    
       try {
         const me = await getUser();
         if ((me.noticesFavorites?.length ?? 0) === 1) {
           setIsFirstFavoriteOpen(true);
         }
       } catch {
-        // ignore
+      
       }
     } catch (error) {
       if (isUnauthorizedError(error)) {

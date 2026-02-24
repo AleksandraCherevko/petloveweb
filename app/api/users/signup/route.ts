@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(data, { status: res.status });
     }
 
-    // Если backend вернул token, кладем в cookie
+  
     const token = data?.token;
     const response = NextResponse.json(data);
 

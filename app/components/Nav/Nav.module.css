@@ -3,13 +3,7 @@
   flex-direction: column;
   gap: 10px;
 }
-/* .navListItemHome {
-  border: 1px solid var(--white-color);
-} */
 
-.navListItem.navListItemMob {
-  border: 1px solid #ffffff80;
-}
 .navListItem.navListItemMob:hover {
   border: 1px solid #fff4df;
 }
@@ -78,7 +72,7 @@
   .navListLinkAuth {
     padding-top: 15px;
     padding-bottom: 15px;
-    border: 1px solid #26262626;
+
     background-color: transparent;
     display: flex;
     width: 119px;
@@ -89,10 +83,6 @@
   }
   .navListHome {
     margin-right: 150px;
-  }
-
-  .navListItemHomeAuth {
-    border: 1px solid var(--white-color);
   }
 
   .navListItemHomeAuth:hover,
