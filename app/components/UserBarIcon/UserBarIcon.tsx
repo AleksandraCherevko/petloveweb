@@ -17,7 +17,7 @@ export default function UserBarIcon() {
           src={user.avatar}
           alt={user.name || "User avatar"}
           fill
-          sizes="45px"
+          sizes="40px"
           className={css.avatar}
         />
       ) : (
