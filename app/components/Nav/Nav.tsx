@@ -19,32 +19,34 @@ export default function Nav({ isHome }: { isHome?: boolean }) {
     <>
       <div className={css.navListContainer}>
         <ul className={clsx(css.navList, isHome && css.navListHome)}>
-          {navItems.map((item) => (
-            <li
-              key={item.href}
-              className={clsx(
-                css.navListItem,
-                isHome && css.navListItemHome,
-                pathname === item.href && css.active,
-                isAuthenticated && css.navListItemMob,
-                isAuthenticated && css.navListItemAuth,
-                isHomeAuth && css.navListItemHomeAuth,
-              )}
-            >
-              <Link
-                href={item.href}
+          {navItems.map((item) => {
+            return (
+              <li
+                key={item.href}
                 className={clsx(
-                  css.navListIink,
-                  isHome && css.navListLinkHome,
-                  isAuthenticated && css.navListItemMobLink,
-                  isAuthenticated && css.navListLinkAuth,
-                  isHomeAuth && css.navListLinkHomeAuth,
+                  css.navListItem,
+                  isHome && css.navListItemHome,
+                  pathname === item.href && css.active,
+                  isAuthenticated && css.navListItemMob,
+                  isAuthenticated && css.navListItemAuth,
+                  isHomeAuth && css.navListItemHomeAuth
                 )}
               >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+                <Link
+                  href={item.href}
+                  className={clsx(
+                    css.navListIink,
+                    isHome && css.navListLinkHome,
+                    isAuthenticated && css.navListItemMobLink,
+                    isAuthenticated && css.navListLinkAuth,
+                    isHomeAuth && css.navListLinkHomeAuth
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>

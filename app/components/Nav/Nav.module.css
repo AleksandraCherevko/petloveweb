@@ -3,9 +3,9 @@
   flex-direction: column;
   gap: 10px;
 }
-.navListItemHome {
-  border: 1px solid #ffffff66;
-}
+/* .navListItemHome {
+  border: 1px solid var(--white-color);
+} */
 
 .navListItem.navListItemMob {
   border: 1px solid #ffffff80;
@@ -92,20 +92,19 @@
   }
 
   .navListItemHomeAuth {
-    border: 1px solid var(--white-color)
+    border: 1px solid var(--white-color);
   }
 
   .navListItemHomeAuth:hover,
   .navListItemHomeAuth:focus {
-    border: 1px solid #fff4df;
+    border: 1px solid var(--white-color);
   }
 
   .navListLinkHomeAuth {
     color: #fff;
   }
 
-  /* active для home+auth */
   .navListItemHomeAuth.active {
-    border: 1px solid #fff4df;
+    border: 1px solid var(--white-color);
   }
 }
