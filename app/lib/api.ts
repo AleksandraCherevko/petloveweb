@@ -10,7 +10,7 @@ export const api = axios.create({
 
 export const nextServer = axios.create({
   baseURL: "/api",
-  // baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
+
   withCredentials: true,
 });
 
@@ -48,7 +48,7 @@ export const getNewsClient = async (page = 1, perPage = 6, query = "") => {
   });
 
   if (query) {
-    params.set("query", query); // <-- это станет keyword на сервере
+    params.set("query", query);
   }
 
   const res = await fetch(`/api/news?${params.toString()}`);
@@ -274,23 +274,6 @@ export const getPets = async () => {
   return res.data;
 };
 
-// export const addNoticeToFavorites = async (
-//   id: string,
-// ): Promise<"added" | "already"> => {
-//   try {
-//     console.log("API add favorite id:", id);
-//     await nextServer.post(`/notices/favorites/add/${id}`);
-//     return "added";
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       console.log("ADD FAVORITE ERROR DATA:", error.response?.data);
-//     }
-//     if (axios.isAxiosError(error) && error.response?.status === 400) {
-//       return "already";
-//     }
-//     throw error;
-//   }
-// };
 export const addNoticeToFavorites = async (
   id: string,
 ): Promise<"added" | "already"> => {
@@ -308,19 +291,6 @@ export const addNoticeToFavorites = async (
   }
 };
 
-// export const removeNoticeFromFavorites = async (
-//   id: string,
-// ): Promise<"removed" | "already"> => {
-//   try {
-//     await nextServer.delete(`/notices/favorites/remove/${id}`);
-//     return "removed";
-//   } catch (error) {
-//     if (axios.isAxiosError(error) && error.response?.status === 400) {
-//       return "already";
-//     }
-//     throw error;
-//   }
-// };
 export const removeNoticeFromFavorites = async (
   id: string,
 ): Promise<"removed" | "already"> => {

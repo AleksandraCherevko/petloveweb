@@ -150,7 +150,7 @@
     width: 257px;
   }
   .noticeItemCategory {
-    min-width: 0; /* важно для ellipsis внутри flex/grid */
+    min-width: 0; 
     display: flex;
     flex-direction: column;
   }

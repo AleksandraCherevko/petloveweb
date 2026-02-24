@@ -89,36 +89,6 @@ export default function NewsPage() {
     router.push(`/news?${params.toString()}`);
   };
 
-  // const handleSearchAction = () => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set("page", "1");
-  //   if (query) {
-  //     params.set("query", query);
-  //   } else {
-  //     params.delete("query");
-  //   }
-  //   router.push(`/news?${params.toString()}`);
-  // };
-
-  // const handlePageChangeAction = (page: number) => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set("page", String(page));
-  //   if (query) params.set("query", query);
-  //   router.push(`/news?${params.toString()}`);
-  // };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setProgress((prev) => {
-  //       if (prev >= 100) {
-  //         clearInterval(interval);
-  //         return 100;
-  //       }
-  //       return prev + 5;
-  //     });
-  //   }, 200);
-  // }, []);
-
   return (
     <div className={css.newsPageContainer}>
       <Container>
@@ -127,7 +97,7 @@ export default function NewsPage() {
             News
           </Title>
 
-           <SearchField
+          <SearchField
             value={inputValue}
             onChangeAction={setInputValue}
             onSubmitAction={handleSearchAction}

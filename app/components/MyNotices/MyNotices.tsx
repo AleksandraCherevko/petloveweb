@@ -129,9 +129,7 @@ export default function MyNotices() {
               removable={activeTab === "favorites"}
               onRemove={() => removeFavorite(safeId)}
               onFavoriteChangeAction={handleFavoriteChange}
-              // onViewedChangeAction={() => {
-              //   void fetchNotices();
-              // }}
+           
             />
           );
         })}
